@@ -6,16 +6,12 @@
 #ifndef RBE500_FINAL_PROJECT_PKG_MANIPULATOR_CORE_HPP_
 #define RBE500_FINAL_PROJECT_PKG_MANIPULATOR_CORE_HPP_
 
-// Standard Core C++ libs
-#include <iostream>
-#include <memory>
-#include <string>
-#include <cmath>
+#include "rbe500_final_project/helpers.hpp"
 // EigenLib for matrix handling
 #include <eigen3/Eigen/Dense>
 
 namespace manipulator
-{   
+{
     class ManipulatorCore
     {
 
@@ -24,50 +20,50 @@ namespace manipulator
         ManipulatorCore();
         // destructor
         ~ManipulatorCore() = default;
-        
-        /** @brief Function to set the initial DH parameters
+
+        /** @brief Function to set the initial DH parameters and IK solver
+         * @param link_length: Link Lengths of the Manipulator
+         * @param use_newtonRapshon_IK: True for NetwtonRaphson IK, False to use Geometric IK
+         * @return TRue: If link length dimension is correct as per this Lib size
          */
-        void setup(const Eigen::VectorXd& link_length);
-        
-        /** @brief Function to get the end effector pose
-         * @brief using Homogenous matrix of link1, link2 and link3
-         * @return pose_mat: An isometry  Matrix having both Rotational ad Positional values
+        bool setup(const Eigen::VectorXd &link_length, bool use_newtonRapshon_IK = true);
+        void setIKParams(const double& max_iter, const double& eps);
+        /** @brief function to update the end_effector_pose
+         * @brief it finds the given joint angles IK solver,
+         * @brief use getJointAngles() function after this function call to get updated angles
+         * @param pose: An Isometry Pose of End effector
+         * @return True: If its able to find the joint angles using IK
+         * @return False: Otherwise
          */
-        Eigen::Isometry3d getEndEffectorPose() const;
-        
-        /** @brief function to update the DH param matrix for the given joint angles
-         * @param joint_angle: A 4x1 column vector having joint angles as [q1,q2,q3,q4]^T
-         */
-        void updateJointAngles(const Eigen::VectorXd &joint_angles);
-        
+        bool updateEndEffectorPose(const Eigen::Isometry3d &pose);
+
         /** @brief Function to get the current set joint angles
          * @return join_angle VEctor: A 4x1 Matrix having all four joint angles,
          */
         Eigen::VectorXd getJointAngles() const;
-        
-        /** @brief Function to get the joint angles as per given end effector pose
-         * @brief We can det 4 possible soultions of join_angle1,join_angle2,join_angle3
-         * @param end_effector_pose: pose of the end effector as recieved by the subscriebr callback
-         * @return join_angle VEctor: A 4x1 Matrix having all four joint angles,
+
+        /** @brief function to update the DH param matrix for the given joint angles
+         * @brief It will calc the end_effector_pose_ using FK
+         * @brief use getEndEffectorPose() function after this function call to get end-effector pose
+         * @param joint_angle: A 4x1 column vector having joint angles as [q1,q2,q3,q4]^T
+         * @return True: If joint angles are reasonable and its able to find the End effector pose
+         * @return False: otherwise
          */
-        Eigen::VectorXd getJointAnglesUsingIK(const Eigen::Isometry3d &end_effector_pose) const;
+        bool updateJointAngles(const Eigen::VectorXd &joint_angles);
+
+        /** @brief Function to get the end effector pose
+         * @return pose_mat: An isometry  Matrix having both Rotational ad Positional values
+         */
+        Eigen::Isometry3d getEndEffectorPose() const;
 
     private:
-
-        /** @brief function to set the DH param matrix (dh_params_ var)  for the given link lengths and joint angles
-         * @param link_lengths: A column vector having link lengths as [l1,l2,l3]^T
-         * @param joint_angle: A column vector having joint angles as [q1,q2,q3]^T
+        /** @brief function to set the DH param matrix for the OpenX Manipulator
+         * @brief Each row will have [a,d,theta,alpha] params, it will link_number -X- 4 matrix
+         * @param link_lengths: A column vector having link lengths as [l1,l2,l3_x,l3_y,l4,l5]^T
+         * @param joint_angle: A column vector having initial joint angles as [q1,q2,q3,q4]^T
          */
         void setupDHParams(const Eigen::VectorXd &link_lengths, const Eigen::VectorXd &joint_angles);
-
-        // /** @brief Function to get the Jacobian based on joint angles as 0 degrees
-        //  * @brief Jacobian matrix will be 6x3 matrix as it has 3 joints:
-        //  *  [z_0x(O_3 - O_0)  z_1x(O_3 - O_1) z_2x(O_3 - O_2)]
-        //  *  [     z_0              z_1             z_2       ]
-        //  * @return jacobian matrix: A 6x3 Matrix having jacobian matrix
-        //  */
-        // Eigen::MatrixXd getJacobian(void) const;
-
+        
         /** @brief A function to get homogenoous trasnformation matrix from Link number
          * @brief It directly fetch DH param a,theta,d,alpha for the given from the dh_params matrix
          * @brief make sure to update the joint angles before calling this function
@@ -81,19 +77,52 @@ namespace manipulator
          */
         Eigen::Matrix4d getHomogeneousMat(int link_number) const;
 
-        /** @brief A function to get the end effector pose by multiplying all the transformation matrixes
-         * @return A homogenous transformation matrix 
+        /** @brief A function to calc the end effector pose using FK
+         * @brief it calculates using the current value of DH param
+         * @return end_effector_pose
          */
-        Eigen::Matrix4d calcEndEffectorPose() const;
+        Eigen::Isometry3d calcEndEffectorPose() const;
 
+        /** @brief Function to get the joint angles as per given end effector pose
+         * @brief We can det 4 possible soultions of join_angle1,join_angle2,join_angle3
+         * @param end_effector_pose: pose of the end effector as recieved by the subscriebr callback
+         * @return join_angle VEctor: A 4x1 Matrix having all four joint angles,
+         */
+        Eigen::VectorXd calcGeometricIK(const Eigen::Isometry3d &end_effector_pose) const;
 
+        /** @brief Function to get the joint angles as per given end effector pose
+         * @brief We can det 4 possible soultions of join_angle1,join_angle2,join_angle3
+         * @param end_effector_pose: pose of the end effector as recieved by the subscriebr callback
+         * @param result_q: resultant values after solution converges
+         * @return True: If its able to find the solution
+         * @return False: otherwise
+         */
+        bool calcNewtonRaphsonIK(const Eigen::Isometry3d &end_effector_pose, Eigen::VectorXd& result_q) const;
+
+        /** @brief Function to calculate inverse kinematic equations which will beused in newton raphson method
+         * @param q_values: values of joint vars q1, q2, q3 at index 0,1,2 respectively
+         * @param coeffs: values of link lenths l2x,l2y,l3,l4 at index 0,1,2,3 respectively
+         * @param constants: values of pitch angle theta[rad] from end effector pose, 
+         * r = sqrt(x^2+y^2), x and y from end effector pose, 
+         * z_from_link2x  = z - (link0+link1), where z is from end effector pose
+         * constants = [theta,r,z_from_link2x]
+         * @return inverse kinematic equation
+         */
+        Eigen::Vector3d calcResidual(const Eigen::Vector3d& q_values, const Eigen::Vector4d& coeffs, const Eigen::Vector3d& constants) const;
+        
+        /** @brief Function to calculate Jacobian of inverse kinematic equations which will be used in newton raphson method
+         * @param q_values: values of joint vars q1, q2, q3 at index 0,1,2 respectively
+         * @param coeffs: values of link lenths l2x,l2y,l3,l4 at index 0,1,2,3 respectively
+         * @return Jacobian of inverse kinematic equation
+         */
+        Eigen::Matrix3d calcJacobian(const Eigen::Vector3d& q_values, const Eigen::Vector4d& coeffs) const;
         /** @brief  A col vector to store the link lengths as [l1,l2,l3,l4]^T*/
         Eigen::VectorXd link_lengths_;
 
         /** @brief  A col vector to store the joint angels as [q1,q2,q3,q4]^T*/
-        Eigen::VectorXd joint_angles_;
+        Eigen::VectorXd joint_angles_;// Function to compute the residual vector
 
-        /** @brief  A  5x4 matrix to store the DH params as derived in the report:
+        /** @brief  A  5x4 matrix to store the DH params:
          * [0   q1  l2 -pi/2]
          * [l2  q2  0   0   ]
          * [l3  q3  0  -pi/2]
@@ -111,38 +140,11 @@ namespace manipulator
 
         /** @brief A boolean flag to che if Dh param intialization  */
         bool is_intialized_;
-        // Helper functions
-
-        /** @brief Function to normalize angle to  make it between -pi to +pi range
-         * @param rad: Angle in radians
-         * @return Normalized angle in radians
-         */
-        template <typename T>
-        inline T normalize(const T &rad) const
-        {
-            return atan2(sin(rad), cos(rad));
-        }
-        
-        /** @brief Function to convert degrees to radians
-         * @param def: Angle in degrees
-         * @return Normalized Angle in radians (-pi to pi range)
-         */
-        template <typename T>
-        inline T getRad(const T &deg)
-        {
-            return normalize((deg * M_PI) / (180.0));
-        }
-
-        /** @brief Function to convert radians to degress
-         * @param def: Angle in radians
-         * @return Normalized Angle in degrees (-pi to pi range)
-         */
-        template <typename T>
-        inline T getDegrees(const T &rad) const
-        {
-            return ((normalize(rad) * 180.0) / (M_PI));
-        }
+        bool use_newtonRapshon_IK_;
+        int max_iteration_;
+        double tolerance_;
 
     }; // ManipulatorCore
-}//namespace manipulator
+} // namespace manipulator
+
 #endif // RBE500_FINAL_PROJECT_PKG_MANIPULATOR_CORE_HPP_

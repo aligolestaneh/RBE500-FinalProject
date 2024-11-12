@@ -5,7 +5,7 @@
   <version>0.0.0</version>
   <description>Final Project code base of RBE500 course</description>
   <maintainer email="kknoori@wpi.edu">root</maintainer>
-  <license>MIT</license>
+  <license>Apache-2.0</license>
 
   <buildtool_depend>ament_cmake</buildtool_depend>
 

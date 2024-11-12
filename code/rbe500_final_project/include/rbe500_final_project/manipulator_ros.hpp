@@ -10,6 +10,7 @@
 #include <memory>
 #include <string>
 #include <cmath>
+#include <eigen3/Eigen/Dense>
 // Manipulator core
 #include <rbe500_final_project/manipulator_core.hpp>
 // ROS 2 core inlcudes
@@ -75,6 +76,8 @@ namespace manipulator
 
         /**@brief manipulator_core object */
         std::shared_ptr<manipulator::ManipulatorCore> manipulator_;
+
+        Eigen::VectorXd link_length_;
 
     }; // Manipulator
 }

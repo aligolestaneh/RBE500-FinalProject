@@ -3,5 +3,7 @@
 
 TEST(ManipulatorCore, core_object_test)
 {
+    std::shared_ptr<manipulator::ManipulatorCore> mymanip = std::make_shared<manipulator::ManipulatorCore>();
+    
     ASSERT_EQ(4,2+2);
 }

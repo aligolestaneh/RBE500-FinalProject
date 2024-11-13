@@ -14,7 +14,7 @@ ManipulatorCore::ManipulatorCore()
     // end effector pose
     end_effector_pose_ = Eigen::Isometry3d::Identity();
     max_iteration_ = 100;
-    tolerance_ = 0.0000001;
+    tolerance_ = 1e-7;
     is_intialized_ = false;
     use_newtonRapshon_IK_ = true;
 }
@@ -33,17 +33,16 @@ bool ManipulatorCore::setup(const Eigen::VectorXd &link_length, bool use_newtonR
 
     return true;
 }
-void ManipulatorCore::setIKParams(const double& max_iter, const double& eps)
+void ManipulatorCore::setIKParams(const double &max_iter, const double &eps)
 {
     max_iteration_ = max_iter;
     tolerance_ = eps;
-
 }
 bool ManipulatorCore::updateEndEffectorPose(const Eigen::Isometry3d &pose)
 {
     if (!is_intialized_)
         return false;
-
+    std::cout << "Gogin to calculated using Newton: " << use_newtonRapshon_IK_ << std::endl;
     if (use_newtonRapshon_IK_)
         return calcNewtonRaphsonIK(pose, joint_angles_);
     else
@@ -61,9 +60,17 @@ bool ManipulatorCore::updateJointAngles(const Eigen::VectorXd &joint_angles)
 {
     // TODO:
     //  as all joints angle is on 2nd col of the DH param matrix , so directly updating the column
-    if (joint_angles.size() != joint_angles_.size() && !is_intialized_)
+    if (!is_intialized_)
         return false;
-    dh_params_.col(1) = joint_angles;
+    if (joint_angles.size() != joint_angles_.size())
+        return false;
+
+    // Update dh_params_ with q_val
+
+    dh_params_.row(1)(2) = joint_angles(0);          // For link2 joint angle
+    dh_params_.row(2)(2) = joint_angles(1) - M_PI_2; // For link3x joint angle (with offset)
+    dh_params_.row(4)(2) = joint_angles(2);          // For link4 joint angle
+    dh_params_.row(5)(2) = joint_angles(3);          // For link5 joint angle
 
     end_effector_pose_ = calcEndEffectorPose();
     joint_angles_ = joint_angles;
@@ -76,81 +83,84 @@ Eigen::Isometry3d ManipulatorCore::getEndEffectorPose() const
     return end_effector_pose_;
 }
 
-Eigen::Isometry3d ManipulatorCore::calcEndEffectorPose() const 
+Eigen::Isometry3d ManipulatorCore::calcEndEffectorPose() const
 {
-    Eigen::Matrix4d pose_mat = Eigen::Matrix4d::Identity();
-    Eigen::Matrix4d A_i;
+    // Eigen::Matrix4d pose_mat = Eigen::Matrix4d::Identity();
+    Eigen::Matrix4d A_i = this->getHomogeneousMat(0); // Get the first link's transformation matrix
 
-    for (int i = 0; i < link_lengths_.size(); i++)
+    for (int i = 1; i < link_lengths_.size(); i++)
     {
-        A_i = this->getHomogeneousMat(i);
+        A_i *= this->getHomogeneousMat(i);
     }
-    Eigen::Isometry3d end_effector_pose;
+    Eigen::Isometry3d end_effector_pose = Eigen::Isometry3d(A_i);
 
-    end_effector_pose.matrix() = pose_mat;
+    // end_effector_pose.matrix() = A_i;//pose_mat;
 
     return end_effector_pose;
 }
 
-bool ManipulatorCore::calcNewtonRaphsonIK(const Eigen::Isometry3d &end_effector_pose, Eigen::VectorXd& result_q) const
+bool ManipulatorCore::calcNewtonRaphsonIK(const Eigen::Isometry3d &end_effector_pose, Eigen::VectorXd &result_q) const
 {
     // TODO: Calc join angles using IK
     // inverse kinematic equations
     Eigen::Vector3d F;
-    //Jacobian for Inverse kinematic
+    // Jacobian for Inverse kinematic
     Eigen::Matrix3d J;
-    //delta in joint angles
+    // delta in joint angles
     Eigen::Vector3d delta_q;
-    //intial joint angle guess as zero
+    // intial joint angle guess as zero
     Eigen::Vector3d current_q = Eigen::Vector3d::Zero();
 
     // Eigen::Vector3d joint_angles;
 
-    //coefficitans for calculating residual [l2x,l2y,l3,l4]
+    // coefficitans for calculating residual [l2x,l2y,l3,l4]
     Eigen::Vector4d coeffs = link_lengths_.segment<4>(2);
-    
-    //constants for the equations [theta,r,z_from_link2x]
+
+    // constants for the equations [theta,r,z_from_link2x]
     Eigen::Vector3d constants;
-    constants(0) = end_effector_pose.rotation().eulerAngles(2, 1, 0)[1]; //ZYX order: yaw, pitch, roll
-    constants(1) = end_effector_pose.translation().head<2>().norm(); //sqrt(x^2+y^2)
-    constants(2) = end_effector_pose.translation().z() -link_lengths_.head<2>().sum();  //z - (link0+link1)
+    Eigen::MatrixXd rotation_matrix = end_effector_pose.rotation();
 
-    //updating q(0)
-    result_q(0) = end_effector_pose.rotation().eulerAngles(2, 1, 0)[0]; //ZYX order: yaw, pitch, roll
+    double phi = atan2(-rotation_matrix(2, 0),
+                       sqrt(rotation_matrix(2, 1) * rotation_matrix(2, 1) + rotation_matrix(2, 2) * rotation_matrix(2, 2)));
 
-    for (int i=0; i<max_iteration_;i++)
+    constants(0) = phi;
+    constants(2) = end_effector_pose.translation().head<2>().norm();                    // sqrt(x^2+y^2)
+    constants(1) = end_effector_pose.translation().z() - link_lengths_.head<2>().sum(); // z - (link0+link1)
+
+    // updating q(0)
+    result_q(0) = atan2(end_effector_pose.translation().y(), end_effector_pose.translation().x());
+    
+    for (int i = 0; i < max_iteration_; i++)
     {
-        //compute function value as per current q values
+        // compute function value as per current q values
 
-        F = this->calcResidual(current_q,coeffs,constants);
+        F = this->calcResidual(current_q, coeffs, constants);
         
-        //check if current_q satisfies tolerance
-        if(F.norm()< tolerance_)
+        // check if current_q satisfies tolerance
+        if (F.norm() < tolerance_)
         {
             result_q.segment<3>(1) = current_q;
             return true;
         }
 
-        //get jacobian
-        J = this->calcJacobian(current_q,coeffs); //J.colPivHouseholderQr().solve(-F);
+        // get jacobian
+        J = this->calcJacobian(current_q, coeffs);
+
+        // get delta_q
+        delta_q = J.fullPivLu().solve(-F);//J.colPivHouseholderQr().solve(-F); //J.fullPivLu().solve(-F);
+
+        // update current_q
+        current_q += delta_q;
         
-        //get delta_q
-        delta_q = J.fullPivLu().solve(-F);
-
-        //update current_q
-        current_q+=delta_q;
-
-        //check if current_q satisfies tolerance
-        if(delta_q.norm()< tolerance_)
+        // check if current_q satisfies tolerance
+        if (delta_q.norm() < tolerance_)
         {
             result_q.segment<3>(1) = current_q;
             return true;
         }
-        
     }
     return false;
 }
-
 
 Eigen::VectorXd ManipulatorCore::calcGeometricIK(const Eigen::Isometry3d &end_effector_pose) const
 {
@@ -218,7 +228,7 @@ Eigen::Vector3d ManipulatorCore::calcResidual(const Eigen::Vector3d &q_values, c
     return F;
 }
 
-Eigen::Matrix3d ManipulatorCore::calcJacobian(const Eigen::Vector3d &q_values, const Eigen::Vector4d &coeffs) const 
+Eigen::Matrix3d ManipulatorCore::calcJacobian(const Eigen::Vector3d &q_values, const Eigen::Vector4d &coeffs) const
 {
     Eigen::Matrix3d J;
 
@@ -239,4 +249,3 @@ Eigen::Matrix3d ManipulatorCore::calcJacobian(const Eigen::Vector3d &q_values, c
 
     return J;
 }
-

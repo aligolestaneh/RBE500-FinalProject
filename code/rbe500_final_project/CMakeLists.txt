@@ -85,7 +85,8 @@ if(BUILD_TESTING)
   ################################################################################
   set(TESTFILES
   test/main.cpp
-  test/simple_test.cpp)
+  test/manipulator_core_test.cpp
+  test/basic_eigen_test.cpp)
 
   ament_add_gtest(${PROJECT_NAME}_test ${TESTFILES})
   target_link_libraries(${PROJECT_NAME}_test manipulator_core_lib)

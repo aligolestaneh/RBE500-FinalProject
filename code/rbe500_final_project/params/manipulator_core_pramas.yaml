@@ -1,14 +1,14 @@
 #UPdated the params reqruied for setting up DH parameters
-manipulator_ros_node:
+manipulator_node:
   ros__parameters:
     ik_max_iteration: 100
     ik_tolerance: 0.0000001 #1e-6
-    manipulator_links: ["link_0, link_1, link_2x, link_2y, link_3, link_4"]
+    use_newton_raphson_ik: True
+    manipulator_links: ["link_0", "link_1", "link_2x", "link_2y", "link_3", "link_4"]
     link_lengths:
-      link0: 0.036076
-      link1: 0.06025
+      link_0: 0.036076
+      link_1: 0.06025
       link_2x: 0.128
       link_2y: 0.024
       link_3: 0.124
       link_4: 0.1334
-    

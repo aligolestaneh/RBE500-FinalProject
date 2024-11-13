@@ -79,6 +79,10 @@ namespace manipulator
 
         Eigen::VectorXd link_length_;
 
+        int ik_max_iteration_;
+        double ik_tolerance_;
+        bool use_newton_raphson_ik_;
+
     }; // Manipulator
 }
 

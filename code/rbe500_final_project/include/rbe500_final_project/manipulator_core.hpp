@@ -27,7 +27,7 @@ namespace manipulator
          * @return TRue: If link length dimension is correct as per this Lib size
          */
         bool setup(const Eigen::VectorXd &link_length, bool use_newtonRapshon_IK = true);
-        void setIKParams(const double& max_iter, const double& eps);
+        void setIKParams(const int& max_iter, const double& eps);
         /** @brief function to update the end_effector_pose
          * @brief it finds the given joint angles IK solver,
          * @brief use getJointAngles() function after this function call to get updated angles

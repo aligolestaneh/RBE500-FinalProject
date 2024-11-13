@@ -33,7 +33,7 @@ bool ManipulatorCore::setup(const Eigen::VectorXd &link_length, bool use_newtonR
 
     return true;
 }
-void ManipulatorCore::setIKParams(const double &max_iter, const double &eps)
+void ManipulatorCore::setIKParams(const int &max_iter, const double &eps)
 {
     max_iteration_ = max_iter;
     tolerance_ = eps;

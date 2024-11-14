@@ -48,7 +48,27 @@ poses:
       x: -0.7067740290881571
       y: 0.0216903620645813
       z: 0.020606159157849465
-      w: 0.7068064701208963  
+      w: 0.7068064701208963 
+  show_pose1:
+    position:
+      x: 0.24434129446977437
+      y: -0.011628026817386321
+      z: 0.34171824621041613
+    orientation:
+      x: -0.6419724258761795
+      y: -0.2964311124269064
+      z: -0.326612482394755
+      w: 0.6271557114018304
+  show_pose2:
+    position:
+      x: -0.25292772240434486
+      y: 0.1553147145015804
+      z: 0.20964890044555237
+    orientation:
+      x: -0.012473236357323005
+      y: 0.7069967598050039
+      z: -0.5959465318105881
+      w: -0.3805886640757076 
 
 
 
@@ -65,12 +85,18 @@ actions:
     wait: 3
   - type: go_to_position
     position: show_pick_obj
-    wait: 3
+    wait: 2
+  - type: go_to_position
+    position: show_pose1
+    wait: 2
+  - type: go_to_position
+    position: show_pose2
+    wait: 2
   - type: go_to_position
     position: place_front_right
-    wait: 3
+    wait: 2
   - type: open_gripper
-    wait: 3
+    wait: 1
   - type: go_to_position
     position: home_position
   - type: close_gripper

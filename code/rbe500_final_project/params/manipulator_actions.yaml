@@ -1,0 +1,71 @@
+poses:
+  show_pick_obj:
+    position:
+      x: 0.006
+      y: 0.108
+      z: 0.266
+    orientation:
+      x: 0.549
+      y: 0.445
+      z: -0.524
+      w: -0.476
+  gripper_open_front_left:
+    position:
+      x: 0.14867096419173448
+      y: 0.09639681710729406
+      z: 0.04436662628946317
+    orientation:
+      x: -0.6122820173922243
+      y: 0.35370995346202494
+      z: 0.6298889711429215
+      w: 0.32130963887271075
+  pick_front_left:
+    position:
+      x: 0.15373459606811796
+      y: 0.09603489981587744
+      z: 0.017074186767156385
+    orientation:
+      x: -0.6053875831284957
+      y: 0.36538455658913477
+      z: 0.6306266227806167
+      w: 0.3198594420058815
+  place_front_right:
+    position:
+      x: 0.1438093972827867
+      y: -0.09769407681566293
+      z: 0.022822168478807137
+    orientation:
+      x: -0.31404174606516444
+      y: 0.6335438277880567
+      z: 0.3475874901288335
+      w: 0.6157783178270717
+  home_position:
+    position:
+      x: 0.28488706562027055
+      y: -0.0004370116403165726
+      z: 0.2087094305739967
+    orientation:
+      x: -0.7067740290881571
+      y: 0.0216903620645813
+      z: 0.020606159157849465
+      w: 0.7068064701208963  
+
+
+
+actions:
+  - type: go_to_position
+    position: home_position
+  - type: go_to_position
+    position: gripper_open_front_left
+  - type: open_gripper
+  - type: go_to_position
+    position: pick_front_left
+  - type: close_gripper
+  - type: go_to_position
+    position: show_pick_obj
+  - type: go_to_position
+    position: place_front_right
+  - type: open_gripper
+  - type: go_to_position
+    position: home_position
+  - type: close_gripper

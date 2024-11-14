@@ -12,6 +12,10 @@ find_package(std_msgs REQUIRED)
 find_package(geometry_msgs REQUIRED)
 find_package(sensor_msgs REQUIRED)
 find_package(rbe500_final_project_msgs REQUIRED)
+find_package(rbe500_final_project_msgs REQUIRED)
+find_package(ament_index_cpp REQUIRED)
+find_package(yaml-cpp REQUIRED)
+find_package(open_manipulator_msgs REQUIRED)
 
 #Include EIgen lib
 find_package(Eigen3 REQUIRED)
@@ -21,6 +25,7 @@ include_directories(
   include
   ${rclcpp_INCLUDE_DIRS}
   ${EIGEN3_INCLUDE_DIR}
+  ${YAML_CPP_INCLUDE_DIRS}
 )
 
 ################################################################################
@@ -63,6 +68,21 @@ set(DEPENDENCIES
 target_link_libraries(manipulator_fk_ros_lib manipulator_core_lib)
 ament_target_dependencies(manipulator_fk_ros_lib ${DEPENDENCIES})
 
+##Follow action lib
+add_library(manipulator_follow_actions_lib
+  "src/manipulator_follow_actions.cpp"
+)
+set(DEPENDENCIES
+  "open_manipulator_msgs"
+  "rbe500_final_project_msgs"
+  "std_msgs"
+  "geometry_msgs"
+  "sensor_msgs"
+  "rclcpp"
+)
+target_link_libraries(manipulator_follow_actions_lib ${YAML_CPP_LIBRARIES})
+ament_target_dependencies(manipulator_follow_actions_lib ${DEPENDENCIES})
+
 ################################################################################
 # Build Executables
 ################################################################################
@@ -80,10 +100,17 @@ add_executable(manipulator_fk_node
 target_link_libraries(manipulator_fk_node manipulator_fk_ros_lib)
 ament_target_dependencies(manipulator_fk_node ${DEPENDENCIES})
 
+#ROS Node for Follow Mnaipulator
+add_executable(manipulator_follow_actions_node 
+  src/manipulator_follow_actions_node.cpp
+)
+target_link_libraries(manipulator_follow_actions_node manipulator_follow_actions_lib)
+ament_target_dependencies(manipulator_follow_actions_node ${DEPENDENCIES})
+
 ################################################################################
 # Install
 ################################################################################
-install(TARGETS manipulator_ik_node manipulator_fk_node
+install(TARGETS manipulator_ik_node manipulator_fk_node manipulator_follow_actions_node
   DESTINATION lib/${PROJECT_NAME}
 )
 

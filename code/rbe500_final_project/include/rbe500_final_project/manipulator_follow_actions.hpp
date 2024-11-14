@@ -15,12 +15,14 @@
 struct ActionSequence {
     std::string type;
     std::string position_name;
+    int wait_time;
 };
 
 class ManipulatorFollowActions : public rclcpp::Node
 {
 public:
     ManipulatorFollowActions();
+    void executeActionSequence();
 
 private:
     // Service clients
@@ -34,7 +36,6 @@ private:
 
     // Methods
     void loadConfig(const std::string& config_path);
-    void executeActionSequence();
     void goToPosition(const std::string& position_name);
     void openGripper();
     void closeGripper();
@@ -44,6 +45,7 @@ private:
 
     const double POSITION_WAIT_TIME = 2.0;  // seconds
     const double GRIPPER_WAIT_TIME = 2.0;   // seconds
+    const double DEFAULT_WAIT_TIME=2.0; //seconds
     std::vector<double> joint_angles_;
 };
 

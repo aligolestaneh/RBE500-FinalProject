@@ -52,7 +52,6 @@ ManipulatorFollowActions::ManipulatorFollowActions() : Node("manipulator_follow_
     }
 
     RCLCPP_INFO(this->get_logger(), "All clients setup! Ready to execute the commands!");
-    executeActionSequence();
 }
 
 void ManipulatorFollowActions::loadConfig(const std::string &config_path)
@@ -79,19 +78,57 @@ void ManipulatorFollowActions::loadConfig(const std::string &config_path)
 
     // Load action sequence
     YAML::Node actions = config["actions"];
+    // for (const auto &action : actions)
+    // {
+    //     ActionSequence seq;
+    //     seq.type = action["type"].as<std::string>();
+    //     if (seq.type == "go_to_position")
+    //     {
+    //         seq.position_name = action["position"].as<std::string>();
+    //         RCLCPP_INFO_STREAM(this->get_logger(), "Action Pos:" << seq.position_name);
+    //     }
+
+    //     action_sequence_.push_back(seq);
+    //     RCLCPP_INFO_STREAM(this->get_logger(), "Action type:" << seq.type<<"\n-----");
+    // }
     for (const auto &action : actions)
     {
         ActionSequence seq;
-        seq.type = action["type"].as<std::string>();
+        if (action["type"] && action["type"].IsDefined())
+        {
+            seq.type = action["type"].as<std::string>();
+        }
+        else
+        {
+            RCLCPP_WARN(this->get_logger(), "Action 'type' is missing, skipping this action.");
+            continue; // Skip this action if "type" is missing
+        }
+
+        // If "type" is "go_to_position", check if "position" is present
         if (seq.type == "go_to_position")
         {
-            seq.position_name = action["position"].as<std::string>();
-            RCLCPP_INFO_STREAM(this->get_logger(), "Action Pos:" << seq.position_name);
+            if (action["position"] && action["position"].IsDefined())
+            {
+                seq.position_name = action["position"].as<std::string>();
+                RCLCPP_INFO_STREAM(this->get_logger(), "Action Pos:" << seq.position_name);
+            }
+            else
+            {
+                RCLCPP_WARN(this->get_logger(), "Action 'position' is missing for type 'go_to_position'.");
+                continue; // Skip this action if "position" is missing
+            }
+        }
+        if (action["wait"] && action["wait"].IsDefined())
+        {
+            seq.wait_time = action["wait"].as<int>();
+        }
+        else
+        {
+            RCLCPP_WARN(this->get_logger(), "Action 'wait' is missing, using default wait %f secs", DEFAULT_WAIT_TIME);
         }
         action_sequence_.push_back(seq);
-        RCLCPP_INFO_STREAM(this->get_logger(), "Action type:" << seq.type<<"\n-----");
+        RCLCPP_INFO_STREAM(this->get_logger(), "Added Action type:" << seq.type << "\n-----");
     }
-
     RCLCPP_INFO_STREAM(this->get_logger(), "Done reading data:  " << action_sequence_.size());
 }
 
@@ -115,7 +152,7 @@ void ManipulatorFollowActions::executeActionSequence()
             closeGripper();
         }
         // rclcpp::sleep_for(std::chrono::duration<double>(2.0));
-        rclcpp::sleep_for(std::chrono::seconds(2));
+        rclcpp::sleep_for(std::chrono::seconds(action.wait_time));
     }
 }
 
@@ -127,7 +164,6 @@ void ManipulatorFollowActions::goToPosition(const std::string &position_name)
         return;
     }
 
-    
     if (callIKService(pose_configs_[position_name], joint_angles_))
     {
         RCLCPP_INFO(this->get_logger(), "Got Joint Angles as: [%f, %f, %f, %f]", joint_angles_[0], joint_angles_[1], joint_angles_[2], joint_angles_[3]);
@@ -179,7 +215,7 @@ bool ManipulatorFollowActions::controlGripper(double position)
     auto request = std::make_shared<open_manipulator_msgs::srv::SetJointPosition::Request>();
     request->planning_group = "";
     request->joint_position.joint_name = {"joint1", "joint2", "joint3", "joint4", "gripper"};
-    request->joint_position.position = {joint_angles_[0],joint_angles_[1], joint_angles_[2], joint_angles_[3], position};
+    request->joint_position.position = {joint_angles_[0], joint_angles_[1], joint_angles_[2], joint_angles_[3], position};
     request->path_time = 5.0;
 
     auto future = gripper_client_->async_send_request(request);

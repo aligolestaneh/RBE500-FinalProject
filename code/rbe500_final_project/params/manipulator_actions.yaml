@@ -55,17 +55,22 @@ poses:
 actions:
   - type: go_to_position
     position: home_position
+    wait: 2
   - type: go_to_position
     position: gripper_open_front_left
   - type: open_gripper
   - type: go_to_position
     position: pick_front_left
   - type: close_gripper
+    wait: 3
   - type: go_to_position
     position: show_pick_obj
+    wait: 3
   - type: go_to_position
     position: place_front_right
+    wait: 3
   - type: open_gripper
+    wait: 3
   - type: go_to_position
     position: home_position
   - type: close_gripper

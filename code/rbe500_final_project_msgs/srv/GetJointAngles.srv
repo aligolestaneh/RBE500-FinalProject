@@ -1,0 +1,5 @@
+geometry_msgs/Pose end_effector_pose
+---
+float64[]  joint_angles
+string msg
+bool success

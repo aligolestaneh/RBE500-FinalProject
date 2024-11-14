@@ -10,6 +10,8 @@ find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(geometry_msgs REQUIRED)
+find_package(sensor_msgs REQUIRED)
+find_package(rbe500_final_project_msgs REQUIRED)
 
 #Include EIgen lib
 find_package(Eigen3 REQUIRED)
@@ -28,38 +30,60 @@ include_directories(
 add_library(manipulator_core_lib
   "src/manipulator_core.cpp"
 )
-# set(DEPENDENCIES
-#   "geometry_msgs"
-#   "rclcpp"
-# )
-target_link_libraries(manipulator_core_lib)
-ament_target_dependencies(manipulator_core_lib Eigen3)
-
-add_library(manipulator_ros_lib
-  "src/manipulator_ros.cpp"
-)
 set(DEPENDENCIES
+  "std_msgs"
   "geometry_msgs"
   "rclcpp"
 )
-target_link_libraries(manipulator_ros_lib manipulator_core_lib)
-ament_target_dependencies(manipulator_ros_lib ${DEPENDENCIES})
+target_link_libraries(manipulator_core_lib)
+ament_target_dependencies(manipulator_core_lib ${DEPENDENCIES} Eigen3)
+
+add_library(manipulator_ik_ros_lib
+  "src/manipulator_ik_ros.cpp"
+)
+set(DEPENDENCIES
+  "rbe500_final_project_msgs"
+  "std_msgs"
+  "geometry_msgs"
+  "rclcpp"
+)
+target_link_libraries(manipulator_ik_ros_lib manipulator_core_lib)
+ament_target_dependencies(manipulator_ik_ros_lib ${DEPENDENCIES})
+
+##Forward kinematics lib
+add_library(manipulator_fk_ros_lib
+  "src/manipulator_fk_ros.cpp"
+)
+set(DEPENDENCIES
+  "std_msgs"
+  "geometry_msgs"
+  "sensor_msgs"
+  "rclcpp"
+)
+target_link_libraries(manipulator_fk_ros_lib manipulator_core_lib)
+ament_target_dependencies(manipulator_fk_ros_lib ${DEPENDENCIES})
 
 ################################################################################
 # Build Executables
 ################################################################################
 #ROS Node for Mnaipulator
-add_executable(manipulator_node 
-  src/manipulator_node.cpp
+add_executable(manipulator_ik_node 
+  src/manipulator_ik_node.cpp
 )
-target_link_libraries(manipulator_node manipulator_ros_lib)
-ament_target_dependencies(manipulator_node ${DEPENDENCIES})
+target_link_libraries(manipulator_ik_node manipulator_ik_ros_lib)
+ament_target_dependencies(manipulator_ik_node ${DEPENDENCIES})
 
+#ROS Node for FK Mnaipulator
+add_executable(manipulator_fk_node 
+  src/manipulator_fk_node.cpp
+)
+target_link_libraries(manipulator_fk_node manipulator_fk_ros_lib)
+ament_target_dependencies(manipulator_fk_node ${DEPENDENCIES})
 
 ################################################################################
 # Install
 ################################################################################
-install(TARGETS manipulator_node
+install(TARGETS manipulator_ik_node manipulator_fk_node
   DESTINATION lib/${PROJECT_NAME}
 )
 

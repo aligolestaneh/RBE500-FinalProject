@@ -1,5 +1,5 @@
 #UPdated the params reqruied for setting up DH parameters
-manipulator_node:
+/**:
   ros__parameters:
     ik_max_iteration: 100
     ik_tolerance: 0.0000001 #1e-6

@@ -247,6 +247,13 @@ TEST(ManipulatorCore, IKJointAngles1)
     EXPECT_TRUE(updated) << " Newton raphson method should find the solution";
 
     Eigen::VectorXd joint_angles = manipulator.getJointAngles();
+    
+    std::cout<<" TRanslation T: \n"<<translation<<std::endl;
+    std::cout<<" quaternion: \n"<<quaternion<<std::endl;
+    
+    std::cout<<" Pose T: \n"<<pose.translation()<<std::endl;
+    std::cout<<" Pose R: \n"<<pose.rotation()<<std::endl;
+    
     std::cout << "Calculated J: \n"
               << joint_angles << std::endl;
     std::cout << "Expected J: \n"

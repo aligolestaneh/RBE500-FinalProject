@@ -24,7 +24,9 @@ bool ManipulatorCore::setup(const Eigen::VectorXd &link_length, bool use_newtonR
     if (link_lengths_.size() != link_length.size())
         return false;
 
+    
     link_lengths_ = link_length;
+    // std::cout<<" Link Lengths are: \n"<<link_lengths_<<std::endl;
     // setupDHParams
     this->setupDHParams(link_lengths_, joint_angles_);
     // set init true
@@ -42,7 +44,7 @@ bool ManipulatorCore::updateEndEffectorPose(const Eigen::Isometry3d &pose)
 {
     if (!is_intialized_)
         return false;
-    std::cout << "Gogin to calculated using Newton: " << use_newtonRapshon_IK_ << std::endl;
+    // std::cout << "Gogin to calculated using Newton: " << use_newtonRapshon_IK_ << std::endl;
     if (use_newtonRapshon_IK_)
         return calcNewtonRaphsonIK(pose, joint_angles_);
     else
@@ -120,9 +122,9 @@ bool ManipulatorCore::calcNewtonRaphsonIK(const Eigen::Isometry3d &end_effector_
     Eigen::Vector3d constants;
     Eigen::MatrixXd rotation_matrix = end_effector_pose.rotation();
 
-    double phi = atan2(-rotation_matrix(2, 0),
-                       sqrt(rotation_matrix(2, 1) * rotation_matrix(2, 1) + rotation_matrix(2, 2) * rotation_matrix(2, 2)));
-
+    // double phi = atan2(-rotation_matrix(2, 0),
+    //                    sqrt(rotation_matrix(2, 1) * rotation_matrix(2, 1) + rotation_matrix(2, 2) * rotation_matrix(2, 2)));
+    double phi = helpers::convertRotationMatrixToRPY(end_effector_pose.rotation())[1];
     constants(0) = phi;
     constants(2) = end_effector_pose.translation().head<2>().norm();                    // sqrt(x^2+y^2)
     constants(1) = end_effector_pose.translation().z() - link_lengths_.head<2>().sum(); // z - (link0+link1)

@@ -13,8 +13,9 @@ def generate_launch_description():
      
     safety_node = launch_ros.actions.Node(
         package='rbe500_final_project',
-        executable='manipulator_node',
-        name='manipulator_node',
+        executable='manipulator_ik_node',
+        name='manipulator_ik_node',
+        # namespace='manipulator_core',
         # prefix=["gdb -ex run --args"],
         emulate_tty=True,  # set to True to enable colored logging
         output='screen',

@@ -1,8 +1,14 @@
-///////////////////////////////////////
-// RBE 500
-// Final Project
-// Authors: Kashif Khurshid Noori, Ali Golestaneh, Hrishikesh Nirgude
-//////////////////////////////////////
+/**
+ * @file manipulator_core.hpp
+ * @brief Core C++ library for OpenX Manipulator kinematics
+ * @details This library implements forward and inverse kinematics calculations for the OpenX Manipulator.
+ *          It provides functionality for:
+ *          - Forward kinematics using DH parameters
+ *          - Inverse kinematics using both geometric and Newton-Raphson methods
+ *          - End-effector pose calculations and joint angle computations
+ * @authors Kashif Khurshid Noori, Ali Golestaneh, Hrishikesh Nirgude
+ */
+
 #ifndef RBE500_FINAL_PROJECT_PKG_MANIPULATOR_CORE_HPP_
 #define RBE500_FINAL_PROJECT_PKG_MANIPULATOR_CORE_HPP_
 
@@ -10,24 +16,38 @@
 // EigenLib for matrix handling
 #include <eigen3/Eigen/Dense>
 
+/** @namespace manipulator
+ *  @brief Namespace containing manipulator control functionality
+ */
 namespace manipulator
 {
+    /** @class ManipulatorCore
+     *  @brief Core class implementing manipulator kinematics and control
+     */
     class ManipulatorCore
     {
 
     public:
-        // constructor
+        /** @brief Constructor */
         ManipulatorCore();
-        // destructor
+        /** @brief Destructor */
         ~ManipulatorCore() = default;
 
-        /** @brief Function to set the initial DH parameters and IK solver
-         * @param link_length: Link Lengths of the Manipulator
-         * @param use_newtonRapshon_IK: True for NetwtonRaphson IK, False to use Geometric IK
-         * @return TRue: If link length dimension is correct as per this Lib size
+        /** 
+         * @brief Sets the initial DH parameters and IK solver
+         * @param link_length Link Lengths of the Manipulator
+         * @param use_newtonRapshon_IK True for NewtonRaphson IK, False to use Geometric IK
+         * @return True if link length dimension is correct as per this Lib size
          */
         bool setup(const Eigen::VectorXd &link_length, bool use_newtonRapshon_IK = true);
-        void setIKParams(const int& max_iter, const double& eps);
+
+        /**
+         * @brief Sets the NewtonRaphson IK solver parameters
+         * @param max_iter Maximum loop iteration value
+         * @param eps Epsilon value to check convergence of IK solver
+         */
+        void setIKParams(const int &max_iter, const double &eps);
+
         /** @brief function to update the end_effector_pose
          * @brief it finds the given joint angles IK solver,
          * @brief use getJointAngles() function after this function call to get updated angles
@@ -57,23 +77,28 @@ namespace manipulator
         Eigen::Isometry3d getEndEffectorPose() const;
 
     private:
-        /** @brief function to set the DH param matrix for the OpenX Manipulator
-         * @brief Each row will have [a,d,theta,alpha] params, it will link_number -X- 4 matrix
-         * @param link_lengths: A column vector having link lengths as [l1,l2,l3_x,l3_y,l4,l5]^T
-         * @param joint_angle: A column vector having initial joint angles as [q1,q2,q3,q4]^T
+        /**
+         * @brief Sets the DH param matrix for the OpenX Manipulator
+         * 
+         * Each row will have [a,d,theta,alpha] params, it will be link_number x 4 matrix
+         * @param link_lengths Column vector having link lengths as [l1,l2,l3_x,l3_y,l4,l5]^T
+         * @param joint_angle Column vector having initial joint angles as [q1,q2,q3,q4]^T
          */
         void setupDHParams(const Eigen::VectorXd &link_lengths, const Eigen::VectorXd &joint_angles);
-        
-        /** @brief A function to get homogenoous trasnformation matrix from Link number
-         * @brief It directly fetch DH param a,theta,d,alpha for the given from the dh_params matrix
-         * @brief make sure to update the joint angles before calling this function
-         *  @brief Homogenous Matrix A_i for transformation between frame i to (i-1) as:
+
+        /**
+         * @brief Gets homogeneous transformation matrix from Link number
+         * 
+         * It directly fetches DH param a,theta,d,alpha for the given from the dh_params matrix.
+         * Make sure to update the joint angles before calling this function.
+         * Homogenous Matrix A_i for transformation between frame i to (i-1) as:
          * [cos(theta) -sin(theta)*cos(alpha)  sin(theta)*sin(alpha) a*cos(theta)]
          * [sin(theta)  cos(theta)*cos(alpha) -cos(theta)*sin(alpha) a*sin(theta)]
          * [0           sin(alpha)             cos(alpha)                 d      ]
          * [0              0                      0                       1      ]
-         * @param link_number: Link number for which Homogenous matrix required
-         * @return A_i:  a 4x4 Homgenous Transformation matrix A_i for the given DH param
+         * 
+         * @param link_number Link number for which Homogenous matrix required
+         * @return A 4x4 Homogeneous Transformation matrix A_i for the given DH param
          */
         Eigen::Matrix4d getHomogeneousMat(int link_number) const;
 
@@ -97,35 +122,42 @@ namespace manipulator
          * @return True: If its able to find the solution
          * @return False: otherwise
          */
-        bool calcNewtonRaphsonIK(const Eigen::Isometry3d &end_effector_pose, Eigen::VectorXd& result_q) const;
+        bool calcNewtonRaphsonIK(const Eigen::Isometry3d &end_effector_pose, Eigen::VectorXd &result_q) const;
 
         /** @brief Function to calculate inverse kinematic equations which will beused in newton raphson method
          * @param q_values: values of joint vars q1, q2, q3 at index 0,1,2 respectively
          * @param coeffs: values of link lenths l2x,l2y,l3,l4 at index 0,1,2,3 respectively
-         * @param constants: values of pitch angle theta[rad] from end effector pose, 
-         * r = sqrt(x^2+y^2), x and y from end effector pose, 
+         * @param constants: values of pitch angle theta[rad] from end effector pose,
+         * r = sqrt(x^2+y^2), x and y from end effector pose,
          * z_from_link2x  = z - (link0+link1), where z is from end effector pose
          * constants = [theta,r,z_from_link2x]
          * @return inverse kinematic equation
          */
-        Eigen::Vector3d calcResidual(const Eigen::Vector3d& q_values, const Eigen::Vector4d& coeffs, const Eigen::Vector3d& constants) const;
-        
+        Eigen::Vector3d calcResidual(const Eigen::Vector3d &q_values, const Eigen::Vector4d &coeffs, const Eigen::Vector3d &constants) const;
+
         /** @brief Function to calculate Jacobian of inverse kinematic equations which will be used in newton raphson method
          * @param q_values: values of joint vars q1, q2, q3 at index 0,1,2 respectively
          * @param coeffs: values of link lenths l2x,l2y,l3,l4 at index 0,1,2,3 respectively
          * @return Jacobian of inverse kinematic equation
          */
-        Eigen::Matrix3d calcJacobian(const Eigen::Vector3d& q_values, const Eigen::Vector4d& coeffs) const;
-        /** @brief  A col vector to store the link lengths as [l1,l2,l3,l4]^T*/
+        Eigen::Matrix3d calcJacobian(const Eigen::Vector3d &q_values, const Eigen::Vector4d &coeffs) const;
+
+        /** @brief Column vector to store the link lengths as [l1,l2,l3,l4]^T */
         Eigen::VectorXd link_lengths_;
 
-        /** @brief  A col vector to store the joint angels as [q1,q2,q3,q4]^T*/
-        Eigen::VectorXd joint_angles_;// Function to compute the residual vector
+        /** @brief Column vector to store the joint angles as [q1,q2,q3,q4]^T */
+        Eigen::VectorXd joint_angles_; // Function to compute the residual vector
 
-        /** @brief  A  5x4 matrix to store the DH params:
-         * [0   q1  l2 -pi/2]
-         * [l2  q2  0   0   ]
-         * [l3  q3  0  -pi/2]
+        /** 
+         * @brief 5x4 matrix to store the DH params:
+         * 
+         * A    D   Theta    Alpha
+         * [0   l0   0          0]
+         * [0   l1   q1     -pi/2]
+         * [l2x  0   q2-pi/2    0]
+         * [l2y  0   pi/2       0]
+         * [l3   0   q3         0]
+         * [l4   0   q4         0]
          */
         Eigen::MatrixXd dh_params_;
 
@@ -140,8 +172,14 @@ namespace manipulator
 
         /** @brief A boolean flag to che if Dh param intialization  */
         bool is_intialized_;
+
+        /** @brief A boolean flag to set to use NewtonRaphson IK */
         bool use_newtonRapshon_IK_;
+
+        /** @brief Max interation for the NewtonRaphson IK  loop*/
         int max_iteration_;
+        
+        /** @brief  Epsilon value to check convergence of IK solver */
         double tolerance_;
 
     }; // ManipulatorCore

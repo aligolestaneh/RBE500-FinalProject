@@ -1,16 +1,23 @@
+/**
+ * @file helpers.hpp
+ * @brief Helper functions for angle conversions and geometric transformations
+ */
+
 // Helper functions
 #ifndef RBE500_FINAL_PROJECT_PKG_HELPERS_HPP_
 #define RBE500_FINAL_PROJECT_PKG_HELPERS_HPP_
 
 // Standard Core C++ libs
-#include <iostream>
-#include <memory>
 #include <string>
 #include <cmath>
 #include <eigen3/Eigen/Dense>
 #include <std_msgs/msg/header.hpp>
 #include <geometry_msgs/msg/pose_stamped.hpp>
 
+/**
+ * @namespace helpers
+ * @brief Namespace containing utility functions for geometric and angular transformations
+ */
 namespace helpers
 {
     /** @brief Function to normalize angle to  make it between -pi to +pi range
@@ -43,11 +50,12 @@ namespace helpers
         return ((normalize(rad) * 180.0) / (M_PI));
     }
 
-    /** @brief Function to convert Eigen Rotation to ROS based RPY
-     * @brief code has been taken from
-     * @brief https://github.com/hylander2126/OpenManipulatorX_ROS2/blob/main/robotis_manipulator/src/robotis_manipulator/robotis_manipulator_math.cpp
-     * @param rotation:rotation matrix
-     * @return Normalized Angle RPY [0,1,2]
+    /**
+     * @brief Converts an Eigen rotation matrix to Roll-Pitch-Yaw angles
+     * @details Code has been adapted from OpenManipulatorX_ROS2 project
+     * @param rotation Eigen 3x3 rotation matrix
+     * @return Eigen::Vector3d containing RPY angles [roll, pitch, yaw]
+     * @see https://github.com/hylander2126/OpenManipulatorX_ROS2/blob/main/robotis_manipulator/src/robotis_manipulator/robotis_manipulator_math.cpp
      */
     inline Eigen::Vector3d convertRotationMatrixToRPY(const Eigen::Matrix3d &rotation)
     {
@@ -59,6 +67,12 @@ namespace helpers
         return rpy;
     }
 
+    /**
+     * @brief Converts an Eigen Isometry3d transform to a ROS PoseStamped message
+     * @param transform The Eigen Isometry3d transform to convert
+     * @param header The header information to be included in the PoseStamped message
+     * @return geometry_msgs::msg::PoseStamped The converted pose message
+     */
     inline geometry_msgs::msg::PoseStamped convertIsometry3dToPoseStamped(const Eigen::Isometry3d &transform, const std_msgs::msg::Header &header)
     {
         // Initialize PoseStamped message
@@ -82,6 +96,11 @@ namespace helpers
         return pose_stamped;
     }
 
+    /**
+     * @brief Converts a ROS Pose message to an Eigen Isometry3d transform
+     * @param pose The input ROS Pose message to convert
+     * @return Eigen::Isometry3d The converted Eigen transform
+     */
     inline Eigen::Isometry3d convertPosetoIsometry3d(const geometry_msgs::msg::Pose &pose)
     {
         Eigen::Isometry3d e_pose = Eigen::Isometry3d::Identity();
@@ -93,17 +112,7 @@ namespace helpers
 
         e_pose.translation() = translation;
         e_pose.linear() = quaternion.toRotationMatrix();
-
-        // std::cout << " TRanslation T: \n"
-        //           << translation << std::endl;
-        // std::cout << " quaternion: \n"
-        //           << quaternion << std::endl;
-
-        // std::cout << " EPose T: \n"
-        //           << e_pose.translation() << std::endl;
-        // std::cout << " EPose R: \n"
-        //           << e_pose.rotation() << std::endl;
-
+        
         return e_pose;
     }
 }

@@ -10,9 +10,9 @@
     ``
 3. Setup Open Manipulator X ROS2 packages:
     ```
-    git clone https://github.com/hylander2126/OpenManipulatorX_ROS2.git
+    $ git clone https://github.com/hylander2126/OpenManipulatorX_ROS2.git
     ```
-4. Clone git repo in your ROS workspace
+4. Clone git repo in your ROS workspace (currently Private with team member access only)
     ```
     $ git clone git@github.com:aligolestaneh/RBE500-FinalProject.git
     $ cd ~/colcon_ws
@@ -33,16 +33,28 @@
     A C++ library independent of ROS2 which takes care of Forward and Inverse kinematics of the Open manipulator X. The DH parameters is hardcoded here but you can setup the link_lengths independently.
 
     * `manipulator_fk_ros_lib`: 
-    A ROS2 wrapper library which utlizes the `manipulator_core_lib` to implement forward kinematics.
+    A ROS2 wrapper library which utlizes the `manipulator_core_lib` to implement forward kinematics. 
+        * **Subscribed Topics**: 
+            * `/joint_state` (*sensor_msgs/msg/JointState*) : **joint angles** of the mainpulator in radians.
+        * **Published Topics**: 
+            * `/end_effector_pose`(*geometry_msgs/msg/PoseStamped*) : Publishes pose of the end_effector w.r.t *link_0* frame. Used Forward kinematics as per current DH params of the mainpulator to get the pose data.
 
     * `manipulator_ik_ros_lib`: 
     A ROS2 wrapper library which utlizes the `manipulator_core_lib` to implement inverse kinematics.
+        * **Services**: 
+            * `/get_joint_angles_ik` (*rbe500_final_project_msgs/srv/GetJointAngles*) : It takes  *end_effector pose* as request and respond calculated *joint_angles* .
+        
 
     * `manipulator_follow_actions_lib`: 
-    A ROS2 wrapper library which reads the action sequence from the `manipulator_actions.yaml` and utlizes the inverse kinematics `/get_joint_angles_ik` to get the `joint_angles`. It further use the `OpenManipulatorX` services: `/goal_joint_space_path` to achieve the  calculated joint_angles and `/goal_tool_control` service to open and close gripper.
+    A ROS2 wrapper library which reads the action sequence from the **manipulator_actions.yaml** and move the manipulator as per the given sequence. It does it in three major steps:
+        1. If action type is *go_to_position* then:
+            * Calculate the *joint_angles* for the given pose using **manipulator_ik_ros_lib** service: `/get_joint_angles_ik`. 
+            * Moves manipualtor to the  calculated joint_angles using *OpenManipulatorX* service `/goal_joint_space_path`.
+        2. If action type is *open_gripper* or *close_gripper* then:
+            * Calls the *OpenManipulatorX* service `/goal_tool_control`  to open and close gripper.
 
-    #### Parameters
-    * `manipulator_core_pramas.yaml`:
+    ## Parameters
+    * `manipulator_core_pramas.yaml`: It has all the requried parameters for setting up *manipulator_core_lib* .
         1. `ik_max_iteration` : 
             * Type: Integer
             * Decription: Max interation to do for Newton Raphson Loop
@@ -54,68 +66,144 @@
         3. `use_newton_raphson_ik`:
             * Type: Bool
             * Decription: Set `TRUE` to use Netwon Raphson method ofr INverse kinematics.
-
-        4. `manipulator_links`:
-            * Type: List of String
-            * Decription: Link names to be used for setting the DH params. These names act as the parameter names of link_lengths vector. For ex: If LinkA has been mentioned , it will only read the link length parameter from the `link_lengths` paramter.
         
-        5. `link_lengths`:
+        4. `link_lengths`:
             * Type: List of Paramters
             * Decription: List of link_length parameters, each having its name and Double type value
+
+        5. `manipulator_links`:
+            * Type: List of String
+            * Decription: Link names to be used for setting the DH params. These names act as the parameter names of link_lengths vector. For ex: If LinkA has been mentioned , it will only read the `LinkA` parameter from the `link_lengths` paramter list.
+    
+    * `manipulator_actions.yaml`: It contains poses and action sequence to move the manipualtor to various positions. 
+        * **poses**: It has list of end effector pose (position and oreintation) w.r.t to *link_0*.
+        
+            User can addd new poses as per this template:
+            ```
+            poses:
+                <pose-name>:
+                    position:
+                        x: <double value>
+                        y: <double value>
+                        z: <double value>
+                    orientation:
+                        x: <double value>
+                        y: <double value>
+                        z: <double value>
+                        w: <double value>
+            ```
+            The best way is to directly copy paste the data from `/end_effector_pose` topic. For example:
+            ```
+                poses:
+                    show_pick_obj:
+                        position:
+                            x: 0.006
+                            y: 0.108
+                            z: 0.266
+                        orientation:
+                            x: 0.549
+                            y: 0.445
+                            z: -0.524
+                            w: -0.476
+                
+            ```
+        * **actions**: It has a list of actions to be executed using **manipulator_follow_actions_lib** sequentially. Each action has following parameters:
+            - **type(*string*)** : Type of the action will be single string from the following sets:
+        
+                * *go_to_position*: It moves the manipulator to the pose.
+                * *open_gripper*: It completely opens the gripper.
+                * *close_gripper*: It completely clsoes the gripper.
+            - **position(*string*)**: Pose name corresponding to a pose specified in *poses* parameter.   It gets used only if your action type is *go_to_position*.
+            - **wait(integer)**: Wait time in seconds after an action has been completed. If you don't mention it. The default value get set to 2 seconds automatically in the code.
+            
+            User can addd new *go_to_position* action as per this template:
+            ```
+            actions:
+              - type: go_to_position
+                position: home_position
+                wait: 1
+
+              OR
+            actions:
+              - type: go_to_position
+                position: home_position  
+            ```
+            User can addd new *open_gripper* action as per this template:
+            ```
+            actions:
+              - type: open_gripper
+                wait: 1
+
+              OR
+            actions:
+              - type: open_gripper
+            ```
+            User can addd new *close_gripper* action as per this template:
+            ```
+            actions:
+              - type: close_gripper
+                wait: 1
+
+              OR
+            actions:
+              - type: close_gripper
+            ```
+            
+
 
 # Running Nodes
 ## Forward Kinematics:
 1. Launch the OpenX Manipulator control
-```
-source ~/colcon_ws/install/setup.bash
-ros2 launch open_manipulator_x_controller open_manipulator_x_controller.launch.py
-```
+    ```
+    $ source ~/colcon_ws/install/setup.bash
+    $ ros2 launch open_manipulator_x_controller open_manipulator_x_controller.launch.py
+    ```
 2. Launch Forward Kinematics Node:
-```
-source ~/colcon_ws/install/setup.bash
-ros2 launch rbe500_final_project manipulator_fk_ros.launch.py
-```
+    ```
+    $ source ~/colcon_ws/install/setup.bash
+    $ ros2 launch rbe500_final_project manipulator_fk_ros.launch.py
+    ```
 3. Check End effector pose:
-```
-ros2 topic echo /end_effector_pose
-```
+    ```
+    $ ros2 topic echo /end_effector_pose
+    ```
 ## Inverse Kinematics:
 1. Launch the OpenX Manipulator control
-```
-source ~/colcon_ws/install/setup.bash
-ros2 launch open_manipulator_x_controller open_manipulator_x_controller.launch.py
-```
+    ```
+    $ source ~/colcon_ws/install/setup.bash
+    $ ros2 launch open_manipulator_x_controller open_manipulator_x_controller.launch.py
+    ```
 2. Launch Inverse Kinematics Node:
-```
-source ~/colcon_ws/install/setup.bash
-ros2 launch rbe500_final_project manipulator_ik_ros.launch.py
-```
+    ```
+    $ source ~/colcon_ws/install/setup.bash
+    $ ros2 launch rbe500_final_project manipulator_ik_ros.launch.py
+    ```
 3. Get Joint Angles:
-```
-source ~/colcon_ws/install/setup.bash
-$ ros2 service call /get_joint_angles_ik rbe500_final_project_msgs/srv/GetJointAngles "{end_effector_pose: {position: {x: 0.1, y: 0.2, z: 0.3}, orientation: {x: 0.0, y: 0.0, z: 0.0, w: 1.0}}}"
-```
+    ```
+    $ source ~/colcon_ws/install/setup.bash
+    $ ros2 service call /get_joint_angles_ik rbe500_final_project_msgs/srv/GetJointAngles "{end_effector_pose: {position: {x: 0.1, y: 0.2, z: 0.3}, orientation: {x: 0.0, y: 0.0, z: 0.0, w: 1.0}}}"
+    ```
 ## Pick and Place Action sequence:
 1. Launch the OpenX Manipulator control
-```
-source ~/colcon_ws/install/setup.bash
-ros2 launch open_manipulator_x_controller open_manipulator_x_controller.launch.py
-```
+    ```
+    $ source ~/colcon_ws/install/setup.bash
+    $ ros2 launch open_manipulator_x_controller open_manipulator_x_controller.launch.py
+    ```
 2. Launch Inverse Kinematics Node:
-```
-source ~/colcon_ws/install/setup.bash
-ros2 launch rbe500_final_project manipulator_ik_ros.launch.py
-```
+    ```
+    $ source ~/colcon_ws/install/setup.bash
+    $ ros2 launch rbe500_final_project manipulator_ik_ros.launch.py
+    ```
 3. Execute Pick and Place action sequence
-```
-source ~/colcon_ws/install/setup.bash
-$ ros2 run rbe500_final_project manipulator_follow_actions
-```
+    ```
+    $ source ~/colcon_ws/install/setup.bash
+    $ ros2 run rbe500_final_project manipulator_follow_actions_node
+    ```
 
 
 # Writing Test Cases 
 ## CMakelist Edits
-All test cases has been written up in the test folder. You may add your test cases aswell by creating your own test `cpp` file or editing the existing ones. Please don't edit `main.cpp`. Follow these steps if you create your own test files, then make sure you add it into `CMakelist.txt`
+All test cases has been written up in the test folder. You may add your test cases aswell by creating your own test `cpp` file or editing the existing ones. Please don't edit `main.cpp`.  Make sure you add it into `CMakelist.txt` in order to build your unit test code.
 ```
 set(TESTFILES
   test/main.cpp
@@ -131,12 +219,12 @@ $ cd <your-workspace>
 $ colcon build --symlink-install --packages-select rbe500_final_project
 ```
 Now you can build the test cases:
-1. Compiling without test cases results:
+1. Compiling without test cases result verbose:
     ```
     $ colcon test --packages-select rbe500_final_project
     ```
 2. Compiling the test cases along with result verbose:
     ```
-    colcon test --packages-select rbe500_final_project --event-handler=console_direct+
+    $ colcon test --packages-select rbe500_final_project --event-handler=console_direct+
     ```
 

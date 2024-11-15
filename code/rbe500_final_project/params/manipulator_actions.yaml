@@ -84,13 +84,13 @@ actions:
   - type: close_gripper
     wait: 3
   - type: go_to_position
+    position: home_position
+    wait: 2
+  - type: go_to_position
     position: show_pick_obj
     wait: 2
   - type: go_to_position
     position: show_pose1
-    wait: 2
-  - type: go_to_position
-    position: show_pose2
     wait: 2
   - type: go_to_position
     position: place_front_right

@@ -52,6 +52,9 @@
             * Moves manipualtor to the  calculated joint_angles using *OpenManipulatorX* service `/goal_joint_space_path`.
         2. If action type is *open_gripper* or *close_gripper* then:
             * Calls the *OpenManipulatorX* service `/goal_tool_control`  to open and close gripper.
+        * **Published Topics**: 
+            * `/goal_marker`(*visualization/msg/Marker*) : Publishes the current `go_to_position`   pose as a sphere marker.
+    
 
     ## Parameters
     * `manipulator_core_pramas.yaml`: It has all the requried parameters for setting up *manipulator_core_lib* .

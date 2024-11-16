@@ -13,7 +13,7 @@
 #include <eigen3/Eigen/Dense>
 #include <std_msgs/msg/header.hpp>
 #include <geometry_msgs/msg/pose_stamped.hpp>
-
+#include <visualization_msgs/msg/marker.hpp>
 /**
  * @namespace helpers
  * @brief Namespace containing utility functions for geometric and angular transformations
@@ -112,9 +112,65 @@ namespace helpers
 
         e_pose.translation() = translation;
         e_pose.linear() = quaternion.toRotationMatrix();
-        
+
         return e_pose;
     }
+
+    /**@brief Converts a ROS Pose message to a ROS Marker message
+     * @param pose The input ROS Pose message to convert
+     * @param ns The namespace for the marker
+     * @param id The ID for the marker
+     * @param marker_type The type of marker to create ("arrow", "sphere", "cube")
+     * @return visualization_msgs::msg::Marker The converted marker message
+     */
+    inline visualization_msgs::msg::Marker convertPoseToMarker(const geometry_msgs::msg::Pose &pose, const std_msgs::msg::Header &header, std::string ns = "pose_marker", int id = 0, std::string marker_type = "sphere")
+    {
+        // Create the marker
+        visualization_msgs::msg::Marker marker;
+
+        // Set frame ID and namespace
+        marker.header = header;
+        marker.ns = ns;
+        marker.id = id;
+
+        // Set the marker type
+        if (marker_type == "arrow")
+        {
+            marker.type = visualization_msgs::msg::Marker::ARROW;
+        }
+        else if (marker_type == "sphere")
+        {
+            marker.type = visualization_msgs::msg::Marker::SPHERE;
+        }
+        else if (marker_type == "cube")
+        {
+            marker.type = visualization_msgs::msg::Marker::CUBE;
+        }
+        else
+        {
+            throw std::invalid_argument("Unsupported marker type");
+        }
+
+        // Set pose (position and orientation)
+        marker.pose = pose;
+
+        // Set default scale (size of the marker)
+        marker.scale.x = 0.03; // For arrows, x defines shaft diameter
+        marker.scale.y = 0.03; // For arrows, y defines head diameter
+        marker.scale.z = 0.03; // For arrows, z defines head length
+
+        // Set default color (Green, RGBA)
+        marker.color.r = 0.0;
+        marker.color.g = 1.0;
+        marker.color.b = 0.0;
+        marker.color.a = 1.0; // Fully opaque
+
+        // Set marker action
+        marker.action = visualization_msgs::msg::Marker::ADD;
+
+        return marker;
+    }
+
 }
 
 #endif

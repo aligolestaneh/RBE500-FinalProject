@@ -14,10 +14,12 @@
 #include <rbe500_final_project_msgs/srv/get_joint_angles.hpp>
 #include <open_manipulator_msgs/srv/set_joint_position.hpp>
 #include <geometry_msgs/msg/pose.hpp>
+#include <visualization_msgs/msg/marker.hpp>
+#include <std_msgs/msg/header.hpp>
 #include <string>
 #include <vector>
 #include <map>
-
+#include "rbe500_final_project/helpers.hpp"
 
 /**
  * @struct ActionSequence
@@ -49,6 +51,8 @@ public:
     void executeActionSequence();
 
 private:
+    /** @brief Visualization marker publisher */
+    rclcpp::Publisher<visualization_msgs::msg::Marker>::SharedPtr marker_pub_;
     /** @brief Service client for IK service */
     rclcpp::Client<rbe500_final_project_msgs::srv::GetJointAngles>::SharedPtr ik_client_;
     /** @brief Service client for joint position service */

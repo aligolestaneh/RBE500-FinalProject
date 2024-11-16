@@ -4,19 +4,17 @@ using namespace manipulator;
 
 ManipulatorCore::ManipulatorCore()
 {
-    // TODO:
-    // initialize link_lengths vector
-    link_lengths_ = Eigen::VectorXd::Ones(6);
-    // joint anfgles
-    joint_angles_ = Eigen::VectorXd::Zero(4);
-    //  setup DH parameters here
-    dh_params_ = Eigen::MatrixXd(link_lengths_.size(), 4);
-    // end effector pose
-    end_effector_pose_ = Eigen::Isometry3d::Identity();
+    // Initialize vectors with default values
+    link_lengths_ = Eigen::VectorXd::Ones(6);    // Default link lengths
+    joint_angles_ = Eigen::VectorXd::Zero(4);    // Initial joint angles set to zero
+    dh_params_ = Eigen::MatrixXd(link_lengths_.size(), 4);  // DH parameter matrix (6x4)
+    end_effector_pose_ = Eigen::Isometry3d::Identity();     // Initial pose as identity
+
+    // Set IK solver parameters
     max_iteration_ = 100;
     tolerance_ = 1e-7;
     is_intialized_ = false;
-    use_newtonRapshon_IK_ = true;
+    use_newtonRapshon_IK_ = true;  // Default to Newton-Raphson method
 }
 
 bool ManipulatorCore::setup(const Eigen::VectorXd &link_length, bool use_newtonRapshon_IK)
@@ -60,20 +58,17 @@ Eigen::VectorXd ManipulatorCore::getJointAngles() const
 
 bool ManipulatorCore::updateJointAngles(const Eigen::VectorXd &joint_angles)
 {
-    // TODO:
-    //  as all joints angle is on 2nd col of the DH param matrix , so directly updating the column
-    if (!is_intialized_)
-        return false;
-    if (joint_angles.size() != joint_angles_.size())
+    if (!is_intialized_ || joint_angles.size() != joint_angles_.size())
         return false;
 
-    // Update dh_params_ with q_val
+    // Update DH parameters matrix with new joint angles
+    // Note: Some joints have offsets (e.g., -π/2 for link3x)
+    dh_params_.row(1)(2) = joint_angles(0);          // Link2 joint angle
+    dh_params_.row(2)(2) = joint_angles(1) - M_PI_2; // Link3x joint angle (with offset)
+    dh_params_.row(4)(2) = joint_angles(2);          // Link4 joint angle
+    dh_params_.row(5)(2) = joint_angles(3);          // Link5 joint angle
 
-    dh_params_.row(1)(2) = joint_angles(0);          // For link2 joint angle
-    dh_params_.row(2)(2) = joint_angles(1) - M_PI_2; // For link3x joint angle (with offset)
-    dh_params_.row(4)(2) = joint_angles(2);          // For link4 joint angle
-    dh_params_.row(5)(2) = joint_angles(3);          // For link5 joint angle
-
+    // Update cached values
     end_effector_pose_ = calcEndEffectorPose();
     joint_angles_ = joint_angles;
 
@@ -87,81 +82,70 @@ Eigen::Isometry3d ManipulatorCore::getEndEffectorPose() const
 
 Eigen::Isometry3d ManipulatorCore::calcEndEffectorPose() const
 {
-    // Eigen::Matrix4d pose_mat = Eigen::Matrix4d::Identity();
-    Eigen::Matrix4d A_i = this->getHomogeneousMat(0); // Get the first link's transformation matrix
+    // Calculate forward kinematics by multiplying transformation matrices
+    Eigen::Matrix4d A_i = this->getHomogeneousMat(0);  // Start with first link
 
+    // Multiply subsequent transformation matrices
     for (int i = 1; i < link_lengths_.size(); i++)
     {
         A_i *= this->getHomogeneousMat(i);
     }
-    Eigen::Isometry3d end_effector_pose = Eigen::Isometry3d(A_i);
-
-    // end_effector_pose.matrix() = A_i;//pose_mat;
-
-    return end_effector_pose;
+    
+    return Eigen::Isometry3d(A_i);
 }
 
 bool ManipulatorCore::calcNewtonRaphsonIK(const Eigen::Isometry3d &end_effector_pose, Eigen::VectorXd &result_q) const
 {
-    // TODO: Calc join angles using IK
-    // inverse kinematic equations
-    Eigen::Vector3d F;
-    // Jacobian for Inverse kinematic
-    Eigen::Matrix3d J;
-    // delta in joint angles
-    Eigen::Vector3d delta_q;
-    // intial joint angle guess as zero
-    Eigen::Vector3d current_q = Eigen::Vector3d::Zero();
+    // Initialize vectors and matrices for Newton-Raphson iteration
+    Eigen::Vector3d F;          // Residual vector
+    Eigen::Matrix3d J;          // Jacobian matrix
+    Eigen::Vector3d delta_q;    // Change in joint angles
+    Eigen::Vector3d current_q = Eigen::Vector3d::Zero();  // Initial guess
 
-    // Eigen::Vector3d joint_angles;
-
-    // coefficitans for calculating residual [l2x,l2y,l3,l4]
+    // Extract coefficients for residual calculation [l2x,l2y,l3,l4]
     Eigen::Vector4d coeffs = link_lengths_.segment<4>(2);
 
-    // constants for the equations [theta,r,z_from_link2x]
+    // Calculate constants needed for IK equations
     Eigen::Vector3d constants;
     Eigen::MatrixXd rotation_matrix = end_effector_pose.rotation();
-
-    // double phi = atan2(-rotation_matrix(2, 0),
-    //                    sqrt(rotation_matrix(2, 1) * rotation_matrix(2, 1) + rotation_matrix(2, 2) * rotation_matrix(2, 2)));
+    
+    // Extract pitch angle from rotation matrix
     double phi = helpers::convertRotationMatrixToRPY(end_effector_pose.rotation())[1];
     constants(0) = phi;
-    constants(2) = end_effector_pose.translation().head<2>().norm();                    // sqrt(x^2+y^2)
-    constants(1) = end_effector_pose.translation().z() - link_lengths_.head<2>().sum(); // z - (link0+link1)
+    constants(2) = end_effector_pose.translation().head<2>().norm();  // Planar distance from base
+    constants(1) = end_effector_pose.translation().z() - link_lengths_.head<2>().sum();  // Height from link2
 
-    // updating q(0)
+    // Calculate base rotation (first joint angle)
     result_q(0) = atan2(end_effector_pose.translation().y(), end_effector_pose.translation().x());
     
+    // Newton-Raphson iteration
     for (int i = 0; i < max_iteration_; i++)
     {
-        // compute function value as per current q values
-
+        // Compute residual for current joint angles
         F = this->calcResidual(current_q, coeffs, constants);
         
-        // check if current_q satisfies tolerance
+        // Check if solution is within tolerance
         if (F.norm() < tolerance_)
         {
             result_q.segment<3>(1) = current_q;
             return true;
         }
 
-        // get jacobian
+        // Calculate Jacobian and solve for joint angle updates
         J = this->calcJacobian(current_q, coeffs);
+        delta_q = J.fullPivLu().solve(-F);
 
-        // get delta_q
-        delta_q = J.fullPivLu().solve(-F);//J.colPivHouseholderQr().solve(-F); //J.fullPivLu().solve(-F);
-
-        // update current_q
+        // Update joint angles
         current_q += delta_q;
         
-        // check if current_q satisfies tolerance
+        // Check if change in joint angles is within tolerance
         if (delta_q.norm() < tolerance_)
         {
             result_q.segment<3>(1) = current_q;
             return true;
         }
     }
-    return false;
+    return false;  // Failed to converge
 }
 
 Eigen::VectorXd ManipulatorCore::calcGeometricIK(const Eigen::Isometry3d &end_effector_pose) const
@@ -173,40 +157,31 @@ Eigen::VectorXd ManipulatorCore::calcGeometricIK(const Eigen::Isometry3d &end_ef
 
 void ManipulatorCore::setupDHParams(const Eigen::VectorXd &link_lengths, const Eigen::VectorXd &joint_angles)
 {
-    // TODO:
-
-    // update the param matrix as per given join angle and link length
-    // for link1
-    dh_params_.row(0) << 0, link_lengths(0), 0, 0;
-    // for link2
-    dh_params_.row(1) << 0, link_lengths(1), joint_angles(0), -M_PI_2;
-    // for link3x
-    dh_params_.row(2) << link_lengths(2), 0, joint_angles(1) - M_PI_2, 0;
-    // for link3y
-    dh_params_.row(3) << link_lengths(3), 0, M_PI_2, 0;
-
-    // for link4
-    dh_params_.row(4) << link_lengths(4), 0, joint_angles(2), 0;
-
-    // for link5
-    dh_params_.row(5) << link_lengths(5), 0, joint_angles(3), 0;
+    // Set up DH parameters matrix for each link
+    // Format: [a, d, theta, alpha]
+    dh_params_.row(0) << 0, link_lengths(0), 0, 0;              // Link1 (fixed)
+    dh_params_.row(1) << 0, link_lengths(1), joint_angles(0), -M_PI_2;  // Link2
+    dh_params_.row(2) << link_lengths(2), 0, joint_angles(1) - M_PI_2, 0;  // Link3x
+    dh_params_.row(3) << link_lengths(3), 0, M_PI_2, 0;         // Link3y (fixed)
+    dh_params_.row(4) << link_lengths(4), 0, joint_angles(2), 0;  // Link4
+    dh_params_.row(5) << link_lengths(5), 0, joint_angles(3), 0;  // Link5
 }
 
 Eigen::Matrix4d ManipulatorCore::getHomogeneousMat(int link_number) const
 {
-
-    Eigen::Matrix4d A_i;
-    // get the DH param from the matrix, cols store the dh param for a particular link
+    // Extract DH parameters for the specified link
     Eigen::Vector4d dh_param = dh_params_.row(link_number);
-    double a = dh_param(0);
-    double theta = dh_param(2);
-    double d = dh_param(1);
-    double alpha = dh_param(3);
-    // Construct a homogenous matrix using DH params
+    double a = dh_param(0);      // Link length
+    double d = dh_param(1);      // Link offset
+    double theta = dh_param(2);  // Joint angle
+    double alpha = dh_param(3);  // Link twist
+
+    // Construct homogeneous transformation matrix using DH parameters
+    Eigen::Matrix4d A_i;
     A_i << cos(theta), -sin(theta) * cos(alpha), sin(theta) * sin(alpha), a * cos(theta),
-        sin(theta), cos(theta) * cos(alpha), -cos(theta) * sin(alpha), a * sin(theta),
-        0, sin(alpha), cos(alpha), d,
-        0, 0, 0, 1;
+           sin(theta), cos(theta) * cos(alpha), -cos(theta) * sin(alpha), a * sin(theta),
+           0, sin(alpha), cos(alpha), d,
+           0, 0, 0, 1;
 
     return A_i;
 }

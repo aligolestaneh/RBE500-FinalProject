@@ -69,7 +69,7 @@ namespace manipulator
         
         end_effector_pose_ = helpers::convertIsometry3dToPoseStamped(manipulator_->getEndEffectorPose(), input_msg->header);
 
-        end_effector_pose_.header.frame_id = "link0";
+        end_effector_pose_.header.frame_id = "link1";
         end_effector_pose_pub_->publish(end_effector_pose_);
     }
 }

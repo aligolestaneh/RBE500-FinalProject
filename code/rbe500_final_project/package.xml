@@ -15,6 +15,7 @@
   <depend>geometry_msgs</depend>
   <depend>rbe500_final_project_msgs</depend>
   <depend>open_manipulator_msgs</depend>
+  <depend>visualization_msgs</depend>
   <!-- <exec_depend>rosidl_default_runtime</exec_depend> -->
 
   <test_depend>ament_lint_auto</test_depend>

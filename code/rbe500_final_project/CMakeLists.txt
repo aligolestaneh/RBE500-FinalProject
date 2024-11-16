@@ -16,6 +16,7 @@ find_package(rbe500_final_project_msgs REQUIRED)
 find_package(ament_index_cpp REQUIRED)
 find_package(yaml-cpp REQUIRED)
 find_package(open_manipulator_msgs REQUIRED)
+find_package(visualization_msgs REQUIRED)
 
 #Include EIgen lib
 find_package(Eigen3 REQUIRED)
@@ -39,6 +40,7 @@ set(DEPENDENCIES
   "std_msgs"
   "geometry_msgs"
   "rclcpp"
+  "visualization_msgs"
 )
 target_link_libraries(manipulator_core_lib)
 ament_target_dependencies(manipulator_core_lib ${DEPENDENCIES} Eigen3)
@@ -51,6 +53,7 @@ set(DEPENDENCIES
   "std_msgs"
   "geometry_msgs"
   "rclcpp"
+  "visualization_msgs"
 )
 target_link_libraries(manipulator_ik_ros_lib manipulator_core_lib)
 ament_target_dependencies(manipulator_ik_ros_lib ${DEPENDENCIES})
@@ -64,6 +67,7 @@ set(DEPENDENCIES
   "geometry_msgs"
   "sensor_msgs"
   "rclcpp"
+  "visualization_msgs"
 )
 target_link_libraries(manipulator_fk_ros_lib manipulator_core_lib)
 ament_target_dependencies(manipulator_fk_ros_lib ${DEPENDENCIES})
@@ -79,6 +83,7 @@ set(DEPENDENCIES
   "geometry_msgs"
   "sensor_msgs"
   "rclcpp"
+  "visualization_msgs"
 )
 target_link_libraries(manipulator_follow_actions_lib ${YAML_CPP_LIBRARIES})
 ament_target_dependencies(manipulator_follow_actions_lib ${DEPENDENCIES})

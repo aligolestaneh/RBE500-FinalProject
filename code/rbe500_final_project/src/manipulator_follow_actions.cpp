@@ -5,6 +5,9 @@
 
 ManipulatorFollowActions::ManipulatorFollowActions() : Node("manipulator_follow_actions")
 {
+    // Initialize publisher
+    marker_pub_ = this->create_publisher<visualization_msgs::msg::Marker>("/goal_marker", 10);
+
     // Initialize service clients
     ik_client_ = this->create_client<rbe500_final_project_msgs::srv::GetJointAngles>("/get_joint_angles_ik");
     joint_position_client_ = this->create_client<open_manipulator_msgs::srv::SetJointPosition>("/goal_joint_space_path");
@@ -175,6 +178,12 @@ bool ManipulatorFollowActions::callIKService(const geometry_msgs::msg::Pose &pos
 {
     auto request = std::make_shared<rbe500_final_project_msgs::srv::GetJointAngles::Request>();
     request->end_effector_pose = pose;
+    std_msgs::msg::Header header;
+    header.stamp = this->get_clock()->now();
+    header.frame_id = "link1";
+    visualization_msgs::msg::Marker marker;
+    marker = helpers::convertPoseToMarker(pose, header,"goal_marker");
+    marker_pub_->publish(marker);
 
     auto future = ik_client_->async_send_request(request);
     if (rclcpp::spin_until_future_complete(this->get_node_base_interface(), future) ==

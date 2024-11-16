@@ -41,6 +41,16 @@ poses:
       w: 0.6157783178270717
   home_position:
     position:
+      x: 0.2869622647880923
+      y: 0.02116760838424772
+      z: 0.21129718979639764
+    orientation:
+      x: -0.7070934701105819
+      y: -0.00433872411839982
+      z: 0.04769005452687022
+      w: 0.7054967460585656
+  home_position_prev:
+    position:
       x: 0.28488706562027055
       y: -0.0004370116403165726
       z: 0.2087094305739967
@@ -69,6 +79,26 @@ poses:
       y: 0.7069967598050039
       z: -0.5959465318105881
       w: -0.3805886640757076 
+  show_pose3:
+    position:
+      x: 0.09034972169237228
+      y: -0.16121500995076965
+      z: 0.24654988252213794
+    orientation:
+      x: -0.6705622649105228
+      y: 0.22437969800779622
+      z: -0.4752656194198579
+      w: 0.523567179068225
+  rest_pose:
+    position:
+      x: 0.007426031882976495
+      y: 0.007540829173308184
+      z: 0.258400173966444
+    orientation:
+      x: -0.2998735072737843
+      y: -0.640371673042554
+      z: -0.2356621367172095
+      w: 0.6666808511708426
 
 
 
@@ -79,19 +109,21 @@ actions:
   - type: go_to_position
     position: gripper_open_front_left
   - type: open_gripper
+    wait: 1
   - type: go_to_position
     position: pick_front_left
+    wait: 2
   - type: close_gripper
-    wait: 3
-  - type: go_to_position
-    position: home_position
     wait: 2
+  # - type: go_to_position
+  #   position: home_position
+  #   wait: 2
   - type: go_to_position
-    position: show_pick_obj
+    position: show_pose3
     wait: 2
-  - type: go_to_position
-    position: show_pose1
-    wait: 2
+  # - type: go_to_position
+  #   position: show_pose1
+  #   wait: 2
   - type: go_to_position
     position: place_front_right
     wait: 2
@@ -99,4 +131,22 @@ actions:
     wait: 1
   - type: go_to_position
     position: home_position
+    wait: 3
+  - type: go_to_position
+    position: place_front_right
+    wait: 2
+  - type: close_gripper
+  - type: go_to_position
+    position: show_pose3
+    wait: 2
+  - type: go_to_position
+    position: gripper_open_front_left
+  - type: go_to_position
+    position: pick_front_left
+    wait: 2 
+  - type: open_gripper
+    wait: 2
+  - type: go_to_position
+    position: rest_pose
+    wait: 2
   - type: close_gripper

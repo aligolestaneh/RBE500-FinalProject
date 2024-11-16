@@ -1,0 +1,4 @@
+<map id="manipulator::ManipulatorFKROS::onSubscriberJointAngleCB" name="manipulator::ManipulatorFKROS::onSubscriberJointAngleCB">
+<area shape="rect" id="node1" title="Callback for joint angle subscriber to process end effector pose." alt="" coords="5,5,248,47"/>
+<area shape="rect" id="node2" href="$namespacehelpers.html#a5da917090510d293d870896a45584424" title="Converts an Eigen Isometry3d transform to a ROS PoseStamped message." alt="" coords="296,5,497,47"/>
+</map>

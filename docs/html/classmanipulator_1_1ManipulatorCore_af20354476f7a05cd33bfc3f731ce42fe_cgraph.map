@@ -1,0 +1,8 @@
+<map id="manipulator::ManipulatorCore::updateEndEffectorPose" name="manipulator::ManipulatorCore::updateEndEffectorPose">
+<area shape="rect" id="node1" title="function to update the end_effector_pose" alt="" coords="5,39,216,80"/>
+<area shape="rect" id="node2" href="$classmanipulator_1_1ManipulatorCore.html#ac1f591fee33798c3f6635c1df23647a2" title="Function to get the joint angles as per given end effector pose." alt="" coords="273,5,460,47"/>
+<area shape="rect" id="node3" href="$classmanipulator_1_1ManipulatorCore.html#a2dd1e5832a169682433d3c7e241f29ab" title="Function to get the joint angles as per given end effector pose." alt="" coords="264,71,469,112"/>
+<area shape="rect" id="node4" href="$classmanipulator_1_1ManipulatorCore.html#a31ee1891602dd595ae4936217306327c" title="Function to calculate Jacobian of inverse kinematic equations which will be used in newton raphson me..." alt="" coords="517,5,704,47"/>
+<area shape="rect" id="node5" href="$classmanipulator_1_1ManipulatorCore.html#af3b1bce0dd9d5f2b218e4db404aad70f" title="Function to calculate inverse kinematic equations which will beused in newton raphson method." alt="" coords="517,71,704,112"/>
+<area shape="rect" id="node6" href="$namespacehelpers.html#a6bc35044a043b2b2408cfe612361d43e" title="Converts an Eigen rotation matrix to Roll&#45;Pitch&#45;Yaw angles." alt="" coords="519,136,702,177"/>
+</map>

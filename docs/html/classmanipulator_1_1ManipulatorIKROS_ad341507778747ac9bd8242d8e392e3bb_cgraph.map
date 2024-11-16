@@ -1,0 +1,5 @@
+<map id="manipulator::ManipulatorIKROS::initServices" name="manipulator::ManipulatorIKROS::initServices">
+<area shape="rect" id="node1" title="Initializes the node services." alt="" coords="5,5,192,47"/>
+<area shape="rect" id="node2" href="$classmanipulator_1_1ManipulatorIKROS.html#a81750dd28f6e710c36f9f2ef0f5b6b9b" title="Callback function for the inverse kinematics service." alt="" coords="240,5,427,47"/>
+<area shape="rect" id="node3" href="$namespacehelpers.html#a5940cbcbee51904377a227ff761afb60" title="Converts a ROS Pose message to an Eigen Isometry3d transform." alt="" coords="475,13,720,39"/>
+</map>

@@ -1,0 +1,6 @@
+<map id="manipulator::ManipulatorCore::calcNewtonRaphsonIK" name="manipulator::ManipulatorCore::calcNewtonRaphsonIK">
+<area shape="rect" id="node1" title="Function to get the joint angles as per given end effector pose." alt="" coords="5,71,211,112"/>
+<area shape="rect" id="node2" href="$classmanipulator_1_1ManipulatorCore.html#a31ee1891602dd595ae4936217306327c" title="Function to calculate Jacobian of inverse kinematic equations which will be used in newton raphson me..." alt="" coords="259,5,445,47"/>
+<area shape="rect" id="node3" href="$classmanipulator_1_1ManipulatorCore.html#af3b1bce0dd9d5f2b218e4db404aad70f" title="Function to calculate inverse kinematic equations which will beused in newton raphson method." alt="" coords="259,71,445,112"/>
+<area shape="rect" id="node4" href="$namespacehelpers.html#a6bc35044a043b2b2408cfe612361d43e" title="Converts an Eigen rotation matrix to Roll&#45;Pitch&#45;Yaw angles." alt="" coords="261,136,443,177"/>
+</map>

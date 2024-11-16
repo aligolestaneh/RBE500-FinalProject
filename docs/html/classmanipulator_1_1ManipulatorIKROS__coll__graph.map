@@ -1,0 +1,4 @@
+<map id="manipulator::ManipulatorIKROS" name="manipulator::ManipulatorIKROS">
+<area shape="rect" id="node1" title="ROS 2 node for inverse kinematics service." alt="" coords="5,131,200,384"/>
+<area shape="rect" id="node2" title=" " alt="" coords="51,5,154,83"/>
+</map>

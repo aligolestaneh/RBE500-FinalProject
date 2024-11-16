@@ -1,0 +1,4 @@
+<map id="helpers::getDegrees" name="helpers::getDegrees">
+<area shape="rect" id="node1" title="Function to convert radians to degress." alt="" coords="5,5,159,32"/>
+<area shape="rect" id="node2" href="$namespacehelpers.html#aa2d730b01a04799ed1da789a06011cc0" title="Function to normalize angle to make it between &#45;pi to +pi range." alt="" coords="207,5,349,32"/>
+</map>

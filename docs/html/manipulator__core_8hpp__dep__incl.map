@@ -1,0 +1,12 @@
+<map id="include/rbe500_final_project/manipulator_core.hpp" name="include/rbe500_final_project/manipulator_core.hpp">
+<area shape="rect" id="node1" title="Core C++ library for OpenX Manipulator kinematics." alt="" coords="540,5,697,61"/>
+<area shape="rect" id="node2" href="$manipulator__fk__ros_8hpp.html" title="ROS 2 wrapper for manipulator forward kinematics calculations." alt="" coords="163,109,320,165"/>
+<area shape="rect" id="node5" href="$manipulator__ik__ros_8hpp.html" title="ROS 2 wrapper for manipulator inverse kinematics calculations." alt="" coords="344,109,501,165"/>
+<area shape="rect" id="node8" href="$manipulator__core_8cpp.html" title=" " alt="" coords="525,124,712,151"/>
+<area shape="rect" id="node9" href="$basic__eigen__test_8cpp.html" title=" " alt="" coords="736,124,923,151"/>
+<area shape="rect" id="node10" href="$manipulator__core__test_8cpp.html" title=" " alt="" coords="947,117,1112,158"/>
+<area shape="rect" id="node3" href="$manipulator__fk__node_8cpp.html" title=" " alt="" coords="5,213,149,255"/>
+<area shape="rect" id="node4" href="$manipulator__fk__ros_8cpp.html" title=" " alt="" coords="173,213,317,255"/>
+<area shape="rect" id="node6" href="$manipulator__ik__node_8cpp.html" title=" " alt="" coords="349,213,491,255"/>
+<area shape="rect" id="node7" href="$manipulator__ik__ros_8cpp.html" title=" " alt="" coords="515,213,658,255"/>
+</map>

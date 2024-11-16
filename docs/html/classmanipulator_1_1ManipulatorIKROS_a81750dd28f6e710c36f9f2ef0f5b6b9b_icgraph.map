@@ -1,0 +1,5 @@
+<map id="manipulator::ManipulatorIKROS::onServiceCB" name="manipulator::ManipulatorIKROS::onServiceCB">
+<area shape="rect" id="node1" title="Callback function for the inverse kinematics service." alt="" coords="476,5,663,47"/>
+<area shape="rect" id="node2" href="$classmanipulator_1_1ManipulatorIKROS.html#ad341507778747ac9bd8242d8e392e3bb" title="Initializes the node services." alt="" coords="241,5,428,47"/>
+<area shape="rect" id="node3" href="$classmanipulator_1_1ManipulatorIKROS.html#a20f6d426864fa4b46e81db576e0291f0" title="Constructor for ManipulatorIKROS." alt="" coords="5,5,193,47"/>
+</map>

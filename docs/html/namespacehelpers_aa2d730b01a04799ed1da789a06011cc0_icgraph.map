@@ -1,0 +1,5 @@
+<map id="helpers::normalize" name="helpers::normalize">
+<area shape="rect" id="node1" title="Function to normalize angle to make it between &#45;pi to +pi range." alt="" coords="207,31,349,57"/>
+<area shape="rect" id="node2" href="$namespacehelpers.html#a187b9f079be644f23d8bb00a5ffe0fcd" title="Function to convert radians to degress." alt="" coords="5,5,159,32"/>
+<area shape="rect" id="node3" href="$namespacehelpers.html#a1e44f37b68ac5eb765d761ebef82b26f" title="Function to convert degrees to radians." alt="" coords="20,56,144,83"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="manipulator::ManipulatorCore::updateJointAngles" name="manipulator::ManipulatorCore::updateJointAngles">
+<area shape="rect" id="node1" title="function to update the DH param matrix for the given joint angles" alt="" coords="5,5,192,47"/>
+<area shape="rect" id="node2" href="$classmanipulator_1_1ManipulatorCore.html#a414c433cf34a849dd540d9690c84b8af" title="A function to calc the end effector pose using FK." alt="" coords="240,5,431,47"/>
+<area shape="rect" id="node3" href="$classmanipulator_1_1ManipulatorCore.html#a420e96d1b284345e74c3d1a26ac6fa9a" title="Gets homogeneous transformation matrix from Link number." alt="" coords="479,5,679,47"/>
+</map>

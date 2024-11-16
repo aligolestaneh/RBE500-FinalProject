@@ -1,0 +1,4 @@
+<map id="manipulator::ManipulatorCore::calcEndEffectorPose" name="manipulator::ManipulatorCore::calcEndEffectorPose">
+<area shape="rect" id="node1" title="A function to calc the end effector pose using FK." alt="" coords="240,5,431,47"/>
+<area shape="rect" id="node2" href="$classmanipulator_1_1ManipulatorCore.html#a2a1867a3c58276f8faf002b821ad1014" title="function to update the DH param matrix for the given joint angles" alt="" coords="5,5,192,47"/>
+</map>

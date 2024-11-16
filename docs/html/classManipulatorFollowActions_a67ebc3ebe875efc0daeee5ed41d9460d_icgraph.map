@@ -1,0 +1,4 @@
+<map id="ManipulatorFollowActions::goToPosition" name="ManipulatorFollowActions::goToPosition">
+<area shape="rect" id="node1" title="Moves the manipulator to a specified position." alt="" coords="244,5,435,47"/>
+<area shape="rect" id="node2" href="$classManipulatorFollowActions.html#a2e530f8fe0d221a50a8a407b76ab7f83" title="Execute the sequence of actions defined in the YAML configuration." alt="" coords="5,5,196,47"/>
+</map>

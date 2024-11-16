@@ -1,0 +1,10 @@
+<map id="ManipulatorFollowActions::executeActionSequence" name="ManipulatorFollowActions::executeActionSequence">
+<area shape="rect" id="node1" title="Execute the sequence of actions defined in the YAML configuration." alt="" coords="5,71,196,112"/>
+<area shape="rect" id="node2" href="$classManipulatorFollowActions.html#ac5cd07b62a0f7fb2286d942531fe3a38" title="Closes the gripper." alt="" coords="244,5,435,47"/>
+<area shape="rect" id="node4" href="$classManipulatorFollowActions.html#a67ebc3ebe875efc0daeee5ed41d9460d" title="Moves the manipulator to a specified position." alt="" coords="244,136,435,177"/>
+<area shape="rect" id="node8" href="$classManipulatorFollowActions.html#a2ba023736597295c2edb3657c2bef480" title="Opens the gripper." alt="" coords="244,71,435,112"/>
+<area shape="rect" id="node3" href="$classManipulatorFollowActions.html#afa256b195d75a0e8f1e3adea527a2688" title="Controls the gripper to a specified position." alt="" coords="483,21,673,63"/>
+<area shape="rect" id="node5" href="$classManipulatorFollowActions.html#a430e3adc39587d9499ae171c05ad9190" title="Calls the IK service to get the joint angles for a given pose." alt="" coords="483,103,673,144"/>
+<area shape="rect" id="node7" href="$classManipulatorFollowActions.html#af59c5fbff4a6d0ba228f32e297ae85b5" title="Moves the manipulator to a specified joint position." alt="" coords="483,168,673,209"/>
+<area shape="rect" id="node6" href="$namespacehelpers.html#adb9c85a199ed251c1f52565f7fe3687b" title="Converts a ROS Pose message to a ROS Marker message." alt="" coords="721,110,939,137"/>
+</map>

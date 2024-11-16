@@ -1,0 +1,6 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node1" title=" " alt="" coords="5,64,108,91"/>
+<area shape="rect" id="node2" href="$classManipulatorFollowActions.html" title="Class to control the manipulator through a sequence of predefined actions." alt="" coords="156,5,347,32"/>
+<area shape="rect" id="node3" href="$classmanipulator_1_1ManipulatorFKROS.html" title=" " alt="" coords="158,57,345,98"/>
+<area shape="rect" id="node4" href="$classmanipulator_1_1ManipulatorIKROS.html" title="ROS 2 node for inverse kinematics service." alt="" coords="158,122,345,163"/>
+</map>

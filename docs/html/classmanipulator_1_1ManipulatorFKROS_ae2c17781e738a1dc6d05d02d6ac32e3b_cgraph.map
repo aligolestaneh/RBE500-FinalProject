@@ -1,0 +1,8 @@
+<map id="manipulator::ManipulatorFKROS::ManipulatorFKROS" name="manipulator::ManipulatorFKROS::ManipulatorFKROS">
+<area shape="rect" id="node1" title="Constructor for the ManipulatorFKROS class." alt="" coords="5,71,201,112"/>
+<area shape="rect" id="node2" href="$classmanipulator_1_1ManipulatorFKROS.html#a6128d19ed026ccaf8411376615118dd8" title="Initializes the node parameters." alt="" coords="249,5,436,47"/>
+<area shape="rect" id="node3" href="$classmanipulator_1_1ManipulatorFKROS.html#aa2f5382a616e8c8ab65194dbbd1543b4" title="Initializes the node publishers." alt="" coords="249,71,436,112"/>
+<area shape="rect" id="node4" href="$classmanipulator_1_1ManipulatorFKROS.html#a120857f33c4cd36d3233e89645c733e1" title="Initializes the node subscribers." alt="" coords="249,136,436,177"/>
+<area shape="rect" id="node5" href="$classmanipulator_1_1ManipulatorFKROS.html#a1b6dbfdb5e751743cd665095a967e084" title="Callback for joint angle subscriber to process end effector pose." alt="" coords="484,136,727,177"/>
+<area shape="rect" id="node6" href="$namespacehelpers.html#a5da917090510d293d870896a45584424" title="Converts an Eigen Isometry3d transform to a ROS PoseStamped message." alt="" coords="775,136,976,177"/>
+</map>

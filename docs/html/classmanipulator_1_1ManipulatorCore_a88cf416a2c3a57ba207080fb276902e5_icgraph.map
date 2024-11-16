@@ -1,0 +1,4 @@
+<map id="manipulator::ManipulatorCore::setupDHParams" name="manipulator::ManipulatorCore::setupDHParams">
+<area shape="rect" id="node1" title="Sets the DH param matrix for the OpenX Manipulator." alt="" coords="240,5,427,47"/>
+<area shape="rect" id="node2" href="$classmanipulator_1_1ManipulatorCore.html#ad9bc75c9a7d01b87061543557ed94fc4" title="Sets the initial DH parameters and IK solver." alt="" coords="5,5,192,47"/>
+</map>

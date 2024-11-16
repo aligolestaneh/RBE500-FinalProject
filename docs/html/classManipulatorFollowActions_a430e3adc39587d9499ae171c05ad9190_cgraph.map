@@ -1,0 +1,4 @@
+<map id="ManipulatorFollowActions::callIKService" name="ManipulatorFollowActions::callIKService">
+<area shape="rect" id="node1" title="Calls the IK service to get the joint angles for a given pose." alt="" coords="5,5,196,47"/>
+<area shape="rect" id="node2" href="$namespacehelpers.html#adb9c85a199ed251c1f52565f7fe3687b" title="Converts a ROS Pose message to a ROS Marker message." alt="" coords="244,13,461,39"/>
+</map>

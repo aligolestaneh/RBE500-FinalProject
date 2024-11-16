@@ -1,0 +1,6 @@
+<map id="ManipulatorFollowActions::goToPosition" name="ManipulatorFollowActions::goToPosition">
+<area shape="rect" id="node1" title="Moves the manipulator to a specified position." alt="" coords="5,39,196,80"/>
+<area shape="rect" id="node2" href="$classManipulatorFollowActions.html#a430e3adc39587d9499ae171c05ad9190" title="Calls the IK service to get the joint angles for a given pose." alt="" coords="244,5,435,47"/>
+<area shape="rect" id="node4" href="$classManipulatorFollowActions.html#af59c5fbff4a6d0ba228f32e297ae85b5" title="Moves the manipulator to a specified joint position." alt="" coords="244,71,435,112"/>
+<area shape="rect" id="node3" href="$namespacehelpers.html#adb9c85a199ed251c1f52565f7fe3687b" title="Converts a ROS Pose message to a ROS Marker message." alt="" coords="483,13,700,39"/>
+</map>

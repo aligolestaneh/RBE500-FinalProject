@@ -1,0 +1,5 @@
+<map id="manipulator::ManipulatorCore::calcResidual" name="manipulator::ManipulatorCore::calcResidual">
+<area shape="rect" id="node1" title="Function to calculate inverse kinematic equations which will beused in newton raphson method." alt="" coords="517,5,704,47"/>
+<area shape="rect" id="node2" href="$classmanipulator_1_1ManipulatorCore.html#a2dd1e5832a169682433d3c7e241f29ab" title="Function to get the joint angles as per given end effector pose." alt="" coords="264,5,469,47"/>
+<area shape="rect" id="node3" href="$classmanipulator_1_1ManipulatorCore.html#af20354476f7a05cd33bfc3f731ce42fe" title="function to update the end_effector_pose" alt="" coords="5,5,216,47"/>
+</map>

@@ -1,0 +1,6 @@
+<map id="helpers::convertRotationMatrixToRPY" name="helpers::convertRotationMatrixToRPY">
+<area shape="rect" id="node1" title="Converts an Eigen rotation matrix to Roll&#45;Pitch&#45;Yaw angles." alt="" coords="517,35,700,76"/>
+<area shape="rect" id="node2" href="$classmanipulator_1_1ManipulatorCore.html#a2dd1e5832a169682433d3c7e241f29ab" title="Function to get the joint angles as per given end effector pose." alt="" coords="264,5,469,47"/>
+<area shape="rect" id="node4" href="$basic__eigen__test_8cpp.html#a9650d9627b059427b978ed702ac9036c" title=" " alt="" coords="339,71,394,98"/>
+<area shape="rect" id="node3" href="$classmanipulator_1_1ManipulatorCore.html#af20354476f7a05cd33bfc3f731ce42fe" title="function to update the end_effector_pose" alt="" coords="5,5,216,47"/>
+</map>

@@ -1,0 +1,6 @@
+<map id="ManipulatorFollowActions::controlGripper" name="ManipulatorFollowActions::controlGripper">
+<area shape="rect" id="node1" title="Controls the gripper to a specified position." alt="" coords="483,39,673,80"/>
+<area shape="rect" id="node2" href="$classManipulatorFollowActions.html#ac5cd07b62a0f7fb2286d942531fe3a38" title="Closes the gripper." alt="" coords="244,5,435,47"/>
+<area shape="rect" id="node4" href="$classManipulatorFollowActions.html#a2ba023736597295c2edb3657c2bef480" title="Opens the gripper." alt="" coords="244,71,435,112"/>
+<area shape="rect" id="node3" href="$classManipulatorFollowActions.html#a2e530f8fe0d221a50a8a407b76ab7f83" title="Execute the sequence of actions defined in the YAML configuration." alt="" coords="5,39,196,80"/>
+</map>

@@ -1,0 +1,10 @@
+<map id="include/rbe500_final_project/manipulator_core.hpp" name="include/rbe500_final_project/manipulator_core.hpp">
+<area shape="rect" id="node1" title="Core C++ library for OpenX Manipulator kinematics." alt="" coords="110,5,267,61"/>
+<area shape="rect" id="node2" href="$helpers_8hpp.html" title="Helper functions for angle conversions and geometric transformations." alt="" coords="218,109,373,151"/>
+<area shape="rect" id="node5" title=" " alt="" coords="5,206,156,233"/>
+<area shape="rect" id="node3" title=" " alt="" coords="181,206,239,233"/>
+<area shape="rect" id="node4" title=" " alt="" coords="264,206,327,233"/>
+<area shape="rect" id="node6" title=" " alt="" coords="351,206,543,233"/>
+<area shape="rect" id="node7" title=" " alt="" coords="567,199,762,240"/>
+<area shape="rect" id="node8" title=" " alt="" coords="786,199,933,240"/>
+</map>

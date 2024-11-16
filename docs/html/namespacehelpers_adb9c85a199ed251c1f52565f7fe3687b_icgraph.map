@@ -1,0 +1,6 @@
+<map id="helpers::convertPoseToMarker" name="helpers::convertPoseToMarker">
+<area shape="rect" id="node1" title="Converts a ROS Pose message to a ROS Marker message." alt="" coords="721,13,939,39"/>
+<area shape="rect" id="node2" href="$classManipulatorFollowActions.html#a430e3adc39587d9499ae171c05ad9190" title="Calls the IK service to get the joint angles for a given pose." alt="" coords="483,5,673,47"/>
+<area shape="rect" id="node3" href="$classManipulatorFollowActions.html#a67ebc3ebe875efc0daeee5ed41d9460d" title="Moves the manipulator to a specified position." alt="" coords="244,5,435,47"/>
+<area shape="rect" id="node4" href="$classManipulatorFollowActions.html#a2e530f8fe0d221a50a8a407b76ab7f83" title="Execute the sequence of actions defined in the YAML configuration." alt="" coords="5,5,196,47"/>
+</map>

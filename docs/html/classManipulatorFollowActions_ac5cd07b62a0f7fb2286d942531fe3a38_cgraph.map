@@ -1,0 +1,4 @@
+<map id="ManipulatorFollowActions::closeGripper" name="ManipulatorFollowActions::closeGripper">
+<area shape="rect" id="node1" title="Closes the gripper." alt="" coords="5,5,196,47"/>
+<area shape="rect" id="node2" href="$classManipulatorFollowActions.html#afa256b195d75a0e8f1e3adea527a2688" title="Controls the gripper to a specified position." alt="" coords="244,5,435,47"/>
+</map>

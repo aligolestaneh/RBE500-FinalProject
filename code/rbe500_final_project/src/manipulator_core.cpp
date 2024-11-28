@@ -1,5 +1,5 @@
 #include <rbe500_final_project/manipulator_core.hpp>
-
+#include <iostream>
 using namespace manipulator;
 
 ManipulatorCore::ManipulatorCore()
@@ -29,7 +29,6 @@ bool ManipulatorCore::setup(const Eigen::VectorXd &link_length, bool use_newtonR
         return false;
 
     link_lengths_ = link_length;
-    // std::cout<<" Link Lengths are: \n"<<link_lengths_<<std::endl;
     // setupDHParams
     this->setupDHParams(link_lengths_, joint_angles_);
     // set init true
@@ -247,44 +246,44 @@ Eigen::MatrixXd ManipulatorCore::calcVelocityJacobian() const
                                               this->getHomogeneousMat(2) *
                                               this->getHomogeneousMat(3));
 
+    Eigen::Isometry3d H_4 = Eigen::Isometry3d(this->getHomogeneousMat(0) *
+                                              this->getHomogeneousMat(1) *
+                                              this->getHomogeneousMat(2) *
+                                              this->getHomogeneousMat(3) *
+                                              this->getHomogeneousMat(4));
+
     Eigen::Isometry3d H_5 = this->calcEndEffectorPose();
 
-    // Extract rotation matrices
-    Eigen::Matrix3d R_1 = H_1.rotation();
-    Eigen::Matrix3d R_2 = H_2.rotation();
-    Eigen::Matrix3d R_3 = H_3.rotation();
-
     // Extract origins
-    Eigen::Vector3d O_0 = Eigen::Vector3d::Zero(); // Base frame origin
     Eigen::Vector3d O_1 = H_1.translation();
     Eigen::Vector3d O_2 = H_2.translation();
     Eigen::Vector3d O_3 = H_3.translation();
+    Eigen::Vector3d O_4 = H_4.translation();
     Eigen::Vector3d O_5 = H_5.translation();
 
     // Extract z-axis for each joint (z-axis of each joint's coordinate frame)
-    Eigen::Vector3d z_0 = Eigen::Vector3d::UnitZ(); // Base z-axis
-    Eigen::Vector3d z_1 = R_1 * Eigen::Vector3d::UnitZ();
-    Eigen::Vector3d z_2 = R_2 * Eigen::Vector3d::UnitZ();
-    Eigen::Vector3d z_3 = R_3 * Eigen::Vector3d::UnitZ();
+    Eigen::Vector3d z_1 = H_1.rotation() * Eigen::Vector3d::UnitZ();
+    Eigen::Vector3d z_2 = H_2.rotation() * Eigen::Vector3d::UnitZ();
+    Eigen::Vector3d z_3 = H_3.rotation() * Eigen::Vector3d::UnitZ();
+    Eigen::Vector3d z_4 = H_4.rotation() * Eigen::Vector3d::UnitZ();
 
     // Calculate Jacobian columns
-    Eigen::Vector3d col1 = z_0.cross(O_5 - O_0);
-    Eigen::Vector3d col2 = z_1.cross(O_5 - O_1);
-    Eigen::Vector3d col3 = z_2.cross(O_5 - O_2);
-    Eigen::Vector3d col4 = z_3.cross(O_5 - O_3);
+    Eigen::Vector3d col1 = z_1.cross(O_5 - O_1);
+    Eigen::Vector3d col2 = z_2.cross(O_5 - O_2);
+    Eigen::Vector3d col3 = z_3.cross(O_5 - O_3);
+    Eigen::Vector3d col4 = z_4.cross(O_5 - O_4);
 
     // Populate velocity Jacobian
-    // First 3 rows are linear velocities (cross products)
     velocity_jacobian.block<3, 1>(0, 0) = col1;
     velocity_jacobian.block<3, 1>(0, 1) = col2;
     velocity_jacobian.block<3, 1>(0, 2) = col3;
     velocity_jacobian.block<3, 1>(0, 3) = col4;
 
     // Last 3 rows are rotational axes
-    velocity_jacobian.block<3, 1>(3, 0) = z_0;
-    velocity_jacobian.block<3, 1>(3, 1) = z_1;
-    velocity_jacobian.block<3, 1>(3, 2) = z_2;
-    velocity_jacobian.block<3, 1>(3, 3) = z_3;
+    velocity_jacobian.block<3, 1>(3, 0) = z_1;
+    velocity_jacobian.block<3, 1>(3, 1) = z_2;
+    velocity_jacobian.block<3, 1>(3, 2) = z_3;
+    velocity_jacobian.block<3, 1>(3, 3) = z_4;
     return velocity_jacobian;
 }
 
@@ -301,7 +300,6 @@ bool ManipulatorCore::updateJointVelocities(const Eigen::VectorXd &joint_velocit
 
     velocity_jacobian_ = this->calcVelocityJacobian();
     ee_twist_ = velocity_jacobian_ * joint_velocities;
-
     joint_velocities_ = joint_velocities;
 
     return true;
@@ -314,7 +312,6 @@ bool ManipulatorCore::updateEndEffectorTwist(const Eigen::VectorXd &ee_twist)
 
     velocity_jacobian_ = this->calcVelocityJacobian();
     inverse_velocity_jacobian_ = this->calcPseudoInverseVelocityJacobian(velocity_jacobian_);
-
     joint_velocities_ = inverse_velocity_jacobian_ * ee_twist;
     ee_twist_ = ee_twist;
 
@@ -325,7 +322,6 @@ Eigen::VectorXd ManipulatorCore::getJointVelocities() const
 {
     return joint_velocities_;
 }
-
 
 Eigen::VectorXd ManipulatorCore::getEndEffectorTwist() const
 {

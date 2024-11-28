@@ -51,7 +51,6 @@ namespace manipulator
             this->declare_parameter("link_lengths." + link_names[i], 0.1); // using default value of 0.1m
             this->get_parameter("link_lengths." + link_names[i], link_length_(i));
 
-            // RCLCPP_INFO(this->get_logger(), "Link[%s] value: %f", link_names[i].c_str(),link_length_[i]);
         }
 
         RCLCPP_INFO(this->get_logger(), "link_names Size: %ld", link_names.size());
@@ -74,27 +73,14 @@ namespace manipulator
     void ManipulatorIKROS::onServiceCB(const std::shared_ptr<rbe500_final_project_msgs::srv::GetJointAngles::Request> request,
                                        std::shared_ptr<rbe500_final_project_msgs::srv::GetJointAngles::Response> response)
     {
-        // RCLCPP_INFO(this->get_logger(), "Recieved Data as: X: %f", request->end_effector_pose.position.x);
-        // RCLCPP_INFO(this->get_logger(), "Recieved Data as: Y: %f", request->end_effector_pose.position.y);
-        // RCLCPP_INFO(this->get_logger(), "Recieved Data as: Z: %f", request->end_effector_pose.position.z);
-        // RCLCPP_INFO(this->get_logger(), "Recieved Data as: QX: %f", request->end_effector_pose.orientation.x);
-        // RCLCPP_INFO(this->get_logger(), "Recieved Data as: QY: %f", request->end_effector_pose.orientation.y);
-        // RCLCPP_INFO(this->get_logger(), "Recieved Data as: QZ: %f", request->end_effector_pose.orientation.z);
-        // RCLCPP_INFO(this->get_logger(), "Recieved Data as: QW: %f", request->end_effector_pose.orientation.w);
-
+        
         end_effector_pose_ = helpers::convertPosetoIsometry3d(request->end_effector_pose);
         response->success = manipulator_->updateEndEffectorPose(end_effector_pose_);
         if (response->success)
         {
             joint_angles_ = manipulator_->getJointAngles();
-            // std::cout << " Pose T: \n"
-            //           << end_effector_pose_.translation() << std::endl;
-            // std::cout << " Pose R: \n"
-            //           << end_effector_pose_.rotation() << std::endl;
-
-            // std::cout << "Calculated J: \n"
-            //           << joint_angles_ << std::endl;
-            for (unsigned long int i = 0; i < joint_angles_.size(); i++)
+            
+            for (long int i = 0; i < joint_angles_.size(); i++)
                 response->joint_angles.push_back(joint_angles_[i]);
 
             response->msg = "IK solved";

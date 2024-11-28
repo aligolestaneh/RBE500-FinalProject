@@ -82,7 +82,7 @@ TEST(ManipulatorCore, FKHomePose)
     // joint angles
     // q0 : 0 , q1: 0, q2: 0, q3: 0
     joint_angles << 0.0, 0.0, 0.0, 0.0;
-    bool updated = manipulator.updateJointAngles(joint_angles);
+    manipulator.updateJointAngles(joint_angles);
     Eigen::Isometry3d pose = manipulator.getEndEffectorPose();
 
     // Found these values from simualtions

@@ -175,6 +175,8 @@ namespace manipulator
 
         /** @brief Function to calculate velocity Jacobian to be used in converting joint velcoities to end effector twist
          * @brief it takes current updated end effector pose and joint angles
+         * [z_1x(O_5-O1)  z_2x(O_5-O1) z_3x(O_5-O1) z_4x(O_5-O1)]
+         * [z1              z_2         z_3            z_4      ]
          * @return Jacobian to convert joint_angles to end effector twist
          */
         Eigen::MatrixXd calcVelocityJacobian() const;

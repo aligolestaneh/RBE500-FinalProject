@@ -137,21 +137,29 @@ TEST(BasicEigenOperation, pseudo_inverse_sanity)
         0.1750, 0.1250, 0.0750, 0.0250, -0.0250, -0.0750;
 
     double epsilon = 1e-6;
-    double tolerance = 1e-3;
-    // EXPECT_TRUE(expected_pseudoInverse.isApprox(pseudoInverse, tolerance)) << " Pseudo Inverse is not correct";
     
-    Eigen::Vector4d q(1,2,3,4);
+    // EXPECT_TRUE(expected_pseudoInverse.isApprox(pseudoInverse, tolerance)) << " Pseudo Inverse is not correct";
+
+    Eigen::Vector4d q(1, 2, 3, 4);
     Eigen::VectorXd twist(6);
     Eigen::VectorXd expected_twist(6);
-    expected_twist<< 30,70,110,150,190,230;
-    twist = jacobian*q;
+    expected_twist << 30, 70, 110, 150, 190, 230;
+    twist = jacobian * q;
 
-    EXPECT_TRUE(expected_twist.isApprox(twist,epsilon))<<"Calculated Twist is not correct!";
+    EXPECT_TRUE(expected_twist.isApprox(twist, epsilon)) << "Calculated Twist is not correct!";
+    Eigen::JacobiSVD<Eigen::MatrixXd> svd(
+        jacobian,
+        Eigen::ComputeThinU | Eigen::ComputeThinV);
 
     Eigen::Vector4d new_q;
-    new_q = pseudoInverse*twist;
+    new_q = pseudoInverse * twist;
+
+    // Eigen::Vector4d new_q2;
+    // new_q2 = newP_inverse*twist;
     
-    EXPECT_TRUE(q.isApprox(new_q,epsilon))<<"Calculated New Q is not correct!";
+    EXPECT_TRUE(q.isApprox(new_q, epsilon)) << "Calculated New Q is not correct!";
+
+    // EXPECT_TRUE(q.isApprox(new_q2, epsilon)) << "Calculated New Q2 is not correct!";
 }
 TEST(BasicEigenOperation, isometry_to_rotation)
 {

@@ -41,7 +41,8 @@ TEST(ManipulatorCore, UpdateAndGetJointAngles)
     Eigen::VectorXd link_lengths(6);
     link_lengths << 0.036076, 0.06025, 0.128, 0.024, 0.124, 0.1334;
     bool setup_success = manipulator.setup(link_lengths, true);
-    std::cout << "---------- setup: " << setup_success << std::endl;
+    
+    // std::cout << "---------- setup: " << setup_success << std::endl;
 
     update_success = manipulator.updateJointAngles(joint_angles);
 
@@ -71,7 +72,7 @@ TEST(ManipulatorCore, FKHomePose)
     Eigen::VectorXd link_lengths(6);
     link_lengths << 0.036076, 0.06025, 0.128, 0.024, 0.124, 0.1334;
     bool setup_success = manipulator.setup(link_lengths, true);
-
+    ASSERT_TRUE(setup_success);
     Eigen::VectorXd joint_angles(4);
 
     // TEST HOME
@@ -104,7 +105,7 @@ TEST(ManipulatorCore, FKRandomPose1)
     Eigen::VectorXd link_lengths(6);
     link_lengths << 0.036076, 0.06025, 0.128, 0.024, 0.124, 0.1334;
     bool setup_success = manipulator.setup(link_lengths, true);
-
+    ASSERT_TRUE(setup_success);
     Eigen::VectorXd joint_angles(4);
 
     // Test1
@@ -137,7 +138,7 @@ TEST(ManipulatorCore, FKRandomPose2)
     Eigen::VectorXd link_lengths(6);
     link_lengths << 0.036076, 0.06025, 0.128, 0.024, 0.124, 0.1334;
     bool setup_success = manipulator.setup(link_lengths, true);
-
+    ASSERT_TRUE(setup_success);
     Eigen::VectorXd joint_angles(4);
 
     // Test2
@@ -173,7 +174,7 @@ TEST(ManipulatorCore, GetHomeJointAngles)
     Eigen::VectorXd link_lengths(6);
     link_lengths << 0.036076, 0.06025, 0.128, 0.024, 0.124, 0.1334;
     bool setup_success = manipulator.setup(link_lengths, true);
-
+    ASSERT_TRUE(setup_success);
     Eigen::VectorXd expected_joint_angles(4);
 
     // TEST HOME
@@ -199,10 +200,10 @@ TEST(ManipulatorCore, GetHomeJointAngles)
     EXPECT_TRUE(updated) << " Newton raphson method should find the solution";
 
     Eigen::VectorXd joint_angles = manipulator.getJointAngles();
-    std::cout << "Calculated J: \n"
-              << joint_angles << std::endl;
-    std::cout << "Expected J: \n"
-              << expected_joint_angles << std::endl;
+    // std::cout << "Calculated J: \n"
+    //           << joint_angles << std::endl;
+    // std::cout << "Expected J: \n"
+    //           << expected_joint_angles << std::endl;
     double tolerance = 1e-2;
     Eigen::VectorXd joint_angle_diff;
     joint_angle_diff = expected_joint_angles - joint_angles;
@@ -221,7 +222,7 @@ TEST(ManipulatorCore, IKJointAngles1)
     Eigen::VectorXd link_lengths(6);
     link_lengths << 0.036076, 0.06025, 0.128, 0.024, 0.124, 0.1334;
     bool setup_success = manipulator.setup(link_lengths, true);
-
+    ASSERT_TRUE(setup_success);
     Eigen::VectorXd expected_joint_angles(4);
 
     // Test1
@@ -248,16 +249,16 @@ TEST(ManipulatorCore, IKJointAngles1)
 
     Eigen::VectorXd joint_angles = manipulator.getJointAngles();
     
-    std::cout<<" TRanslation T: \n"<<translation<<std::endl;
-    std::cout<<" quaternion: \n"<<quaternion<<std::endl;
+    // std::cout<<" TRanslation T: \n"<<translation<<std::endl;
+    // std::cout<<" quaternion: \n"<<quaternion<<std::endl;
     
-    std::cout<<" Pose T: \n"<<pose.translation()<<std::endl;
-    std::cout<<" Pose R: \n"<<pose.rotation()<<std::endl;
+    // std::cout<<" Pose T: \n"<<pose.translation()<<std::endl;
+    // std::cout<<" Pose R: \n"<<pose.rotation()<<std::endl;
     
-    std::cout << "Calculated J: \n"
-              << joint_angles << std::endl;
-    std::cout << "Expected J: \n"
-              << expected_joint_angles << std::endl;
+    // std::cout << "Calculated J: \n"
+    //           << joint_angles << std::endl;
+    // std::cout << "Expected J: \n"
+    //           << expected_joint_angles << std::endl;
     double tolerance = 1e-2;
     Eigen::VectorXd joint_angle_diff;
     joint_angle_diff = expected_joint_angles - joint_angles;
@@ -276,6 +277,7 @@ TEST(ManipulatorCore, IKJointAngles2)
     Eigen::VectorXd link_lengths(6);
     link_lengths << 0.036076, 0.06025, 0.128, 0.024, 0.124, 0.1334;
     bool setup_success = manipulator.setup(link_lengths, true);
+    ASSERT_TRUE(setup_success);
 
     Eigen::VectorXd expected_joint_angles(4);
 
@@ -304,10 +306,10 @@ TEST(ManipulatorCore, IKJointAngles2)
     EXPECT_TRUE(updated) << " Newton raphson method should find the solution";
 
     Eigen::VectorXd joint_angles = manipulator.getJointAngles();
-    std::cout << "Calculated J: \n"
-              << joint_angles << std::endl;
-    std::cout << "Expected J: \n"
-              << expected_joint_angles << std::endl;
+    // std::cout << "Calculated J: \n"
+    //           << joint_angles << std::endl;
+    // std::cout << "Expected J: \n"
+    //           << expected_joint_angles << std::endl;
     double tolerance = 1e-2;
     Eigen::VectorXd joint_angle_diff;
     joint_angle_diff = expected_joint_angles - joint_angles;
@@ -317,4 +319,101 @@ TEST(ManipulatorCore, IKJointAngles2)
 
         EXPECT_LE(std::fabs(joint_angle_diff(i)), tolerance) << "Joint angles are not under tolerance";
     }
+}
+
+TEST(ManipulatorCore, FVZeroVelocity)
+{
+    manipulator::ManipulatorCore manipulator;
+    Eigen::VectorXd link_lengths(6);
+    link_lengths << 0.036076, 0.06025, 0.128, 0.024, 0.124, 0.1334;
+    bool setup_success = manipulator.setup(link_lengths, true);
+    ASSERT_TRUE(setup_success);
+    Eigen::VectorXd joint_angles(4);
+    joint_angles << 0.0, 0.0, 0.0, 0.0;
+    bool updated = manipulator.updateJointAngles(joint_angles);
+    EXPECT_TRUE(updated);
+
+    Eigen::VectorXd joint_velocities = Eigen::VectorXd::Zero(4);
+
+    Eigen::VectorXd expected_ee_twist= Eigen::VectorXd::Zero(6);
+
+    updated = manipulator.updateJointVelocities(joint_velocities);
+
+    EXPECT_TRUE(updated);
+
+    Eigen::VectorXd ee_twist = manipulator.getEndEffectorTwist();
+
+    std::cout<<" Expected Twist: \n"<<expected_ee_twist<<std::endl;
+    std::cout<<" Calc Twist: \n"<<ee_twist<<std::endl;
+
+    double tolerance = 1e-3;
+    ASSERT_TRUE(expected_ee_twist.isApprox(ee_twist,tolerance));
+
+}
+
+TEST(ManipulatorCore, IKVZeroVelocity)
+{
+    manipulator::ManipulatorCore manipulator;
+    Eigen::VectorXd link_lengths(6);
+    link_lengths << 0.036076, 0.06025, 0.128, 0.024, 0.124, 0.1334;
+    bool setup_success = manipulator.setup(link_lengths, true);
+    ASSERT_TRUE(setup_success);
+    Eigen::VectorXd joint_angles(4);
+    joint_angles << 0.0, 0.0, 0.0, 0.0;
+    bool updated = manipulator.updateJointAngles(joint_angles);
+    EXPECT_TRUE(updated);
+
+    Eigen::VectorXd expected_joint_velocities = Eigen::VectorXd::Zero(4);
+
+    Eigen::VectorXd ee_twist= Eigen::VectorXd::Zero(6);
+
+    updated = manipulator.updateEndEffectorTwist(ee_twist);
+
+    EXPECT_TRUE(updated);
+
+    Eigen::VectorXd joint_velocities = manipulator.getJointVelocities();
+    
+    std::cout<<" Expected J vel: \n"<<expected_joint_velocities<<std::endl;
+    std::cout<<" Calc J vel: \n"<<joint_velocities<<std::endl;
+
+    double tolerance = 1e-3;
+    ASSERT_TRUE(expected_joint_velocities.isApprox(joint_velocities,tolerance));
+
+}
+
+
+
+TEST(ManipulatorCore, FKVandIKVCombined)
+{
+    manipulator::ManipulatorCore manipulator;
+    Eigen::VectorXd link_lengths(6);
+    link_lengths << 0.036076, 0.06025, 0.128, 0.024, 0.124, 0.1334;
+    bool setup_success = manipulator.setup(link_lengths, true);
+    
+    ASSERT_TRUE(setup_success);
+    Eigen::VectorXd joint_angles(4);
+    joint_angles << 0.0, 0.0, 0.0, 0.0;
+    
+    manipulator.updateJointAngles(joint_angles);
+    
+
+    Eigen::VectorXd joint_velocities = Eigen::Vector4d(0.1,0.0,0.0,0.0);
+
+    Eigen::VectorXd ee_twist= Eigen::VectorXd::Zero(6);
+
+    manipulator.updateJointVelocities(joint_velocities);
+
+    ee_twist = manipulator.getEndEffectorTwist();
+
+    manipulator.updateEndEffectorTwist(ee_twist);
+
+    Eigen::VectorXd inv_joint_vel = manipulator.getJointVelocities();    
+
+    std::cout<<" init J vel: \n"<<joint_velocities<<std::endl;
+    std::cout<<" Twist: \n"<<ee_twist<<std::endl;
+    std::cout<<" Calc J vel: \n"<<inv_joint_vel<<std::endl;
+
+    double tolerance = 1e-1;
+    ASSERT_TRUE(joint_velocities.isApprox(inv_joint_vel,tolerance));
+
 }

@@ -76,6 +76,37 @@ namespace manipulator
          */
         Eigen::Isometry3d getEndEffectorPose() const;
 
+        
+        /** @brief function to update the ee_twist
+         * @brief It finds the given joint velocties using Pseudo Inverse of velocity jacobian
+         * @brief Make sure to update the current end_effector_pose before calling this function
+         * @brief use getJointVelocities() function after this function call to get updated joint velocity
+         * @param ee_twist: A 6x1 Twist(linear_velocity, angular_velocity)[vx,vy,vz,wx,wy,wz]of End effector
+         * @return True: If its able to find the joint velocities using Pseudo Inverse of velocity jacobian
+         * @return False: Otherwise
+         */
+        bool updateEndEffectorTwist(const Eigen::VectorXd &ee_twist);
+
+        /** @brief Function to get the current set joint velocities
+         * @return join_velocities VEctor: A 4x1 Matrix having all four joint velocities,
+         */
+        Eigen::VectorXd getJointVelocities() const;
+
+        /** @brief function to update the end_effector velocity
+         * @brief It will calc the ee_twist_ using velcoity_jacobian
+         * @brief Make sure to update the current  end_effector_pose before calling this function
+         * @brief use getEndEffectorTwist() function after this function call to get end-effector twist
+         * @param joint_velocities: A 4x1 column vector having joint angles as [q1_dot,q2_dot,q3_dot,q4_dot]^T
+         * @return True: If joint velocities are reasonable and its able to find the End effector twist
+         * @return False: otherwise
+         */
+        bool updateJointVelocities(const Eigen::VectorXd &joint_velocities);
+
+        /** @brief Function to get the end effector twisr
+         * @return ee_twist: An 6x1  Matrix having both linear and angular velocity values [Linear, Angular]^T
+         */
+        Eigen::VectorXd getEndEffectorTwist() const;
+
     private:
         /**
          * @brief Sets the DH param matrix for the OpenX Manipulator
@@ -142,11 +173,29 @@ namespace manipulator
          */
         Eigen::Matrix3d calcJacobian(const Eigen::Vector3d &q_values, const Eigen::Vector4d &coeffs) const;
 
+        /** @brief Function to calculate velocity Jacobian to be used in converting joint velcoities to end effector twist
+         * @brief it takes current updated end effector pose and joint angles
+         * @return Jacobian to convert joint_angles to end effector twist
+         */
+        Eigen::MatrixXd calcVelocityJacobian() const;
+
+        /** @brief Function to calculate Psuedo inverse of velocity Jacobian to be used in converting end effector twist to joint velcoities
+         * @param velocity_jacobian: current velocity jacobian matrix
+         * @return Psuedo inverse of velocity_jacobian
+         */
+        Eigen::MatrixXd calcPseudoInverseVelocityJacobian(const Eigen::MatrixXd& velocity_jacobian) const;
+
         /** @brief Column vector to store the link lengths as [l1,l2,l3,l4]^T */
         Eigen::VectorXd link_lengths_;
 
         /** @brief Column vector to store the joint angles as [q1,q2,q3,q4]^T */
         Eigen::VectorXd joint_angles_; // Function to compute the residual vector
+
+        /** @brief Column vector to store the joint velocities as [q1_dot,q2_dot,q3_dot,q4_dot]^T */
+        Eigen::VectorXd joint_velocities_; // Function to compute the residual vector
+
+        /** @brief Column vector to store the end effector twist as [vx,vy,vz,wx,wy,wz]^T */
+        Eigen::VectorXd ee_twist_;
 
         /** 
          * @brief 5x4 matrix to store the DH params:
@@ -167,8 +216,11 @@ namespace manipulator
         /** @brief A Eigen Quaternion var to store the end effector orientation as a quaternion */
         Eigen::Quaterniond end_effector_orientation_;
 
-        /** @brief A Eigen MatrixXd var to store the Jacobian  matrix for the end effector pose */
-        Eigen::MatrixXd jacobian_;
+        /** @brief A Eigen MatrixXd var to store the velocity Jacobian  matrix for the end effector Twist*/
+        Eigen::MatrixXd velocity_jacobian_;
+
+        /** @brief A Eigen MatrixXd var to store the Pseudo Jacobian  matrix for the joint velocities */
+        Eigen::MatrixXd inverse_velocity_jacobian_;
 
         /** @brief A boolean flag to che if Dh param intialization  */
         bool is_intialized_;

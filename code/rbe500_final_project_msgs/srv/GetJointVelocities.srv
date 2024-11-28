@@ -1,0 +1,5 @@
+geometry_msgs/Twist end_effector_twist
+---
+float64[]  joint_velocities
+string msg
+bool success

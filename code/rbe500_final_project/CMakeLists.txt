@@ -89,7 +89,7 @@ target_link_libraries(manipulator_follow_actions_lib ${YAML_CPP_LIBRARIES})
 ament_target_dependencies(manipulator_follow_actions_lib ${DEPENDENCIES})
 
 ##Joint Position UPdater lib
-add_library(manipulator_jp_updater_lib
+add_library(manipulator_jp_updater_ros_lib
   "src/manipulator_jp_updater_ros.cpp"
 )
 set(DEPENDENCIES
@@ -101,8 +101,8 @@ set(DEPENDENCIES
   "rclcpp"
   "visualization_msgs"
 )
-target_link_libraries(manipulator_jp_updater_lib ${YAML_CPP_LIBRARIES})
-ament_target_dependencies(manipulator_jp_updater_lib ${DEPENDENCIES})
+target_link_libraries(manipulator_jp_updater_ros_lib ${YAML_CPP_LIBRARIES})
+ament_target_dependencies(manipulator_jp_updater_ros_lib ${DEPENDENCIES})
 ################################################################################
 # Build Executables
 ################################################################################
@@ -126,6 +126,13 @@ add_executable(manipulator_follow_actions_node
 )
 target_link_libraries(manipulator_follow_actions_node manipulator_follow_actions_lib)
 ament_target_dependencies(manipulator_follow_actions_node ${DEPENDENCIES})
+
+#ROS Node for Joint Position updater
+add_executable(manipulator_jp_updater_node 
+  src/manipulator_jp_updater_node.cpp
+)
+target_link_libraries(manipulator_jp_updater_node manipulator_jp_updater_ros_lib)
+ament_target_dependencies(manipulator_jp_updater_node ${DEPENDENCIES})
 
 ################################################################################
 # Install

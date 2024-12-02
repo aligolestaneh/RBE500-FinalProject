@@ -19,6 +19,7 @@
 #include <rclcpp/rclcpp.hpp>
 #include <sensor_msgs/msg/joint_state.hpp>
 #include <open_manipulator_msgs/srv/set_joint_position.hpp>
+#include <rbe500_final_project_msgs/msg/joint_velocity.hpp>
 
 namespace manipulator
 {
@@ -48,19 +49,33 @@ namespace manipulator
         void initServiceClients();
 
         /**
+         * @brief Target Joint velocity subscriber
+         * @details Subscribes to /target_joint_velocities topic and receives joint velociteis in radians/second
+         */
+        rclcpp::Subscription<rbe500_final_project_msgs::msg::JointVelocity>::SharedPtr target_joint_sub_;
+
+        /**
          * @brief Joint angle subscriber
          * @details Subscribes to /joint_angles topic and receives joint angles in radians
          */
-        rclcpp::Subscription<sensor_msgs::msg::JointState>::SharedPtr joint_sub_;
+        rclcpp::Subscription<sensor_msgs::msg::JointState>::SharedPtr current_joint_sub_;
 
         /** @brief Service client for joint position service */
         rclcpp::Client<open_manipulator_msgs::srv::SetJointPosition>::SharedPtr joint_position_client_;
 
+
         /**
-         * @brief Callback for joint velocity subscriber to update joint angles
+         * @brief Callback for target joint velocity subscriber to update joint angles
          * @param input_msg The incoming joint velocity message
          */
-        void onSubscriberJointVelocityCB(sensor_msgs::msg::JointState::ConstSharedPtr input_msg);
+        void onSubscriberTargetJointVelocityCB(rbe500_final_project_msgs::msg::JointVelocity::ConstSharedPtr input_msg);
+
+        /**
+         * @brief Callback for current joint angle subscriber to update joint angles
+         * @param input_msg The incoming joint state message
+         */
+        void onSubscriberJointAngleCB(sensor_msgs::msg::JointState::ConstSharedPtr input_msg);
+        
 
         /**
          * @brief Moves the manipulator to a specified joint position
@@ -71,7 +86,9 @@ namespace manipulator
 
         rclcpp::Time last_msg_time_;
         bool first_msg_;
-        std::vector<double> joint_angles_;
+        std::vector<double> target_joint_angles_;
+        std::vector<double> current_joint_angles_;
+
     }; // ManipulatorJjoinPositionUpdater
 }
 #endif // RBE500_FINAL_PROJECT_PKG_MANIPULATOR_JP_UPDATER_ROS_HPP_

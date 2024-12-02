@@ -17,11 +17,9 @@ find_package(rosidl_default_generators REQUIRED)
 ################################################################################
 # Declare ROS messages, services and actions
 ################################################################################
-# set(msg_files
-#   "msg/JointPosition.msg"
-#   "msg/KinematicsPose.msg"
-#   "msg/OpenManipulatorState.msg"
-# )
+set(msg_files
+  "msg/JointVelocity.msg"
+)
 
 set(srv_files
   "srv/GetJointAngles.srv"
@@ -30,7 +28,7 @@ set(srv_files
 )
 
 rosidl_generate_interfaces(${PROJECT_NAME}
-  # ${msg_files}
+  ${msg_files}
   ${srv_files}
   DEPENDENCIES std_msgs geometry_msgs
 )

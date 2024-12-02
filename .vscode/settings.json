@@ -1,0 +1,18 @@
+{
+    "python.autoComplete.extraPaths": [
+        "/root/ros2_space/RBE500/final_project_ws/install/rbe500_final_project_msgs/local/lib/python3.10/dist-packages",
+        "/root/ros2_space/RBE500/final_project_ws/install/rbe500_example_py/lib/python3.10/site-packages",
+        "/root/ros2_space/RBE500/final_project_ws/install/open_manipulator_msgs/local/lib/python3.10/dist-packages",
+        "/root/ros2_space/RBE500/final_project_ws/install/dynamixel_sdk_custom_interfaces/local/lib/python3.10/dist-packages",
+        "/opt/ros/humble/local/lib/python3.10/dist-packages",
+        "/opt/ros/humble/lib/python3.10/site-packages"
+    ],
+    "python.analysis.extraPaths": [
+        "/root/ros2_space/RBE500/final_project_ws/install/rbe500_final_project_msgs/local/lib/python3.10/dist-packages",
+        "/root/ros2_space/RBE500/final_project_ws/install/rbe500_example_py/lib/python3.10/site-packages",
+        "/root/ros2_space/RBE500/final_project_ws/install/open_manipulator_msgs/local/lib/python3.10/dist-packages",
+        "/root/ros2_space/RBE500/final_project_ws/install/dynamixel_sdk_custom_interfaces/local/lib/python3.10/dist-packages",
+        "/opt/ros/humble/local/lib/python3.10/dist-packages",
+        "/opt/ros/humble/lib/python3.10/site-packages"
+    ]
+}

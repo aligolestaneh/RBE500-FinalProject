@@ -117,7 +117,7 @@ set(DEPENDENCIES
   "rclcpp"
   "visualization_msgs"
 )
-target_link_libraries(manipulator_vlk_ros_lib ${YAML_CPP_LIBRARIES})
+target_link_libraries(manipulator_vlk_ros_lib  manipulator_core_lib)
 ament_target_dependencies(manipulator_vlk_ros_lib ${DEPENDENCIES})
 ################################################################################
 # Build Executables
@@ -150,10 +150,22 @@ add_executable(manipulator_jp_updater_node
 target_link_libraries(manipulator_jp_updater_node manipulator_jp_updater_ros_lib)
 ament_target_dependencies(manipulator_jp_updater_node ${DEPENDENCIES})
 
+
+#ROS Node for Joint Velocity Kinematics
+add_executable(manipulator_vlk_node 
+  src/manipulator_vlk_node.cpp
+)
+target_link_libraries(manipulator_vlk_node manipulator_vlk_ros_lib)
+ament_target_dependencies(manipulator_vlk_node ${DEPENDENCIES})
+
 ################################################################################
 # Install
 ################################################################################
-install(TARGETS manipulator_ik_node manipulator_fk_node manipulator_follow_actions_node
+install(TARGETS manipulator_ik_node 
+                manipulator_fk_node 
+                manipulator_follow_actions_node 
+                manipulator_jp_updater_node 
+                manipulator_vlk_node
   DESTINATION lib/${PROJECT_NAME}
 )
 

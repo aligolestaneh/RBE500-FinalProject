@@ -1,0 +1,34 @@
+{
+  "configurations": [
+    {
+      "browse": {
+        "databaseFilename": "${default}",
+        "limitSymbolsToIncludedHeaders": false
+      },
+      "includePath": [
+        "/root/ros2_space/RBE500/final_project_ws/install/open_manipulator_x_libs/include/**",
+        "/root/ros2_space/RBE500/final_project_ws/install/robotis_manipulator/include/**",
+        "/root/ros2_space/RBE500/final_project_ws/install/rbe500_final_project_msgs/include/**",
+        "/root/ros2_space/RBE500/final_project_ws/install/open_manipulator_msgs/include/**",
+        "/root/ros2_space/RBE500/final_project_ws/install/dynamixel_workbench_toolbox/include/**",
+        "/root/ros2_space/RBE500/final_project_ws/install/dynamixel_sdk_custom_interfaces/include/**",
+        "/root/ros2_space/RBE500/final_project_ws/install/dynamixel_sdk/include/**",
+        "/opt/ros/humble/include/**",
+        "/root/ros2_space/RBE500/final_project_ws/src/OpenManipulatorX_ROS2/DynamixelSDK/dynamixel_sdk/include/**",
+        "/root/ros2_space/RBE500/final_project_ws/src/OpenManipulatorX_ROS2/DynamixelSDK/dynamixel_sdk_examples/include/**",
+        "/root/ros2_space/RBE500/final_project_ws/src/OpenManipulatorX_ROS2/dynamixel-workbench/dynamixel_workbench_toolbox/include/**",
+        "/root/ros2_space/RBE500/final_project_ws/src/OpenManipulatorX_ROS2/open_manipulator/open_manipulator_x_controller/include/**",
+        "/root/ros2_space/RBE500/final_project_ws/src/OpenManipulatorX_ROS2/open_manipulator/open_manipulator_x_libs/include/**",
+        "/root/ros2_space/RBE500/final_project_ws/src/OpenManipulatorX_ROS2/robotis_manipulator/include/**",
+        "/root/ros2_space/RBE500/final_project_ws/src/RBE500-FinalProject/code/rbe500_final_project/include/**",
+        "/usr/include/**"
+      ],
+      "name": "ROS",
+      "intelliSenseMode": "gcc-x64",
+      "compilerPath": "/usr/bin/gcc",
+      "cStandard": "gnu11",
+      "cppStandard": "c++14"
+    }
+  ],
+  "version": 4
+}

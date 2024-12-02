@@ -14,6 +14,8 @@
 #include <memory>
 #include <string>
 #include <cmath>
+#include <mutex>
+
 
 // ROS 2 core inlcudes
 #include <rclcpp/rclcpp.hpp>
@@ -88,6 +90,8 @@ namespace manipulator
         bool first_msg_;
         std::vector<double> target_joint_angles_;
         std::vector<double> current_joint_angles_;
+
+        std::mutex joint_angles_mutex_; 
 
     }; // ManipulatorJjoinPositionUpdater
 }

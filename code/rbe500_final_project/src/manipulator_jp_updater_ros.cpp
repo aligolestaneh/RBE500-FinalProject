@@ -27,7 +27,7 @@ void ManipulatorJPUpdaterROS::initServiceClients()
 }
 void ManipulatorJPUpdaterROS::onSubscriberJointAngleCB(sensor_msgs::msg::JointState::ConstSharedPtr input_msg)
 {
-    // TODO this section
+    std::lock_guard<std::mutex> lock(joint_angles_mutex_);
     current_joint_angles_[0] = input_msg->position.at(0);
     current_joint_angles_[1] = input_msg->position.at(1);
     current_joint_angles_[2] = input_msg->position.at(2);
@@ -35,12 +35,11 @@ void ManipulatorJPUpdaterROS::onSubscriberJointAngleCB(sensor_msgs::msg::JointSt
 }
 void ManipulatorJPUpdaterROS::onSubscriberTargetJointVelocityCB(rbe500_final_project_msgs::msg::JointVelocity::ConstSharedPtr input_msg)
 {
-    // rclcpp::Time current_time(input_msg->header.stamp);
     rclcpp::Time current_time(input_msg->header.stamp);
 
     if (first_msg_)
     {
-        last_msg_time_ = current_time; // input_msg->header.stamp;
+        last_msg_time_ = current_time;
         first_msg_ = false;
         return;
     }
@@ -52,8 +51,11 @@ void ManipulatorJPUpdaterROS::onSubscriberTargetJointVelocityCB(rbe500_final_pro
 
     rclcpp::Duration sample_time = current_time - last_msg_time_;
 
-    for (size_t i = 0; i < input_msg->velocity.size(); i++)
-        target_joint_angles_[i] = current_joint_angles_.at(i) + input_msg->velocity.at(i) * sample_time.seconds();
+    {
+        std::lock_guard<std::mutex> lock(joint_angles_mutex_);
+        for (size_t i = 0; i < input_msg->velocity.size(); i++)
+            target_joint_angles_[i] = current_joint_angles_.at(i) + input_msg->velocity.at(i) * sample_time.seconds();
+    }
 
     this->moveToJointPosition(target_joint_angles_, sample_time.seconds());
     last_msg_time_ = input_msg->header.stamp;

@@ -103,6 +103,22 @@ set(DEPENDENCIES
 )
 target_link_libraries(manipulator_jp_updater_ros_lib ${YAML_CPP_LIBRARIES})
 ament_target_dependencies(manipulator_jp_updater_ros_lib ${DEPENDENCIES})
+
+##Velocity Kinematics lib
+add_library(manipulator_vlk_ros_lib
+  "src/manipulator_vlk_ros.cpp"
+)
+set(DEPENDENCIES
+  "open_manipulator_msgs"
+  "rbe500_final_project_msgs"
+  "std_msgs"
+  "geometry_msgs"
+  "sensor_msgs"
+  "rclcpp"
+  "visualization_msgs"
+)
+target_link_libraries(manipulator_vlk_ros_lib ${YAML_CPP_LIBRARIES})
+ament_target_dependencies(manipulator_vlk_ros_lib ${DEPENDENCIES})
 ################################################################################
 # Build Executables
 ################################################################################

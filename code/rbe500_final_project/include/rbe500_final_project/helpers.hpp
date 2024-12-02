@@ -14,6 +14,7 @@
 #include <std_msgs/msg/header.hpp>
 #include <geometry_msgs/msg/pose_stamped.hpp>
 #include <visualization_msgs/msg/marker.hpp>
+#include <geometry_msgs/msg/twist.hpp>
 /**
  * @namespace helpers
  * @brief Namespace containing utility functions for geometric and angular transformations
@@ -169,6 +170,80 @@ namespace helpers
         marker.action = visualization_msgs::msg::Marker::ADD;
 
         return marker;
+    }
+
+    /**
+     * @brief Converts a std::vector to an Eigen::VectorXd
+     * @param vec The input std::vector to convert
+     * @return Eigen::VectorXd The converted Eigen vector
+     */
+    inline Eigen::VectorXd convertStdVectorToEigenVector(const std::vector<double> &vec)
+    {
+        Eigen::VectorXd eigen_vec(vec.size());
+        for (size_t i = 0; i < vec.size(); i++)
+        {
+            eigen_vec(i) = vec[i];
+        }
+        return eigen_vec;
+    }
+
+    /**
+     * @brief Converts an Eigen::Vector6d to a geometry_msgs::msg::Twist message
+     * @param vec The input Eigen::Vector6d containing [vx, vy, vz, roll, pitch, yaw]
+     * @return geometry_msgs::msg::Twist The converted Twist message
+     */
+    inline geometry_msgs::msg::Twist convertEigenVector6dToTwist(const Eigen::VectorXd &vec)
+    {
+        geometry_msgs::msg::Twist twist_msg;
+        // vec  = Eigen::VectorXd(6);
+        // Set linear velocity (vx, vy, vz)
+        twist_msg.linear.x = vec(0); // vx
+        twist_msg.linear.y = vec(1); // vy
+        twist_msg.linear.z = vec(2); // vz
+
+        // Set angular velocity (roll, pitch, yaw)
+        twist_msg.angular.x = vec(3); // roll
+        twist_msg.angular.y = vec(4); // pitch
+        twist_msg.angular.z = vec(5); // yaw
+
+        return twist_msg;
+    }
+
+    /**
+     * @brief Converts a geometry_msgs::msg::Twist message to an Eigen::Vector6d
+     * @param twist_msg The input Twist message containing linear and angular velocities
+     * @return Eigen::Vector6d The converted Eigen vector
+     */
+    inline Eigen::VectorXd convertTwistToEigenVector6d(const geometry_msgs::msg::Twist &twist_msg)
+    {
+        Eigen::VectorXd vec = Eigen::VectorXd(6);
+
+        // Set linear velocity (vx, vy, vz)
+        vec(0) = twist_msg.linear.x; // vx
+        vec(1) = twist_msg.linear.y; // vy
+        vec(2) = twist_msg.linear.z; // vz
+
+        // Set angular velocity (roll, pitch, yaw)
+        vec(3) = twist_msg.angular.x; // roll
+        vec(4) = twist_msg.angular.y; // pitch
+        vec(5) = twist_msg.angular.z; // yaw
+
+        return vec;
+    }
+
+    /**
+     * @brief Converts an Eigen::VectorXd to a std::vector<double>
+     * @param eigen_vec The input Eigen::VectorXd to convert
+     * @return std::vector<double> The converted std::vector
+     */
+    inline std::vector<double> convertEigenVectorToStdVector(const Eigen::VectorXd &eigen_vec)
+    {
+        std::vector<double> vec(eigen_vec.size());
+        for (long int i = 0; i < eigen_vec.size(); i++)
+        {
+            vec[i] = eigen_vec(i);
+        }
+        return vec;
     }
 
 }

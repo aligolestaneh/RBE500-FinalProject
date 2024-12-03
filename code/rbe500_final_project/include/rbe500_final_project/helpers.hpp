@@ -246,6 +246,23 @@ namespace helpers
         return vec;
     }
 
+    /**
+     * @brief Clamps the input as per the limit
+     * @param value: value to be clamped
+     * @param limit: absolute value of the limit
+     * @return clamped_value
+     */
+    inline double clamp(const double &value, const double &limit)
+    {
+        double clamped_value = value;
+
+        if (value >= std::fabs(limit))
+            clamped_value = std::fabs(limit);
+        else if (value <= -1.0 * std::fabs(limit))
+            clamped_value = -1.0 * std::fabs(limit);
+
+        return clamped_value;
+    }
 }
 
 #endif

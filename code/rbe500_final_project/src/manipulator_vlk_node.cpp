@@ -9,11 +9,12 @@ int main(int argc, char **argv)
 
   // create a susbcriber node using Manipulator class
   auto node = std::make_shared<manipulator::ManipulatorVLKROS>();
-
+  
   RCLCPP_INFO(node->get_logger(), "Manipulator VLK Node started!");
 
   //spin the node to get the msgs over the subscriber and wait here
   rclcpp::spin(node);
+  
 
   rclcpp::shutdown();
 

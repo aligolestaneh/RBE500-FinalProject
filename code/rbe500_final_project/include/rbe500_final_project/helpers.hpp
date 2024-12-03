@@ -208,7 +208,47 @@ namespace helpers
 
         return twist_msg;
     }
+    /**
+     * @brief Converts a std::vector<double> to a geometry_msgs::msg::Twist message
+     * @param vec The input std::vector<double> containing [vx, vy, vz, roll, pitch, yaw]
+     * @return geometry_msgs::msg::Twist The converted Twist message
+     */
+    inline geometry_msgs::msg::Twist convertStdVectorToTwist(const std::vector<double> &vec)
+    {
+        if (vec.size() != 6)
+        {
+            if (vec.size() != 3)
+                throw std::invalid_argument("Input vector must 3 elements or all 6  elements.");
 
+            geometry_msgs::msg::Twist twist_msg;
+
+            // Set linear velocity (vx, vy, vz)
+            twist_msg.linear.x = vec[0]; // vx
+            twist_msg.linear.y = vec[1]; // vy
+            twist_msg.linear.z = vec[2]; // vz
+
+            // Set angular velocity (roll, pitch, yaw)
+            twist_msg.angular.x = 0.0; // roll
+            twist_msg.angular.y = 0.0; // pitch
+            twist_msg.angular.z = 0.0; // yaw
+
+            return twist_msg;
+        }
+
+        geometry_msgs::msg::Twist twist_msg;
+
+        // Set linear velocity (vx, vy, vz)
+        twist_msg.linear.x = vec[0]; // vx
+        twist_msg.linear.y = vec[1]; // vy
+        twist_msg.linear.z = vec[2]; // vz
+
+        // Set angular velocity (roll, pitch, yaw)
+        twist_msg.angular.x = vec[3]; // roll
+        twist_msg.angular.y = vec[4]; // pitch
+        twist_msg.angular.z = vec[5]; // yaw
+
+        return twist_msg;
+    }
     /**
      * @brief Converts a geometry_msgs::msg::Twist message to an Eigen::Vector6d
      * @param twist_msg The input Twist message containing linear and angular velocities

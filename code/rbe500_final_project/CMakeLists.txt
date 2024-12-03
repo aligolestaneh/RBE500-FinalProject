@@ -119,6 +119,22 @@ set(DEPENDENCIES
 )
 target_link_libraries(manipulator_vlk_ros_lib  manipulator_core_lib)
 ament_target_dependencies(manipulator_vlk_ros_lib ${DEPENDENCIES})
+
+##End effector twist constant velocity lib
+add_library(manipulator_move_ee_lib
+  "src/manipulator_move_ee.cpp"
+)
+set(DEPENDENCIES
+  "open_manipulator_msgs"
+  "rbe500_final_project_msgs"
+  "std_msgs"
+  "geometry_msgs"
+  "sensor_msgs"
+  "rclcpp"
+  "visualization_msgs"
+)
+target_link_libraries(manipulator_move_ee_lib  manipulator_core_lib)
+ament_target_dependencies(manipulator_move_ee_lib ${DEPENDENCIES})
 ################################################################################
 # Build Executables
 ################################################################################
@@ -158,6 +174,13 @@ add_executable(manipulator_vlk_node
 target_link_libraries(manipulator_vlk_node manipulator_vlk_ros_lib)
 ament_target_dependencies(manipulator_vlk_node ${DEPENDENCIES})
 
+#ROS Node for Moving End effector with constant twist
+add_executable(manipulator_move_ee_node 
+  src/manipulator_move_ee_node.cpp
+)
+target_link_libraries(manipulator_move_ee_node manipulator_move_ee_lib)
+ament_target_dependencies(manipulator_move_ee_node ${DEPENDENCIES})
+
 ################################################################################
 # Install
 ################################################################################
@@ -166,6 +189,7 @@ install(TARGETS manipulator_ik_node
                 manipulator_follow_actions_node 
                 manipulator_jp_updater_node 
                 manipulator_vlk_node
+                manipulator_move_ee_node
   DESTINATION lib/${PROJECT_NAME}
 )
 

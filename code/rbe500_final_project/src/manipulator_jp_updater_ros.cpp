@@ -9,6 +9,7 @@ ManipulatorJPUpdaterROS::ManipulatorJPUpdaterROS() : rclcpp::Node("manipulator_j
     move_manipulator_ = false;
     target_joint_angles_ = std::vector<double>(4, 0.0);
     current_joint_angles_ = std::vector<double>(4, 0.0);
+    prev_joint_angles_ = std::vector<double>(4, 0.0);
 
     initNodeParams();
     initServiceClients();
@@ -25,6 +26,7 @@ void ManipulatorJPUpdaterROS::initNodeParams()
 }
 void ManipulatorJPUpdaterROS::initSubscribers()
 {
+    target_joint_pub_ = this->create_publisher<rbe500_final_project_msgs::msg::JointVelocity>("/target_joint_position", 10);
     target_joint_sub_ = this->create_subscription<rbe500_final_project_msgs::msg::JointVelocity>(
         "target_joint_velocities", 1, std::bind(&ManipulatorJPUpdaterROS::onSubscriberTargetJointVelocityCB, this, std::placeholders::_1));
     current_joint_sub_ = this->create_subscription<sensor_msgs::msg::JointState>(
@@ -62,6 +64,7 @@ void ManipulatorJPUpdaterROS::onSubscriberTargetJointVelocityCB(rbe500_final_pro
     {
         last_msg_time_ = current_time;
         first_msg_ = false;
+        prev_joint_angles_ = current_joint_angles_;
         RCLCPP_INFO(this->get_logger(), "Got My first vel data!!");
         return;
     }
@@ -72,13 +75,19 @@ void ManipulatorJPUpdaterROS::onSubscriberTargetJointVelocityCB(rbe500_final_pro
     }
 
     {
+        
         std::lock_guard<std::mutex> lock(joint_angles_mutex_);
         sample_time_ = (current_time - last_msg_time_).seconds();
         for (size_t i = 0; i < input_msg->velocity.size(); i++)
         {
-            target_joint_angles_[i] = helpers::clamp(current_joint_angles_.at(i) + input_msg->velocity.at(i) * sample_time_, joint_position_limits_[i]);
-            
+            double target_angle = current_joint_angles_.at(i) + input_msg->velocity.at(i) * sample_time_;
+            RCLCPP_INFO(this->get_logger(),"[%d]before Current: %f| Vel: %f| dt: %f | Calc : %f | lim: ",i,current_joint_angles_.at(i),input_msg->velocity.at(i),sample_time_, target_angle);
+            target_joint_angles_[i] = helpers::clamp(target_angle, joint_position_limits_[i]);
+            RCLCPP_INFO(this->get_logger(),"[%d]After Calc Target : %f", i,target_joint_angles_[i]);
+            // target_joint_angles_[i] = helpers::clamp(prev_joint_angles_.at(i) + input_msg->velocity.at(i) * sample_time_, joint_position_limits_[i]);
+            // prev_joint_angles_[i] = target_joint_angles_[i];
         }
+        
         move_manipulator_ = true;
         last_msg_time_ = current_time; // input_msg->header.stamp;
     }
@@ -120,6 +129,10 @@ void ManipulatorJPUpdaterROS::moveManipulator()
     if (move)
     {
         RCLCPP_INFO(this->get_logger(), "Moving manipulator data!! Delta: %f | Moved: %d", sample_time, move);
+        rbe500_final_project_msgs::msg::JointVelocity target_pos;
+        target_pos.velocity = target_angles;
+        target_pos.header.stamp = this->get_clock()->now();
+        target_joint_pub_->publish(target_pos);
         this->moveToJointPosition(target_angles, sample_time);
     }
 }

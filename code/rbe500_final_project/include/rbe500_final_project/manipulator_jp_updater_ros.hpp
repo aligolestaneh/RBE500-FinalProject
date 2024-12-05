@@ -76,6 +76,8 @@ namespace manipulator
          */
         rclcpp::Subscription<sensor_msgs::msg::JointState>::SharedPtr current_joint_sub_;
 
+        rclcpp::Publisher<rbe500_final_project_msgs::msg::JointVelocity>::SharedPtr target_joint_pub_;
+
         /** @brief Service client for joint position service */
         rclcpp::Client<open_manipulator_msgs::srv::SetJointPosition>::SharedPtr joint_position_client_;
 
@@ -117,6 +119,8 @@ namespace manipulator
          * @brief Current joint angles of the manipulator
          */
         std::vector<double> current_joint_angles_;
+
+        std::vector<double> prev_joint_angles_;
 
         /**
          * @brief Joint position limits for the manipulator

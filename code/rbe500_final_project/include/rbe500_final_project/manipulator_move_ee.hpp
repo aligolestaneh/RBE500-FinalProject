@@ -23,6 +23,8 @@
 #include <rbe500_final_project_msgs/msg/joint_velocity.hpp>
 #include "rbe500_final_project/helpers.hpp"
 
+#include <rbe500_final_project/manipulator_core.hpp>
+
 /**
  * @class ManipulatorMoveEE
  * @brief Class to control the manipulator end effector through a constant twist
@@ -85,6 +87,7 @@ private:
     bool moveToJointPosition(const std::vector<double> &joint_angles);
 
     std::vector<double> end_effector_linear_twist_; /**< End effector Twist linear components from the yaml file */
+    std::vector<double> home_joint_pos_;            /**< Initial joint angle config to start the manipulator from the yaml file */
     double publish_frequency_;                      /**< Target velocity publish frequency */
     double move_duration_;                          /**< Time duration for which we need to publish the target velocity */
 };

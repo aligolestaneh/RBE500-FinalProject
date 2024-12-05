@@ -75,7 +75,7 @@ bool ManipulatorCore::updateJointAngles(const Eigen::VectorXd &joint_angles)
     // Update cached values
     end_effector_pose_ = calcEndEffectorPose();
     joint_angles_ = joint_angles;
-
+    velocity_jacobian_ = this->calcVelocityJacobian();
     return true;
 }
 

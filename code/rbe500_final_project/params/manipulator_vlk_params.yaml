@@ -1,8 +1,9 @@
 #UPdated the params reqruied for setting up DH parameters
 /**:
   ros__parameters:
-    joint_position_limits: [3.0, 1.5, 1.5, 1.5]
+    joint_position_limits: [3.0, 1.58, 1.58, 1.58]
     end_effectot_twist_linear: [0.0,0.1,0.0]
-    update_frequency: 20.0 #Hz
-    move_duration: 10.0 #Secs
+    update_frequency: 10.0 #Hz
+    move_duration: 5.0 #Secs
+    home_joint_pos: [1.57, -1.57,0.0,1.57]
 

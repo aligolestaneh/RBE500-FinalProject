@@ -8,6 +8,26 @@ TEST(BasicEigenOperation, vector_sum_test)
     double first_two_elem_sum = link_length.head<2>().sum();
     ASSERT_DOUBLE_EQ(3.0, first_two_elem_sum);
 }
+TEST(BasicEigenOperation, vector_max_coeff_test)
+{
+    Eigen::Vector4d link_length;
+    link_length << 1, 2, 3, 4;
+    double max_elem = link_length.maxCoeff();
+    ASSERT_DOUBLE_EQ(4.0, max_elem);
+}
+
+
+TEST(BasicEigenOperation, vector_scalar_mul_test)
+{
+    Eigen::Vector4d expectedlink_length(1,2,3,4);
+    Eigen::Vector4d link_length;
+    link_length << 10, 20, 30, 40;
+    double scalar = 0.1;
+    Eigen::Vector4d new_l = link_length*scalar;
+    // std::cout<<"NEw L\n"<<new_l<<std::endl;
+    ASSERT_TRUE(expectedlink_length.isApprox(new_l, 0.01))<<"New L doesnt matched up";
+    // ASSERT_DOUBLE_EQ(3.0, first_two_elem_sum);
+}
 
 TEST(BasicEigenOperation, isometry_pose_xy_dist_test)
 {

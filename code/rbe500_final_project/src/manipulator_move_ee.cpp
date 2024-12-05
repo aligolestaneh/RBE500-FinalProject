@@ -43,6 +43,10 @@ void ManipulatorMoveEE::initNodeParams()
 {
     end_effector_linear_twist_ = this->declare_parameter("end_effectot_twist_linear", std::vector<double>{0.0, 0.1, 0.0});
     this->get_parameter("end_effectot_twist_linear", end_effector_linear_twist_);
+     
+
+    home_joint_pos_ = this->declare_parameter("home_joint_pos", std::vector<double>{1.57, -1.57, 0.0,1.57});
+    this->get_parameter("home_joint_pos", home_joint_pos_);
 
     publish_frequency_ = this->declare_parameter("update_frequency", 20.0);
     this->get_parameter("update_frequency", publish_frequency_);
@@ -87,7 +91,7 @@ bool ManipulatorMoveEE::moveToJointPosition(const std::vector<double> &joint_ang
     request->joint_position.joint_name = {"joint1", "joint2", "joint3", "joint4"};
     request->joint_position.position = joint_angles;
     request->path_time = 2.0;
-
+    RCLCPP_INFO(this->get_logger(), "Sent Joint Com: [%f,%f,%f,%f]", joint_angles[0], joint_angles[1], joint_angles[2], joint_angles[3]);
     auto future = joint_position_client_->async_send_request(request);
     return rclcpp::spin_until_future_complete(this->get_node_base_interface(), future) ==
            rclcpp::FutureReturnCode::SUCCESS;
@@ -95,12 +99,19 @@ bool ManipulatorMoveEE::moveToJointPosition(const std::vector<double> &joint_ang
 
 void ManipulatorMoveEE::moveEndEffector()
 {
-    std::vector<double> joint_angles = std::vector<double>(4, 0.0);
+    // std::vector<double> joint_angles = std::vector<double>(4, 0.0);
     std::vector<double> joint_velcoities = std::vector<double>(4, 0.0);
     rbe500_final_project_msgs::msg::JointVelocity joint_vel;
 
+    // joint_angles[0] = 1.57;
+    // joint_angles[1] = -1.57;//-1.1;//-1.57;
+    // joint_angles[2] = 0.0; //0.0;
+    // joint_angles[3] = 1.57;//1.1; //1.57;
+
+    
+
     RCLCPP_INFO(this->get_logger(), "Going to home positon!");
-    moveToJointPosition(joint_angles);
+    moveToJointPosition(home_joint_pos_);//(joint_angles);
     rclcpp::sleep_for(std::chrono::seconds(3));
     RCLCPP_INFO(this->get_logger(), "Going to Calc JOint velocities!");
 
@@ -119,6 +130,7 @@ void ManipulatorMoveEE::moveEndEffector()
                 joint_vel.header.stamp = this->get_clock()->now();
                 joint_vel.velocity = joint_velcoities;
             }
+            // joint_vel.velocity[3] = -1.0*joint_vel.velocity[3];
             target_joint_vel_pub_->publish(joint_vel);
             // joint_vel.header.stamp = this->get_clock()->now();
             loop_rate.sleep();
@@ -126,7 +138,7 @@ void ManipulatorMoveEE::moveEndEffector()
 
         RCLCPP_INFO(this->get_logger(), "Going Back to home pose now!");
         rclcpp::sleep_for(std::chrono::seconds(1));
-        moveToJointPosition(joint_angles);
+        moveToJointPosition(home_joint_pos_);//(joint_angles);
     }
     else
         RCLCPP_ERROR(this->get_logger(), "Unable to get the JOint velocities!");

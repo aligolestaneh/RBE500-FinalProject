@@ -97,8 +97,17 @@ $(document).ready(function(){initNavTree('functions_func.html',''); initResizabl
 <li>calcNewtonRaphsonIK()
 : <a class="el" href="classmanipulator_1_1ManipulatorCore.html#a2dd1e5832a169682433d3c7e241f29ab">manipulator::ManipulatorCore</a>
 </li>
+<li>calcPseudoInverseVelocityJacobian()
+: <a class="el" href="classmanipulator_1_1ManipulatorCore.html#acc3cd5edcdbc4b99ec175d0d0e71a76d">manipulator::ManipulatorCore</a>
+</li>
 <li>calcResidual()
 : <a class="el" href="classmanipulator_1_1ManipulatorCore.html#af3b1bce0dd9d5f2b218e4db404aad70f">manipulator::ManipulatorCore</a>
+</li>
+<li>calcVelocityJacobian()
+: <a class="el" href="classmanipulator_1_1ManipulatorCore.html#a5e5ab09c71a6a0be009055ae0008c459">manipulator::ManipulatorCore</a>
+</li>
+<li>callGetJVService()
+: <a class="el" href="classManipulatorMoveEE.html#a925a6508b9ca021db68934d5b93c7ea6">ManipulatorMoveEE</a>
 </li>
 <li>callIKService()
 : <a class="el" href="classManipulatorFollowActions.html#a430e3adc39587d9499ae171c05ad9190">ManipulatorFollowActions</a>
@@ -123,11 +132,17 @@ $(document).ready(function(){initNavTree('functions_func.html',''); initResizabl
 <li>getEndEffectorPose()
 : <a class="el" href="classmanipulator_1_1ManipulatorCore.html#a80e5001f1c1581c0e0251d90c8a54872">manipulator::ManipulatorCore</a>
 </li>
+<li>getEndEffectorTwist()
+: <a class="el" href="classmanipulator_1_1ManipulatorCore.html#afb0fc2b9081181e58ac1c9d98a8f78f1">manipulator::ManipulatorCore</a>
+</li>
 <li>getHomogeneousMat()
 : <a class="el" href="classmanipulator_1_1ManipulatorCore.html#a420e96d1b284345e74c3d1a26ac6fa9a">manipulator::ManipulatorCore</a>
 </li>
 <li>getJointAngles()
 : <a class="el" href="classmanipulator_1_1ManipulatorCore.html#a6118129f79773643ad4f97812bf2c996">manipulator::ManipulatorCore</a>
+</li>
+<li>getJointVelocities()
+: <a class="el" href="classmanipulator_1_1ManipulatorCore.html#a15fc6e27e3a951622ce28a9c5b078a0f">manipulator::ManipulatorCore</a>
 </li>
 <li>goToPosition()
 : <a class="el" href="classManipulatorFollowActions.html#a67ebc3ebe875efc0daeee5ed41d9460d">ManipulatorFollowActions</a>
@@ -136,18 +151,31 @@ $(document).ready(function(){initNavTree('functions_func.html',''); initResizabl
 
 
 <h3><a id="index_i"></a>- i -</h3><ul>
+<li>initClients()
+: <a class="el" href="classManipulatorMoveEE.html#a4b79f18d2551c147a378de42ba8e90e6">ManipulatorMoveEE</a>
+</li>
 <li>initNodeParams()
 : <a class="el" href="classmanipulator_1_1ManipulatorFKROS.html#a6128d19ed026ccaf8411376615118dd8">manipulator::ManipulatorFKROS</a>
 , <a class="el" href="classmanipulator_1_1ManipulatorIKROS.html#a9ff9e7e0c2e8971259e9cb1c2f51fd22">manipulator::ManipulatorIKROS</a>
+, <a class="el" href="classmanipulator_1_1ManipulatorJPUpdaterROS.html#a2278dc32e878232e81c5ed165652937e">manipulator::ManipulatorJPUpdaterROS</a>
+, <a class="el" href="classmanipulator_1_1ManipulatorVLKROS.html#a42ca2af04b62848d362e6f3d1732c30b">manipulator::ManipulatorVLKROS</a>
+, <a class="el" href="classManipulatorMoveEE.html#ab08ecbd953d75f5abe29cefe583d8eb5">ManipulatorMoveEE</a>
 </li>
 <li>initPublishers()
 : <a class="el" href="classmanipulator_1_1ManipulatorFKROS.html#aa2f5382a616e8c8ab65194dbbd1543b4">manipulator::ManipulatorFKROS</a>
+, <a class="el" href="classManipulatorMoveEE.html#a6347cfc3bbd17b0456185906d07fa3e2">ManipulatorMoveEE</a>
+</li>
+<li>initServiceClients()
+: <a class="el" href="classmanipulator_1_1ManipulatorJPUpdaterROS.html#a2ff1034f52f3ab0590846b163ce28a69">manipulator::ManipulatorJPUpdaterROS</a>
 </li>
 <li>initServices()
 : <a class="el" href="classmanipulator_1_1ManipulatorIKROS.html#ad341507778747ac9bd8242d8e392e3bb">manipulator::ManipulatorIKROS</a>
+, <a class="el" href="classmanipulator_1_1ManipulatorVLKROS.html#ab9d85c636a23be3b8782131de633b286">manipulator::ManipulatorVLKROS</a>
 </li>
 <li>initSubscribers()
 : <a class="el" href="classmanipulator_1_1ManipulatorFKROS.html#a120857f33c4cd36d3233e89645c733e1">manipulator::ManipulatorFKROS</a>
+, <a class="el" href="classmanipulator_1_1ManipulatorJPUpdaterROS.html#a8f813a2e65f1458c79fb1eeb9df6bd8e">manipulator::ManipulatorJPUpdaterROS</a>
+, <a class="el" href="classmanipulator_1_1ManipulatorVLKROS.html#afa4204624d72ae16fe97550ddcbeb328">manipulator::ManipulatorVLKROS</a>
 </li>
 </ul>
 
@@ -172,18 +200,46 @@ $(document).ready(function(){initNavTree('functions_func.html',''); initResizabl
 <li>ManipulatorIKROS()
 : <a class="el" href="classmanipulator_1_1ManipulatorIKROS.html#a20f6d426864fa4b46e81db576e0291f0">manipulator::ManipulatorIKROS</a>
 </li>
+<li>ManipulatorJPUpdaterROS()
+: <a class="el" href="classmanipulator_1_1ManipulatorJPUpdaterROS.html#a0de4fc9f7fb61bce15772a177a928a13">manipulator::ManipulatorJPUpdaterROS</a>
+</li>
+<li>ManipulatorMoveEE()
+: <a class="el" href="classManipulatorMoveEE.html#ad5e68fac679bd7ee81711a14d184ba11">ManipulatorMoveEE</a>
+</li>
+<li>ManipulatorVLKROS()
+: <a class="el" href="classmanipulator_1_1ManipulatorVLKROS.html#a4e4c587971d6c9691c886a16d74e8ba3">manipulator::ManipulatorVLKROS</a>
+</li>
+<li>moveEndEffector()
+: <a class="el" href="classManipulatorMoveEE.html#a34e8312b32378d4db9a685056a955ad0">ManipulatorMoveEE</a>
+</li>
+<li>moveManipulator()
+: <a class="el" href="classmanipulator_1_1ManipulatorJPUpdaterROS.html#a31ffbe621373f31ed22f0bf1d021a578">manipulator::ManipulatorJPUpdaterROS</a>
+</li>
 <li>moveToJointPosition()
-: <a class="el" href="classManipulatorFollowActions.html#af59c5fbff4a6d0ba228f32e297ae85b5">ManipulatorFollowActions</a>
+: <a class="el" href="classmanipulator_1_1ManipulatorJPUpdaterROS.html#a0169d1b7060abcdbb37a9bc35d9c0389">manipulator::ManipulatorJPUpdaterROS</a>
+, <a class="el" href="classManipulatorFollowActions.html#af59c5fbff4a6d0ba228f32e297ae85b5">ManipulatorFollowActions</a>
+, <a class="el" href="classManipulatorMoveEE.html#a258735733cc16533be637e0b0ab8e727">ManipulatorMoveEE</a>
 </li>
 </ul>
 
 
 <h3><a id="index_o"></a>- o -</h3><ul>
+<li>onEETwistServiceCB()
+: <a class="el" href="classmanipulator_1_1ManipulatorVLKROS.html#a70ca8a7789e2f1c37e8e28dfa5ee4055">manipulator::ManipulatorVLKROS</a>
+</li>
+<li>onJointVelServiceCB()
+: <a class="el" href="classmanipulator_1_1ManipulatorVLKROS.html#a02381c7ba8a9e0e4e117ddfce236615e">manipulator::ManipulatorVLKROS</a>
+</li>
 <li>onServiceCB()
 : <a class="el" href="classmanipulator_1_1ManipulatorIKROS.html#a81750dd28f6e710c36f9f2ef0f5b6b9b">manipulator::ManipulatorIKROS</a>
 </li>
 <li>onSubscriberJointAngleCB()
 : <a class="el" href="classmanipulator_1_1ManipulatorFKROS.html#a1b6dbfdb5e751743cd665095a967e084">manipulator::ManipulatorFKROS</a>
+, <a class="el" href="classmanipulator_1_1ManipulatorJPUpdaterROS.html#a83cf458787db0bf9de89a0a951394e61">manipulator::ManipulatorJPUpdaterROS</a>
+, <a class="el" href="classmanipulator_1_1ManipulatorVLKROS.html#a89751bf3f8822b4ea28db2258e54d9a2">manipulator::ManipulatorVLKROS</a>
+</li>
+<li>onSubscriberTargetJointVelocityCB()
+: <a class="el" href="classmanipulator_1_1ManipulatorJPUpdaterROS.html#ad4cc3fab18a5b2f3045b208f440f53bc">manipulator::ManipulatorJPUpdaterROS</a>
 </li>
 <li>openGripper()
 : <a class="el" href="classManipulatorFollowActions.html#a2ba023736597295c2edb3657c2bef480">ManipulatorFollowActions</a>
@@ -208,8 +264,14 @@ $(document).ready(function(){initNavTree('functions_func.html',''); initResizabl
 <li>updateEndEffectorPose()
 : <a class="el" href="classmanipulator_1_1ManipulatorCore.html#af20354476f7a05cd33bfc3f731ce42fe">manipulator::ManipulatorCore</a>
 </li>
+<li>updateEndEffectorTwist()
+: <a class="el" href="classmanipulator_1_1ManipulatorCore.html#a79fef9bd8d1e4d001492b0b211b142a3">manipulator::ManipulatorCore</a>
+</li>
 <li>updateJointAngles()
 : <a class="el" href="classmanipulator_1_1ManipulatorCore.html#a2a1867a3c58276f8faf002b821ad1014">manipulator::ManipulatorCore</a>
+</li>
+<li>updateJointVelocities()
+: <a class="el" href="classmanipulator_1_1ManipulatorCore.html#ab9984d0a71340ab0e9e9805bb167960d">manipulator::ManipulatorCore</a>
 </li>
 </ul>
 
@@ -223,6 +285,12 @@ $(document).ready(function(){initNavTree('functions_func.html',''); initResizabl
 </li>
 <li>~ManipulatorIKROS()
 : <a class="el" href="classmanipulator_1_1ManipulatorIKROS.html#ac5419997223d8276443af59a0f77e618">manipulator::ManipulatorIKROS</a>
+</li>
+<li>~ManipulatorJPUpdaterROS()
+: <a class="el" href="classmanipulator_1_1ManipulatorJPUpdaterROS.html#a731ca9a4c4791ac11b1f02b6c730e06c">manipulator::ManipulatorJPUpdaterROS</a>
+</li>
+<li>~ManipulatorVLKROS()
+: <a class="el" href="classmanipulator_1_1ManipulatorVLKROS.html#a2cfc2bccff099e436d641273973f9ae8">manipulator::ManipulatorVLKROS</a>
 </li>
 </ul>
 </div><!-- contents -->

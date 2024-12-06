@@ -1,0 +1,5 @@
+<map id="include/rbe500_final_project/manipulator_jp_updater_ros.hpp" name="include/rbe500_final_project/manipulator_jp_updater_ros.hpp">
+<area shape="rect" id="node1" title="ROS 2 wrapper for updatting joint angles are per joint velocity mapping." alt="" coords="83,5,241,61"/>
+<area shape="rect" id="node2" href="$manipulator__jp__updater__node_8cpp.html" title=" " alt="" coords="5,109,151,151"/>
+<area shape="rect" id="node3" href="$manipulator__jp__updater__ros_8cpp.html" title=" " alt="" coords="175,109,317,151"/>
+</map>

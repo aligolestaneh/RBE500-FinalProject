@@ -1,6 +1,9 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" title=" " alt="" coords="5,64,108,91"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,148,108,175"/>
 <area shape="rect" id="node2" href="$classManipulatorFollowActions.html" title="Class to control the manipulator through a sequence of predefined actions." alt="" coords="156,5,347,32"/>
-<area shape="rect" id="node3" href="$classmanipulator_1_1ManipulatorFKROS.html" title=" " alt="" coords="158,57,345,98"/>
-<area shape="rect" id="node4" href="$classmanipulator_1_1ManipulatorIKROS.html" title="ROS 2 node for inverse kinematics service." alt="" coords="158,122,345,163"/>
+<area shape="rect" id="node3" href="$classManipulatorMoveEE.html" title="Class to control the manipulator end effector through a constant twist." alt="" coords="175,56,327,83"/>
+<area shape="rect" id="node4" href="$classmanipulator_1_1ManipulatorFKROS.html" title=" " alt="" coords="158,107,345,149"/>
+<area shape="rect" id="node5" href="$classmanipulator_1_1ManipulatorIKROS.html" title="ROS 2 node for inverse kinematics service." alt="" coords="158,173,345,214"/>
+<area shape="rect" id="node6" href="$classmanipulator_1_1ManipulatorJPUpdaterROS.html" title=" " alt="" coords="158,238,345,279"/>
+<area shape="rect" id="node7" href="$classmanipulator_1_1ManipulatorVLKROS.html" title="ROS 2 node for Velocity level kinematics service." alt="" coords="158,303,345,345"/>
 </map>

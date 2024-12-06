@@ -39,11 +39,12 @@ var NAVTREE =
       [ "Running Nodes", "index.html#autotoc_md8", [
         [ "Forward Kinematics:", "index.html#autotoc_md9", null ],
         [ "Inverse Kinematics:", "index.html#autotoc_md10", null ],
-        [ "Pick and Place Action sequence:", "index.html#autotoc_md11", null ]
+        [ "Pick and Place Action sequence:", "index.html#autotoc_md11", null ],
+        [ "Moving End-Effector with Twist:", "index.html#autotoc_md12", null ]
       ] ],
-      [ "Writing Test Cases", "index.html#autotoc_md12", [
-        [ "CMakelist Edits", "index.html#autotoc_md13", null ],
-        [ "Compiling and Test case results", "index.html#autotoc_md14", null ]
+      [ "Writing Test Cases", "index.html#autotoc_md13", [
+        [ "CMakelist Edits", "index.html#autotoc_md14", null ],
+        [ "Compiling and Test case results", "index.html#autotoc_md15", null ]
       ] ]
     ] ],
     [ "Namespaces", "namespaces.html", [
@@ -75,7 +76,8 @@ var NAVTREE =
 
 var NAVTREEINDEX =
 [
-"annotated.html"
+"annotated.html",
+"manipulator__vlk__ros_8launch_8py.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

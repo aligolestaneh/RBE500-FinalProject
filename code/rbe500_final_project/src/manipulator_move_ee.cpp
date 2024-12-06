@@ -2,8 +2,6 @@
 
 ManipulatorMoveEE::ManipulatorMoveEE() : Node("manipulator_move_ee")
 {
-    // Initialize publisher
-    // marker_pub_ = this->create_publisher<visualization_msgs::msg::Marker>("/twist_linear_marker", 10);
     // Load configuration
     initNodeParams();
     initPublishers();
@@ -63,13 +61,6 @@ bool ManipulatorMoveEE::callGetJVService(const geometry_msgs::msg::Twist &ee_twi
 {
     auto request = std::make_shared<rbe500_final_project_msgs::srv::GetJointVelocities::Request>();
     request->end_effector_twist = ee_twist;
-    // std_msgs::msg::Header header;
-    // header.stamp = this->get_clock()->now();
-    // header.frame_id = "end_effector_link";
-    // visualization_msgs::msg::Marker marker;
-    // geometry_msgs::msg::Pose pose;
-    // marker = helpers::convertPoseToMarker(pose, header,"goal_marker");
-    // marker_pub_->publish(marker);
 
     auto future = get_joint_velocity_client_->async_send_request(request);
     if (rclcpp::spin_until_future_complete(this->get_node_base_interface(), future) ==
@@ -103,13 +94,6 @@ void ManipulatorMoveEE::moveEndEffector()
     std::vector<double> joint_velcoities = std::vector<double>(4, 0.0);
     rbe500_final_project_msgs::msg::JointVelocity joint_vel;
 
-    // joint_angles[0] = 1.57;
-    // joint_angles[1] = -1.57;//-1.1;//-1.57;
-    // joint_angles[2] = 0.0; //0.0;
-    // joint_angles[3] = 1.57;//1.1; //1.57;
-
-    
-
     RCLCPP_INFO(this->get_logger(), "Going to home positon!");
     moveToJointPosition(home_joint_pos_);//(joint_angles);
     rclcpp::sleep_for(std::chrono::seconds(3));
@@ -130,9 +114,8 @@ void ManipulatorMoveEE::moveEndEffector()
                 joint_vel.header.stamp = this->get_clock()->now();
                 joint_vel.velocity = joint_velcoities;
             }
-            // joint_vel.velocity[3] = -1.0*joint_vel.velocity[3];
             target_joint_vel_pub_->publish(joint_vel);
-            // joint_vel.header.stamp = this->get_clock()->now();
+            
             loop_rate.sleep();
         }
 

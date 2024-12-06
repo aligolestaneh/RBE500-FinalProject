@@ -145,6 +145,41 @@ Core Libraries</h4>
 </li>
 </ul>
 </li>
+<li><code>manipulator_vlk_lib</code>: A ROS2 wrapper library that provides services for velocity-level kinematics of the Open Manipulator X. It computes joint velocities for a given end-effector twist and vice versa. It subscribes to the <code>/joint_state</code> topic and updates the end-effector pose and DH parameters in the subscirber callback. Whenever, a service request is made, it calculates the joint velocities or the end effector twist based on the updated DH parameter and Jacobian.<ul>
+<li><b>Services</b>:<ul>
+<li><code>/get_end_effector_twist</code> (<em>rbe500_final_project_msgs/srv/GetEndEffectorTwist</em>): It takes target joint velocities and returns the corresponding end-effector twist.</li>
+<li><code>/get_joint_velocities</code> (<em>rbe500_final_project_msgs/srv/GetJointVelocities</em>): It takes end-effector twist and responds the corresponding joint velocities.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><code>manipulator_jp_updater_lib</code>: A ROS2 wrapper library that updates joint angles based on the published joint velocity from the <code>manipulator_move_ee_node</code>. This library subscribes to reference joint velocities and calculates target joint angles, calling the OpenManipulatorX joint space service to move the manipulator to the target joint angles. It ensures that the updated joint positions are clamped based on joint position limits to avoid conflicts with the OpenManipulatorX. The update of the joint position is depend on the <code>/target_joint_velocities</code> publish rate.<ul>
+<li><b>Subscribed Topics</b>:<ul>
+<li><code>/target_joint_velocities</code> ([rbe500_final_project_msgs/msg/JointVelocity]): Receives joint velocities in radians/second.</li>
+<li><code>/joint_states</code> (<a href="https://docs.ros2.org/latest/api/sensor_msgs/msg/JointState.html">sensor_msgs/msg/JointState</a>): Receives current joint angles in radians.</li>
+</ul>
+</li>
+<li><b>Published Topics</b>:<ul>
+<li><code>/target_joint_position</code> ([rbe500_final_project_msgs/msg/JointVelocity]): Publishes the calculated target joint velocities.</li>
+</ul>
+</li>
+<li><b>Services</b>:<ul>
+<li><code>/goal_joint_space_path</code> (<em>open_manipulator_msgs/srv/SetJointPosition</em>): Service to move the manipulator to the specified joint angles.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><code>manipulator_move_ee_lib</code>: A ROS2 library provides functionality to compute the required joint velocities based on the desired end effector twist and to publish these velocities for smooth and precise movement of the manipulator. It moves the manipulator intially at the <code>home</code> cofiguration and then publish the joint velocities by calling the <code>get_joint_velocities</code> service at a frequency defined in the <code>manipulator_vlk_params.yaml</code> param file.<ul>
+<li><b>Published Topics</b>:<ul>
+<li><code>/target_joint_velocities</code> ([rbe500_final_project_msgs/msg/JointVelocity]): Publishes the calculated target joint velocities. It uses the services provided from the <code>manipulator_vlk_lib</code> .</li>
+</ul>
+</li>
+<li><b>Services</b>:<ul>
+<li><code>/get_joint_velocities</code> (<em>open_manipulator_msgs/srv/SetJointPosition</em>): Service to get the manipulator joint velocity from the <code>manipulator_vlk_node</code> for the specifies end effector twist.</li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 <h2><a class="anchor" id="autotoc_md7"></a>
 Parameters</h2>
@@ -205,11 +240,30 @@ Parameters</h2>
 <li>type: close_gripper wait: 1</li>
 </ul>
 <p class="startli">OR actions:</p><ul>
-<li>type: close_gripper ```</li>
+<li>type: close_gripper ``<code> *</code>manipulator_vlk_params.yaml&lt;tt&gt;: It contains parameters required for moving the end effector using velocity kinematics. The parameters are as follows: 1.joint_position_limits`:</li>
 </ul>
 </li>
 </ul>
 </li>
+</ul>
+<p>Type: List of Doubles</p><ul>
+<li>Description: The max absolute limits for the joint positions in radians. This ensures that the manipulator does not exceed its physical limits.</li>
+</ul>
+<p><code>end_effectot_twist_linear</code>:</p><ul>
+<li>Type: List of Doubles</li>
+<li>Description: Linear twist for the end effector, represented as a vector [vx, vy, vz]. This defines the desired linear velocity of the end effector.</li>
+</ul>
+<p><code>update_frequency</code>:</p><ul>
+<li>Type: Double</li>
+<li>Description: Frequency at which the manipulator updates its position, in Hertz (Hz). This determines how often the control commands are sent to the manipulator.</li>
+</ul>
+<p><code>move_duration</code>:</p><ul>
+<li>Type: Double</li>
+<li>Description: Duration for which the manipulator should move, in seconds. This specifies how long the manipulator will execute the movement commands.</li>
+</ul>
+<p><code>home_joint_pos</code>:</p><ul>
+<li>Type: List of Doubles</li>
+<li>Description: The home position for the joints of the manipulator, specified in radians. This is the position to which the manipulator will return when homing.</li>
 </ul>
 <h1><a class="anchor" id="autotoc_md8"></a>
 Running Nodes</h1>
@@ -232,17 +286,24 @@ Pick and Place Action sequence:</h2>
 <ol type="1">
 <li>Launch the OpenX Manipulator control ```bash $ source ~/colcon_ws/install/setup.bash $ ros2 launch open_manipulator_x_controller open_manipulator_x_controller.launch.py ```</li>
 <li>Launch Inverse Kinematics Node: ```bash $ source ~/colcon_ws/install/setup.bash $ ros2 launch rbe500_final_project <a class="el" href="manipulator__ik__ros_8launch_8py.html">manipulator_ik_ros.launch.py</a> ```</li>
-<li>Execute Pick and Place action sequence ```bash $ source ~/colcon_ws/install/setup.bash $ ros2 run rbe500_final_project manipulator_follow_actions_node ```</li>
+<li>Execute Pick and Place action sequence ```bash $ source ~/colcon_ws/install/setup.bash $ ros2 run rbe500_final_project manipulator_follow_actions_node ``` </li>
 </ol>
-<h1><a class="anchor" id="autotoc_md12"></a>
+<h2><a class="anchor" id="autotoc_md12"></a>
+Moving End-Effector with Twist:</h2>
+<ol type="1">
+<li>Launch the OpenX Manipulator control ```bash $ source ~/colcon_ws/install/setup.bash $ ros2 launch open_manipulator_x_controller open_manipulator_x_controller.launch.py ```</li>
+<li>Launch Velocity Kinematics Node: ```bash $ source ~/colcon_ws/install/setup.bash $ ros2 launch rbe500_final_project <a class="el" href="manipulator__vlk__ros_8launch_8py.html">manipulator_vlk_ros.launch.py</a> ```</li>
+<li>Execute Move End effector Node ```bash $ source ~/colcon_ws/install/setup.bash $ ros2 launch rbe500_final_project <a class="el" href="manipulator__move__ee_8launch_8py.html">manipulator_move_ee.launch.py</a> ```</li>
+</ol>
+<h1><a class="anchor" id="autotoc_md13"></a>
 Writing Test Cases</h1>
-<h2><a class="anchor" id="autotoc_md13"></a>
+<h2><a class="anchor" id="autotoc_md14"></a>
 CMakelist Edits</h2>
 <p>All test cases has been written up in the test folder. You may add your test cases aswell by creating your own test <code>cpp</code> file or editing the existing ones. Please don't edit <code><a class="el" href="main_8cpp.html">main.cpp</a></code>. Make sure you add it into <code>CMakelist.txt</code> in order to build your unit test code. </p><div class="fragment"><div class="line">set(TESTFILES</div>
 <div class="line">  test/main.cpp</div>
 <div class="line">  test/simple_test.cpp</div>
 <div class="line">  test/&lt;your_test_file_name&gt;_test.cpp) #&lt;&lt;------ add here</div>
-</div><!-- fragment --> <h2><a class="anchor" id="autotoc_md14"></a>
+</div><!-- fragment --> <h2><a class="anchor" id="autotoc_md15"></a>
 Compiling and Test case results</h2>
 <p>In order to view the test cases results and you need to build the package first: </p><div class="fragment"><div class="line">$ cd &lt;your-workspace&gt; </div>
 <div class="line">$ colcon build --symlink-install --packages-select rbe500_final_project</div>

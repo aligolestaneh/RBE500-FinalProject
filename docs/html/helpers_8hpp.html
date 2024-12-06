@@ -98,18 +98,20 @@ $(document).ready(function(){initNavTree('helpers_8hpp.html',''); initResizable(
 <code>#include &lt;std_msgs/msg/header.hpp&gt;</code><br />
 <code>#include &lt;geometry_msgs/msg/pose_stamped.hpp&gt;</code><br />
 <code>#include &lt;visualization_msgs/msg/marker.hpp&gt;</code><br />
+<code>#include &lt;geometry_msgs/msg/twist.hpp&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for helpers.hpp:</div>
 <div class="dyncontent">
 <div class="center"><img src="helpers_8hpp__incl.png" border="0" usemap="#ainclude_2rbe500__final__project_2helpers_8hpp" alt=""/></div>
 <map name="ainclude_2rbe500__final__project_2helpers_8hpp" id="ainclude_2rbe500__final__project_2helpers_8hpp">
-<area shape="rect" title="Helper functions for angle conversions and geometric transformations." alt="" coords="271,5,425,47"/>
+<area shape="rect" title="Helper functions for angle conversions and geometric transformations." alt="" coords="369,5,524,47"/>
 <area shape="rect" title=" " alt="" coords="5,102,64,129"/>
 <area shape="rect" title=" " alt="" coords="89,102,151,129"/>
 <area shape="rect" title=" " alt="" coords="175,102,326,129"/>
 <area shape="rect" title=" " alt="" coords="351,102,543,129"/>
 <area shape="rect" title=" " alt="" coords="567,95,761,136"/>
 <area shape="rect" title=" " alt="" coords="785,95,932,136"/>
+<area shape="rect" title=" " alt="" coords="957,102,1179,129"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">
@@ -117,20 +119,29 @@ This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
 <div class="center"><img src="helpers_8hpp__dep__incl.png" border="0" usemap="#ainclude_2rbe500__final__project_2helpers_8hppdep" alt=""/></div>
 <map name="ainclude_2rbe500__final__project_2helpers_8hppdep" id="ainclude_2rbe500__final__project_2helpers_8hppdep">
-<area shape="rect" title="Helper functions for angle conversions and geometric transformations." alt="" coords="843,5,997,47"/>
-<area shape="rect" href="manipulator__core_8hpp.html" title="Core C++ library for OpenX Manipulator kinematics." alt="" coords="645,95,803,151"/>
-<area shape="rect" href="manipulator__follow__actions_8hpp.html" title="Header file for manipulator action sequence control." alt="" coords="1143,95,1300,151"/>
-<area shape="rect" href="manipulator__fk__ros_8hpp.html" title="ROS 2 wrapper for manipulator forward kinematics calculations." alt="" coords="163,199,320,255"/>
-<area shape="rect" href="manipulator__ik__ros_8hpp.html" title="ROS 2 wrapper for manipulator inverse kinematics calculations." alt="" coords="344,199,501,255"/>
-<area shape="rect" href="manipulator__core_8cpp.html" title=" " alt="" coords="525,213,712,240"/>
-<area shape="rect" href="basic__eigen__test_8cpp.html" title=" " alt="" coords="736,213,923,240"/>
-<area shape="rect" href="manipulator__core__test_8cpp.html" title=" " alt="" coords="947,206,1112,247"/>
-<area shape="rect" href="manipulator__fk__node_8cpp.html" title=" " alt="" coords="5,303,149,344"/>
-<area shape="rect" href="manipulator__fk__ros_8cpp.html" title=" " alt="" coords="173,303,317,344"/>
-<area shape="rect" href="manipulator__ik__node_8cpp.html" title=" " alt="" coords="349,303,491,344"/>
-<area shape="rect" href="manipulator__ik__ros_8cpp.html" title=" " alt="" coords="515,303,658,344"/>
-<area shape="rect" href="manipulator__follow__actions_8cpp.html" title=" " alt="" coords="1136,206,1307,247"/>
-<area shape="rect" href="manipulator__follow__actions__node_8cpp.html" title=" " alt="" coords="1331,206,1501,247"/>
+<area shape="rect" title="Helper functions for angle conversions and geometric transformations." alt="" coords="1235,5,1389,47"/>
+<area shape="rect" href="manipulator__core_8hpp.html" title="Core C++ library for OpenX Manipulator kinematics." alt="" coords="839,95,996,151"/>
+<area shape="rect" href="manipulator__move__ee_8hpp.html" title="Header file for moving the manipulator&#39;s end effector with a constant twist." alt="" coords="196,199,353,255"/>
+<area shape="rect" href="manipulator__follow__actions_8hpp.html" title="Header file for manipulator action sequence control." alt="" coords="1539,95,1696,151"/>
+<area shape="rect" href="manipulator__jp__updater__ros_8hpp.html" title="ROS 2 wrapper for updatting joint angles are per joint velocity mapping." alt="" coords="1915,95,2072,151"/>
+<area shape="rect" href="manipulator__fk__ros_8hpp.html" title="ROS 2 wrapper for manipulator forward kinematics calculations." alt="" coords="567,199,724,255"/>
+<area shape="rect" href="manipulator__ik__ros_8hpp.html" title="ROS 2 wrapper for manipulator inverse kinematics calculations." alt="" coords="748,199,905,255"/>
+<area shape="rect" href="manipulator__vlk__ros_8hpp.html" title="ROS 2 wrapper for manipulator velocity level kinematics." alt="" coords="929,199,1087,255"/>
+<area shape="rect" href="manipulator__core_8cpp.html" title=" " alt="" coords="1111,213,1297,240"/>
+<area shape="rect" href="basic__eigen__test_8cpp.html" title=" " alt="" coords="1321,213,1508,240"/>
+<area shape="rect" href="manipulator__core__test_8cpp.html" title=" " alt="" coords="377,206,543,247"/>
+<area shape="rect" href="manipulator__fk__node_8cpp.html" title=" " alt="" coords="400,303,544,344"/>
+<area shape="rect" href="manipulator__fk__ros_8cpp.html" title=" " alt="" coords="568,303,712,344"/>
+<area shape="rect" href="manipulator__ik__node_8cpp.html" title=" " alt="" coords="737,303,879,344"/>
+<area shape="rect" href="manipulator__ik__ros_8cpp.html" title=" " alt="" coords="903,303,1046,344"/>
+<area shape="rect" href="manipulator__move__ee_8cpp.html" title=" " alt="" coords="5,303,173,344"/>
+<area shape="rect" href="manipulator__move__ee__node_8cpp.html" title=" " alt="" coords="197,303,365,344"/>
+<area shape="rect" href="manipulator__vlk__node_8cpp.html" title=" " alt="" coords="1070,303,1221,344"/>
+<area shape="rect" href="manipulator__vlk__ros_8cpp.html" title=" " alt="" coords="1245,303,1395,344"/>
+<area shape="rect" href="manipulator__follow__actions_8cpp.html" title=" " alt="" coords="1727,206,1897,247"/>
+<area shape="rect" href="manipulator__follow__actions__node_8cpp.html" title=" " alt="" coords="1532,206,1703,247"/>
+<area shape="rect" href="manipulator__jp__updater__node_8cpp.html" title=" " alt="" coords="2089,206,2234,247"/>
+<area shape="rect" href="manipulator__jp__updater__ros_8cpp.html" title=" " alt="" coords="1922,206,2065,247"/>
 </map>
 </div>
 </div>
@@ -168,6 +179,24 @@ Functions</h2></td></tr>
 <tr class="memitem:adb9c85a199ed251c1f52565f7fe3687b"><td class="memItemLeft" align="right" valign="top">visualization_msgs::msg::Marker&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehelpers.html#adb9c85a199ed251c1f52565f7fe3687b">helpers::convertPoseToMarker</a> (const geometry_msgs::msg::Pose &amp;pose, const std_msgs::msg::Header &amp;header, std::string ns=&quot;pose_marker&quot;, int id=0, std::string marker_type=&quot;sphere&quot;)</td></tr>
 <tr class="memdesc:adb9c85a199ed251c1f52565f7fe3687b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a ROS Pose message to a ROS Marker message.  <a href="namespacehelpers.html#adb9c85a199ed251c1f52565f7fe3687b">More...</a><br /></td></tr>
 <tr class="separator:adb9c85a199ed251c1f52565f7fe3687b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa06e273bf80bf033c839c38e11ec3ce7"><td class="memItemLeft" align="right" valign="top">Eigen::VectorXd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehelpers.html#aa06e273bf80bf033c839c38e11ec3ce7">helpers::convertStdVectorToEigenVector</a> (const std::vector&lt; double &gt; &amp;vec)</td></tr>
+<tr class="memdesc:aa06e273bf80bf033c839c38e11ec3ce7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a std::vector to an Eigen::VectorXd.  <a href="namespacehelpers.html#aa06e273bf80bf033c839c38e11ec3ce7">More...</a><br /></td></tr>
+<tr class="separator:aa06e273bf80bf033c839c38e11ec3ce7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aebfe6c59da7ec44c0fa62e0bae2126b6"><td class="memItemLeft" align="right" valign="top">geometry_msgs::msg::Twist&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehelpers.html#aebfe6c59da7ec44c0fa62e0bae2126b6">helpers::convertEigenVector6dToTwist</a> (const Eigen::VectorXd &amp;vec)</td></tr>
+<tr class="memdesc:aebfe6c59da7ec44c0fa62e0bae2126b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts an Eigen::Vector6d to a geometry_msgs::msg::Twist message.  <a href="namespacehelpers.html#aebfe6c59da7ec44c0fa62e0bae2126b6">More...</a><br /></td></tr>
+<tr class="separator:aebfe6c59da7ec44c0fa62e0bae2126b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5328a943598ab81202dacc2c6d88d890"><td class="memItemLeft" align="right" valign="top">geometry_msgs::msg::Twist&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehelpers.html#a5328a943598ab81202dacc2c6d88d890">helpers::convertStdVectorToTwist</a> (const std::vector&lt; double &gt; &amp;vec)</td></tr>
+<tr class="memdesc:a5328a943598ab81202dacc2c6d88d890"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a std::vector&lt;double&gt; to a geometry_msgs::msg::Twist message.  <a href="namespacehelpers.html#a5328a943598ab81202dacc2c6d88d890">More...</a><br /></td></tr>
+<tr class="separator:a5328a943598ab81202dacc2c6d88d890"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa903deee322ddd1a7f62d9b4a02a920b"><td class="memItemLeft" align="right" valign="top">Eigen::VectorXd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehelpers.html#aa903deee322ddd1a7f62d9b4a02a920b">helpers::convertTwistToEigenVector6d</a> (const geometry_msgs::msg::Twist &amp;twist_msg)</td></tr>
+<tr class="memdesc:aa903deee322ddd1a7f62d9b4a02a920b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a geometry_msgs::msg::Twist message to an Eigen::Vector6d.  <a href="namespacehelpers.html#aa903deee322ddd1a7f62d9b4a02a920b">More...</a><br /></td></tr>
+<tr class="separator:aa903deee322ddd1a7f62d9b4a02a920b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac8b89bac2803c8022da81f93ca0d3602"><td class="memItemLeft" align="right" valign="top">std::vector&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehelpers.html#ac8b89bac2803c8022da81f93ca0d3602">helpers::convertEigenVectorToStdVector</a> (const Eigen::VectorXd &amp;eigen_vec)</td></tr>
+<tr class="memdesc:ac8b89bac2803c8022da81f93ca0d3602"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts an Eigen::VectorXd to a std::vector&lt;double&gt;  <a href="namespacehelpers.html#ac8b89bac2803c8022da81f93ca0d3602">More...</a><br /></td></tr>
+<tr class="separator:ac8b89bac2803c8022da81f93ca0d3602"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8a42ce9ec1c742e2aade614f85046791"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehelpers.html#a8a42ce9ec1c742e2aade614f85046791">helpers::clamp</a> (const double &amp;value, const double &amp;limit)</td></tr>
+<tr class="memdesc:a8a42ce9ec1c742e2aade614f85046791"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clamps the input as per the limit.  <a href="namespacehelpers.html#a8a42ce9ec1c742e2aade614f85046791">More...</a><br /></td></tr>
+<tr class="separator:a8a42ce9ec1c742e2aade614f85046791"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Helper functions for angle conversions and geometric transformations. </p>

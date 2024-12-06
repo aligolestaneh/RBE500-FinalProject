@@ -1,5 +1,10 @@
 var searchData=
 [
-  ['pose_5fconfigs_5f_188',['pose_configs_',['../classManipulatorFollowActions.html#adc1c68d90e94949ecefdc4d32fb5102e',1,'ManipulatorFollowActions']]],
-  ['position_5fname_189',['position_name',['../structActionSequence.html#a517158d3d62a7314be5bf6cc8a6be3a3',1,'ActionSequence']]]
+  ['joint_5fangles_5f_294',['joint_angles_',['../classmanipulator_1_1ManipulatorCore.html#ae4dbcb70a9bc01b3509d753fcd1aff48',1,'manipulator::ManipulatorCore::joint_angles_()'],['../classmanipulator_1_1ManipulatorFKROS.html#a7be90a534689e8bef12a9191dc0535cb',1,'manipulator::ManipulatorFKROS::joint_angles_()'],['../classManipulatorFollowActions.html#afb1cc64a399fceeec2a3cfb0b7c0694a',1,'ManipulatorFollowActions::joint_angles_()'],['../classmanipulator_1_1ManipulatorIKROS.html#aea2bc4d16622c24ecc052f697cd510d2',1,'manipulator::ManipulatorIKROS::joint_angles_()'],['../classmanipulator_1_1ManipulatorVLKROS.html#adcac7160aa313e609be8aca4f367ce8a',1,'manipulator::ManipulatorVLKROS::joint_angles_()']]],
+  ['joint_5fangles_5fmutex_5f_295',['joint_angles_mutex_',['../classmanipulator_1_1ManipulatorJPUpdaterROS.html#a5625dc4b7e13f278eeb7cd4750cd5fd3',1,'manipulator::ManipulatorJPUpdaterROS']]],
+  ['joint_5fposition_5fclient_5f_296',['joint_position_client_',['../classManipulatorFollowActions.html#adaaaf121f66a31ecc12fc5e8a27b8715',1,'ManipulatorFollowActions::joint_position_client_()'],['../classmanipulator_1_1ManipulatorJPUpdaterROS.html#a09e2565bb5a6da7f6f8e7e9786f8b449',1,'manipulator::ManipulatorJPUpdaterROS::joint_position_client_()'],['../classManipulatorMoveEE.html#a420c53c872c826493e4bd419da13ad9e',1,'ManipulatorMoveEE::joint_position_client_()']]],
+  ['joint_5fposition_5flimits_5f_297',['joint_position_limits_',['../classmanipulator_1_1ManipulatorJPUpdaterROS.html#a775171161d6dbe3f73d4f13836c175c4',1,'manipulator::ManipulatorJPUpdaterROS']]],
+  ['joint_5fsub_5f_298',['joint_sub_',['../classmanipulator_1_1ManipulatorFKROS.html#aca89833b1d5981dfa676d291b702a6e3',1,'manipulator::ManipulatorFKROS::joint_sub_()'],['../classmanipulator_1_1ManipulatorVLKROS.html#a61cddfbb4ed7c30ce5f6a6c52f65aaa1',1,'manipulator::ManipulatorVLKROS::joint_sub_()']]],
+  ['joint_5fvel_5fserver_5f_299',['joint_vel_server_',['../classmanipulator_1_1ManipulatorVLKROS.html#af7284fab6ba1056ec07decd998128e9d',1,'manipulator::ManipulatorVLKROS']]],
+  ['joint_5fvelocities_5f_300',['joint_velocities_',['../classmanipulator_1_1ManipulatorCore.html#ad6c4ab64435e6c1029b2d6fbae5ef879',1,'manipulator::ManipulatorCore']]]
 ];

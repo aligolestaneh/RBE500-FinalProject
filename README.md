@@ -53,7 +53,27 @@ A ROS2 wrapper library which reads the action sequence from the **manipulator_ac
         * Calls the *OpenManipulatorX* service `/goal_tool_control`  to open and close gripper.
     * **Published Topics**: 
         * `/goal_marker` ([visualization_msgs/msg/Marker](https://docs.ros2.org/latest/api/visualization_msgs/msg/Marker.html)) : Publishes the current `go_to_position` pose as a sphere marker.
-    
+
+* `manipulator_vlk_lib`:
+A ROS2 wrapper library that provides services for velocity-level kinematics of the Open Manipulator X. It computes joint velocities for a given end-effector twist and vice versa. It subscribes to the `/joint_state` topic and updates the end-effector pose and DH parameters in the subscirber callback. Whenever, a service request is made, it calculates the joint velocities or the end effector twist based on the updated DH parameter and Jacobian.
+    * **Services**:
+        * `/get_end_effector_twist` (*rbe500_final_project_msgs/srv/GetEndEffectorTwist*): It takes target joint velocities and returns the corresponding end-effector twist. 
+        * `/get_joint_velocities` (*rbe500_final_project_msgs/srv/GetJointVelocities*): It takes end-effector twist and responds the corresponding joint velocities.
+* `manipulator_jp_updater_lib`:
+A ROS2 wrapper library that updates joint angles based on the published joint velocity from the `manipulator_move_ee_node`. This library subscribes to reference joint velocities and calculates target joint angles, calling the OpenManipulatorX joint space service to move the manipulator to the target joint angles. It ensures that the updated joint positions are clamped based on joint position limits to avoid conflicts with the OpenManipulatorX. The update of the joint position is depend on the `/target_joint_velocities` publish rate.
+    * **Subscribed Topics**:
+        * `/target_joint_velocities` ([rbe500_final_project_msgs/msg/JointVelocity]): Receives joint velocities in radians/second.
+        * `/joint_states` ([sensor_msgs/msg/JointState](https://docs.ros2.org/latest/api/sensor_msgs/msg/JointState.html)): Receives current joint angles in radians.
+    * **Published Topics**:
+        * `/target_joint_position` ([rbe500_final_project_msgs/msg/JointVelocity]): Publishes the calculated target joint velocities.
+    * **Services**:
+        * `/goal_joint_space_path` (*open_manipulator_msgs/srv/SetJointPosition*): Service to move the manipulator to the specified joint angles.
+* `manipulator_move_ee_lib`:
+A ROS2 library provides functionality to compute the required joint velocities based on the desired end effector twist and to publish these velocities for smooth and precise movement of the manipulator. It moves the manipulator intially at the `home` cofiguration and then publish the joint velocities by calling the `get_joint_velocities` service at a frequency defined in the `manipulator_vlk_params.yaml` param file.
+    * **Published Topics**:
+        * `/target_joint_velocities` ([rbe500_final_project_msgs/msg/JointVelocity]): Publishes the calculated target joint velocities. It uses the services provided from the `manipulator_vlk_lib` .
+    * **Services**:
+        * `/get_joint_velocities` (*open_manipulator_msgs/srv/SetJointPosition*): Service to get the manipulator joint velocity from the `manipulator_vlk_node` for the specifies end effector twist.
 
 ## Parameters
 * `manipulator_core_pramas.yaml`: It has all the requried parameters for setting up *manipulator_core_lib* .
@@ -149,7 +169,26 @@ A ROS2 wrapper library which reads the action sequence from the **manipulator_ac
         actions:
             - type: close_gripper
         ```
-            
+* `manipulator_vlk_params.yaml`: It contains parameters required for moving the end effector using velocity kinematics. The parameters are as follows:
+    1. `joint_position_limits`: 
+        * Type: List of Doubles
+        * Description: The max absolute limits for the joint positions in radians. This ensures that the manipulator does not exceed its physical limits.
+    
+    2. `end_effectot_twist_linear`: 
+        * Type: List of Doubles
+        * Description: Linear twist for the end effector, represented as a vector [vx, vy, vz]. This defines the desired linear velocity of the end effector.
+    
+    3. `update_frequency`: 
+        * Type: Double
+        * Description: Frequency at which the manipulator updates its position, in Hertz (Hz). This determines how often the control commands are sent to the manipulator.
+    
+    4. `move_duration`: 
+        * Type: Double
+        * Description: Duration for which the manipulator should move, in seconds. This specifies how long the manipulator will execute the movement commands.
+    
+    5. `home_joint_pos`: 
+        * Type: List of Doubles
+        * Description: The home position for the joints of the manipulator, specified in radians. This is the position to which the manipulator will return when homing.
 
 
 # Running Nodes
@@ -200,7 +239,22 @@ A ROS2 wrapper library which reads the action sequence from the **manipulator_ac
     $ source ~/colcon_ws/install/setup.bash
     $ ros2 run rbe500_final_project manipulator_follow_actions_node
     ```
-
+## Moving End-Effector with Twist:
+1. Launch the OpenX Manipulator control
+    ```bash
+    $ source ~/colcon_ws/install/setup.bash
+    $ ros2 launch open_manipulator_x_controller open_manipulator_x_controller.launch.py
+    ```
+2. Launch Velocity Kinematics Node:
+    ```bash
+    $ source ~/colcon_ws/install/setup.bash
+    $ ros2 launch rbe500_final_project manipulator_vlk_ros.launch.py
+    ```
+3. Execute Move End effector Node
+    ```bash
+    $ source ~/colcon_ws/install/setup.bash
+    $ ros2 launch rbe500_final_project manipulator_move_ee.launch.py
+    ```
 
 # Writing Test Cases 
 ## CMakelist Edits

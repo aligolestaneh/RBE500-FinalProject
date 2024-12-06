@@ -101,7 +101,7 @@ Collaboration diagram for manipulator::ManipulatorCore:</div>
 <div class="dyncontent">
 <div class="center"><img src="classmanipulator_1_1ManipulatorCore__coll__graph.png" border="0" usemap="#amanipulator_1_1ManipulatorCore_coll__map" alt="Collaboration graph"/></div>
 <map name="amanipulator_1_1ManipulatorCore_coll__map" id="amanipulator_1_1ManipulatorCore_coll__map">
-<area shape="rect" title="Core class implementing manipulator kinematics and control." alt="" coords="5,5,223,420"/>
+<area shape="rect" title="Core class implementing manipulator kinematics and control." alt="" coords="5,5,223,567"/>
 </map>
 </div>
 <table class="memberdecls">
@@ -131,6 +131,18 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a80e5001f1c1581c0e0251d90c8a54872"><td class="memItemLeft" align="right" valign="top">Eigen::Isometry3d&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmanipulator_1_1ManipulatorCore.html#a80e5001f1c1581c0e0251d90c8a54872">getEndEffectorPose</a> () const</td></tr>
 <tr class="memdesc:a80e5001f1c1581c0e0251d90c8a54872"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to get the end effector pose.  <a href="classmanipulator_1_1ManipulatorCore.html#a80e5001f1c1581c0e0251d90c8a54872">More...</a><br /></td></tr>
 <tr class="separator:a80e5001f1c1581c0e0251d90c8a54872"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a79fef9bd8d1e4d001492b0b211b142a3"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmanipulator_1_1ManipulatorCore.html#a79fef9bd8d1e4d001492b0b211b142a3">updateEndEffectorTwist</a> (const Eigen::VectorXd &amp;ee_twist)</td></tr>
+<tr class="memdesc:a79fef9bd8d1e4d001492b0b211b142a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">function to update the ee_twist  <a href="classmanipulator_1_1ManipulatorCore.html#a79fef9bd8d1e4d001492b0b211b142a3">More...</a><br /></td></tr>
+<tr class="separator:a79fef9bd8d1e4d001492b0b211b142a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a15fc6e27e3a951622ce28a9c5b078a0f"><td class="memItemLeft" align="right" valign="top">Eigen::VectorXd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmanipulator_1_1ManipulatorCore.html#a15fc6e27e3a951622ce28a9c5b078a0f">getJointVelocities</a> () const</td></tr>
+<tr class="memdesc:a15fc6e27e3a951622ce28a9c5b078a0f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to get the current set joint velocities.  <a href="classmanipulator_1_1ManipulatorCore.html#a15fc6e27e3a951622ce28a9c5b078a0f">More...</a><br /></td></tr>
+<tr class="separator:a15fc6e27e3a951622ce28a9c5b078a0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab9984d0a71340ab0e9e9805bb167960d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmanipulator_1_1ManipulatorCore.html#ab9984d0a71340ab0e9e9805bb167960d">updateJointVelocities</a> (const Eigen::VectorXd &amp;joint_velocities)</td></tr>
+<tr class="memdesc:ab9984d0a71340ab0e9e9805bb167960d"><td class="mdescLeft">&#160;</td><td class="mdescRight">function to update the end_effector velocity  <a href="classmanipulator_1_1ManipulatorCore.html#ab9984d0a71340ab0e9e9805bb167960d">More...</a><br /></td></tr>
+<tr class="separator:ab9984d0a71340ab0e9e9805bb167960d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afb0fc2b9081181e58ac1c9d98a8f78f1"><td class="memItemLeft" align="right" valign="top">Eigen::VectorXd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmanipulator_1_1ManipulatorCore.html#afb0fc2b9081181e58ac1c9d98a8f78f1">getEndEffectorTwist</a> () const</td></tr>
+<tr class="memdesc:afb0fc2b9081181e58ac1c9d98a8f78f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to get the end effector twisr.  <a href="classmanipulator_1_1ManipulatorCore.html#afb0fc2b9081181e58ac1c9d98a8f78f1">More...</a><br /></td></tr>
+<tr class="separator:afb0fc2b9081181e58ac1c9d98a8f78f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
@@ -155,6 +167,12 @@ Private Member Functions</h2></td></tr>
 <tr class="memitem:a31ee1891602dd595ae4936217306327c"><td class="memItemLeft" align="right" valign="top">Eigen::Matrix3d&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmanipulator_1_1ManipulatorCore.html#a31ee1891602dd595ae4936217306327c">calcJacobian</a> (const Eigen::Vector3d &amp;q_values, const Eigen::Vector4d &amp;coeffs) const</td></tr>
 <tr class="memdesc:a31ee1891602dd595ae4936217306327c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to calculate Jacobian of inverse kinematic equations which will be used in newton raphson method.  <a href="classmanipulator_1_1ManipulatorCore.html#a31ee1891602dd595ae4936217306327c">More...</a><br /></td></tr>
 <tr class="separator:a31ee1891602dd595ae4936217306327c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5e5ab09c71a6a0be009055ae0008c459"><td class="memItemLeft" align="right" valign="top">Eigen::MatrixXd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmanipulator_1_1ManipulatorCore.html#a5e5ab09c71a6a0be009055ae0008c459">calcVelocityJacobian</a> () const</td></tr>
+<tr class="memdesc:a5e5ab09c71a6a0be009055ae0008c459"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to calculate velocity Jacobian to be used in converting joint velcoities to end effector twist.  <a href="classmanipulator_1_1ManipulatorCore.html#a5e5ab09c71a6a0be009055ae0008c459">More...</a><br /></td></tr>
+<tr class="separator:a5e5ab09c71a6a0be009055ae0008c459"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acc3cd5edcdbc4b99ec175d0d0e71a76d"><td class="memItemLeft" align="right" valign="top">Eigen::MatrixXd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmanipulator_1_1ManipulatorCore.html#acc3cd5edcdbc4b99ec175d0d0e71a76d">calcPseudoInverseVelocityJacobian</a> (const Eigen::MatrixXd &amp;velocity_jacobian) const</td></tr>
+<tr class="memdesc:acc3cd5edcdbc4b99ec175d0d0e71a76d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function to calculate Psuedo inverse of velocity Jacobian to be used in converting end effector twist to joint velcoities.  <a href="classmanipulator_1_1ManipulatorCore.html#acc3cd5edcdbc4b99ec175d0d0e71a76d">More...</a><br /></td></tr>
+<tr class="separator:acc3cd5edcdbc4b99ec175d0d0e71a76d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
@@ -164,6 +182,12 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:ae4dbcb70a9bc01b3509d753fcd1aff48"><td class="memItemLeft" align="right" valign="top">Eigen::VectorXd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmanipulator_1_1ManipulatorCore.html#ae4dbcb70a9bc01b3509d753fcd1aff48">joint_angles_</a></td></tr>
 <tr class="memdesc:ae4dbcb70a9bc01b3509d753fcd1aff48"><td class="mdescLeft">&#160;</td><td class="mdescRight">Column vector to store the joint angles as [q1,q2,q3,q4]^T.  <a href="classmanipulator_1_1ManipulatorCore.html#ae4dbcb70a9bc01b3509d753fcd1aff48">More...</a><br /></td></tr>
 <tr class="separator:ae4dbcb70a9bc01b3509d753fcd1aff48"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad6c4ab64435e6c1029b2d6fbae5ef879"><td class="memItemLeft" align="right" valign="top">Eigen::VectorXd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmanipulator_1_1ManipulatorCore.html#ad6c4ab64435e6c1029b2d6fbae5ef879">joint_velocities_</a></td></tr>
+<tr class="memdesc:ad6c4ab64435e6c1029b2d6fbae5ef879"><td class="mdescLeft">&#160;</td><td class="mdescRight">Column vector to store the joint velocities as [q1_dot,q2_dot,q3_dot,q4_dot]^T.  <a href="classmanipulator_1_1ManipulatorCore.html#ad6c4ab64435e6c1029b2d6fbae5ef879">More...</a><br /></td></tr>
+<tr class="separator:ad6c4ab64435e6c1029b2d6fbae5ef879"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a691e32a7742e726c786759247ff0c27d"><td class="memItemLeft" align="right" valign="top">Eigen::VectorXd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmanipulator_1_1ManipulatorCore.html#a691e32a7742e726c786759247ff0c27d">ee_twist_</a></td></tr>
+<tr class="memdesc:a691e32a7742e726c786759247ff0c27d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Column vector to store the end effector twist as [vx,vy,vz,wx,wy,wz]^T.  <a href="classmanipulator_1_1ManipulatorCore.html#a691e32a7742e726c786759247ff0c27d">More...</a><br /></td></tr>
+<tr class="separator:a691e32a7742e726c786759247ff0c27d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adecaef2c12b717e015785d119e179ee0"><td class="memItemLeft" align="right" valign="top">Eigen::MatrixXd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmanipulator_1_1ManipulatorCore.html#adecaef2c12b717e015785d119e179ee0">dh_params_</a></td></tr>
 <tr class="memdesc:adecaef2c12b717e015785d119e179ee0"><td class="mdescLeft">&#160;</td><td class="mdescRight">5x4 matrix to store the DH params:  <a href="classmanipulator_1_1ManipulatorCore.html#adecaef2c12b717e015785d119e179ee0">More...</a><br /></td></tr>
 <tr class="separator:adecaef2c12b717e015785d119e179ee0"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -173,9 +197,12 @@ Private Attributes</h2></td></tr>
 <tr class="memitem:a0692a1b040d80f271c7e38d4f1ccb723"><td class="memItemLeft" align="right" valign="top">Eigen::Quaterniond&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmanipulator_1_1ManipulatorCore.html#a0692a1b040d80f271c7e38d4f1ccb723">end_effector_orientation_</a></td></tr>
 <tr class="memdesc:a0692a1b040d80f271c7e38d4f1ccb723"><td class="mdescLeft">&#160;</td><td class="mdescRight">A Eigen Quaternion var to store the end effector orientation as a quaternion.  <a href="classmanipulator_1_1ManipulatorCore.html#a0692a1b040d80f271c7e38d4f1ccb723">More...</a><br /></td></tr>
 <tr class="separator:a0692a1b040d80f271c7e38d4f1ccb723"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa2f191dbad8690328da28019b4a4af23"><td class="memItemLeft" align="right" valign="top">Eigen::MatrixXd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmanipulator_1_1ManipulatorCore.html#aa2f191dbad8690328da28019b4a4af23">jacobian_</a></td></tr>
-<tr class="memdesc:aa2f191dbad8690328da28019b4a4af23"><td class="mdescLeft">&#160;</td><td class="mdescRight">A Eigen MatrixXd var to store the Jacobian matrix for the end effector pose.  <a href="classmanipulator_1_1ManipulatorCore.html#aa2f191dbad8690328da28019b4a4af23">More...</a><br /></td></tr>
-<tr class="separator:aa2f191dbad8690328da28019b4a4af23"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2fbcdff4b490ee4440f94ae35b7e0cf5"><td class="memItemLeft" align="right" valign="top">Eigen::MatrixXd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmanipulator_1_1ManipulatorCore.html#a2fbcdff4b490ee4440f94ae35b7e0cf5">velocity_jacobian_</a></td></tr>
+<tr class="memdesc:a2fbcdff4b490ee4440f94ae35b7e0cf5"><td class="mdescLeft">&#160;</td><td class="mdescRight">A Eigen MatrixXd var to store the velocity Jacobian matrix for the end effector Twist.  <a href="classmanipulator_1_1ManipulatorCore.html#a2fbcdff4b490ee4440f94ae35b7e0cf5">More...</a><br /></td></tr>
+<tr class="separator:a2fbcdff4b490ee4440f94ae35b7e0cf5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a85bc7f9e5bb49b77fbcfcef12a44e2f5"><td class="memItemLeft" align="right" valign="top">Eigen::MatrixXd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmanipulator_1_1ManipulatorCore.html#a85bc7f9e5bb49b77fbcfcef12a44e2f5">inverse_velocity_jacobian_</a></td></tr>
+<tr class="memdesc:a85bc7f9e5bb49b77fbcfcef12a44e2f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">A Eigen MatrixXd var to store the Pseudo Jacobian matrix for the joint velocities.  <a href="classmanipulator_1_1ManipulatorCore.html#a85bc7f9e5bb49b77fbcfcef12a44e2f5">More...</a><br /></td></tr>
+<tr class="separator:a85bc7f9e5bb49b77fbcfcef12a44e2f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a42001f0224d02c8a53c32b2ca332782b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmanipulator_1_1ManipulatorCore.html#a42001f0224d02c8a53c32b2ca332782b">is_intialized_</a></td></tr>
 <tr class="memdesc:a42001f0224d02c8a53c32b2ca332782b"><td class="mdescLeft">&#160;</td><td class="mdescRight">A boolean flag to che if Dh param intialization <br  />
   <a href="classmanipulator_1_1ManipulatorCore.html#a42001f0224d02c8a53c32b2ca332782b">More...</a><br /></td></tr>
@@ -266,7 +293,7 @@ Private Attributes</h2></td></tr>
 <p>A function to calc the end effector pose using FK. </p>
 <p>it calculates using the current value of DH param </p><dl class="section return"><dt>Returns</dt><dd>end_effector_pose </dd></dl>
 
-<p class="reference">Referenced by <a class="el" href="classmanipulator_1_1ManipulatorCore.html#a2a1867a3c58276f8faf002b821ad1014">updateJointAngles()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="classmanipulator_1_1ManipulatorCore.html#a5e5ab09c71a6a0be009055ae0008c459">calcVelocityJacobian()</a>, and <a class="el" href="classmanipulator_1_1ManipulatorCore.html#a2a1867a3c58276f8faf002b821ad1014">updateJointAngles()</a>.</p>
 
 </div>
 </div>
@@ -405,6 +432,43 @@ False: otherwise </dd></dl>
 
 </div>
 </div>
+<a id="acc3cd5edcdbc4b99ec175d0d0e71a76d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acc3cd5edcdbc4b99ec175d0d0e71a76d">&#9670;&nbsp;</a></span>calcPseudoInverseVelocityJacobian()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Eigen::MatrixXd ManipulatorCore::calcPseudoInverseVelocityJacobian </td>
+          <td>(</td>
+          <td class="paramtype">const Eigen::MatrixXd &amp;&#160;</td>
+          <td class="paramname"><em>velocity_jacobian</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Function to calculate Psuedo inverse of velocity Jacobian to be used in converting end effector twist to joint velcoities. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">velocity_jacobian</td><td>current velocity jacobian matrix </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Psuedo inverse of velocity_jacobian </dd></dl>
+
+<p class="reference">Referenced by <a class="el" href="classmanipulator_1_1ManipulatorCore.html#a79fef9bd8d1e4d001492b0b211b142a3">updateEndEffectorTwist()</a>.</p>
+
+</div>
+</div>
 <a id="af3b1bce0dd9d5f2b218e4db404aad70f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af3b1bce0dd9d5f2b218e4db404aad70f">&#9670;&nbsp;</a></span>calcResidual()</h2>
 
@@ -460,6 +524,36 @@ False: otherwise </dd></dl>
 
 </div>
 </div>
+<a id="a5e5ab09c71a6a0be009055ae0008c459"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5e5ab09c71a6a0be009055ae0008c459">&#9670;&nbsp;</a></span>calcVelocityJacobian()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Eigen::MatrixXd ManipulatorCore::calcVelocityJacobian </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Function to calculate velocity Jacobian to be used in converting joint velcoities to end effector twist. </p>
+<p>it takes current updated end effector pose and joint angles [z_1x(O_5-O1) z_2x(O_5-O1) z_3x(O_5-O1) z_4x(O_5-O1)] [z1 z_2 z_3 z_4 ] </p><dl class="section return"><dt>Returns</dt><dd>Jacobian to convert joint_angles to end effector twist </dd></dl>
+
+<p class="reference">Referenced by <a class="el" href="classmanipulator_1_1ManipulatorCore.html#a79fef9bd8d1e4d001492b0b211b142a3">updateEndEffectorTwist()</a>, <a class="el" href="classmanipulator_1_1ManipulatorCore.html#a2a1867a3c58276f8faf002b821ad1014">updateJointAngles()</a>, and <a class="el" href="classmanipulator_1_1ManipulatorCore.html#ab9984d0a71340ab0e9e9805bb167960d">updateJointVelocities()</a>.</p>
+
+</div>
+</div>
 <a id="a80e5001f1c1581c0e0251d90c8a54872"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a80e5001f1c1581c0e0251d90c8a54872">&#9670;&nbsp;</a></span>getEndEffectorPose()</h2>
 
@@ -477,6 +571,26 @@ False: otherwise </dd></dl>
 
 <p>Function to get the end effector pose. </p>
 <dl class="section return"><dt>Returns</dt><dd>pose_mat: An isometry Matrix having both Rotational ad Positional values </dd></dl>
+
+</div>
+</div>
+<a id="afb0fc2b9081181e58ac1c9d98a8f78f1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afb0fc2b9081181e58ac1c9d98a8f78f1">&#9670;&nbsp;</a></span>getEndEffectorTwist()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Eigen::VectorXd ManipulatorCore::getEndEffectorTwist </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Function to get the end effector twisr. </p>
+<dl class="section return"><dt>Returns</dt><dd>ee_twist: An 6x1 Matrix having both linear and angular velocity values [Linear, Angular]^T </dd></dl>
 
 </div>
 </div>
@@ -514,7 +628,7 @@ False: otherwise </dd></dl>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A 4x4 Homogeneous Transformation matrix A_i for the given DH param </dd></dl>
 
-<p class="reference">Referenced by <a class="el" href="classmanipulator_1_1ManipulatorCore.html#a414c433cf34a849dd540d9690c84b8af">calcEndEffectorPose()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="classmanipulator_1_1ManipulatorCore.html#a414c433cf34a849dd540d9690c84b8af">calcEndEffectorPose()</a>, and <a class="el" href="classmanipulator_1_1ManipulatorCore.html#a5e5ab09c71a6a0be009055ae0008c459">calcVelocityJacobian()</a>.</p>
 
 </div>
 </div>
@@ -535,6 +649,26 @@ False: otherwise </dd></dl>
 
 <p>Function to get the current set joint angles. </p>
 <dl class="section return"><dt>Returns</dt><dd>join_angle VEctor: A 4x1 Matrix having all four joint angles, </dd></dl>
+
+</div>
+</div>
+<a id="a15fc6e27e3a951622ce28a9c5b078a0f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a15fc6e27e3a951622ce28a9c5b078a0f">&#9670;&nbsp;</a></span>getJointVelocities()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Eigen::VectorXd ManipulatorCore::getJointVelocities </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Function to get the current set joint velocities. </p>
+<dl class="section return"><dt>Returns</dt><dd>join_velocities VEctor: A 4x1 Matrix having all four joint velocities, </dd></dl>
 
 </div>
 </div>
@@ -690,6 +824,37 @@ False: Otherwise </dd></dl>
 
 </div>
 </div>
+<a id="a79fef9bd8d1e4d001492b0b211b142a3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a79fef9bd8d1e4d001492b0b211b142a3">&#9670;&nbsp;</a></span>updateEndEffectorTwist()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool ManipulatorCore::updateEndEffectorTwist </td>
+          <td>(</td>
+          <td class="paramtype">const Eigen::VectorXd &amp;&#160;</td>
+          <td class="paramname"><em>ee_twist</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>function to update the ee_twist </p>
+<p>It finds the given joint velocties using Pseudo Inverse of velocity jacobian</p>
+<p>Make sure to update the current end_effector_pose before calling this function</p>
+<p>use <a class="el" href="classmanipulator_1_1ManipulatorCore.html#a15fc6e27e3a951622ce28a9c5b078a0f" title="Function to get the current set joint velocities.">getJointVelocities()</a> function after this function call to get updated joint velocity </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ee_twist</td><td>A 6x1 Twist(linear_velocity, angular_velocity)[vx,vy,vz,wx,wy,wz]of End effector </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True: If its able to find the joint velocities using Pseudo Inverse of velocity jacobian </dd>
+<dd>
+False: Otherwise </dd></dl>
+
+</div>
+</div>
 <a id="a2a1867a3c58276f8faf002b821ad1014"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2a1867a3c58276f8faf002b821ad1014">&#9670;&nbsp;</a></span>updateJointAngles()</h2>
 
@@ -720,6 +885,37 @@ False: otherwise </dd></dl>
 
 </div>
 </div>
+<a id="ab9984d0a71340ab0e9e9805bb167960d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab9984d0a71340ab0e9e9805bb167960d">&#9670;&nbsp;</a></span>updateJointVelocities()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool ManipulatorCore::updateJointVelocities </td>
+          <td>(</td>
+          <td class="paramtype">const Eigen::VectorXd &amp;&#160;</td>
+          <td class="paramname"><em>joint_velocities</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>function to update the end_effector velocity </p>
+<p>It will calc the ee_twist_ using velcoity_jacobian</p>
+<p>Make sure to update the current end_effector_pose before calling this function</p>
+<p>use <a class="el" href="classmanipulator_1_1ManipulatorCore.html#afb0fc2b9081181e58ac1c9d98a8f78f1" title="Function to get the end effector twisr.">getEndEffectorTwist()</a> function after this function call to get end-effector twist </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">joint_velocities</td><td>A 4x1 column vector having joint angles as [q1_dot,q2_dot,q3_dot,q4_dot]^T </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True: If joint velocities are reasonable and its able to find the End effector twist </dd>
+<dd>
+False: otherwise </dd></dl>
+
+</div>
+</div>
 <h2 class="groupheader">Member Data Documentation</h2>
 <a id="adecaef2c12b717e015785d119e179ee0"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#adecaef2c12b717e015785d119e179ee0">&#9670;&nbsp;</a></span>dh_params_</h2>
@@ -745,6 +941,32 @@ False: otherwise </dd></dl>
 <p>A D Theta Alpha [0 l0 0 0] [0 l1 q1 -pi/2] [l2x 0 q2-pi/2 0] [l2y 0 pi/2 0] [l3 0 q3 0] [l4 0 q4 0] </p>
 
 <p class="reference">Referenced by <a class="el" href="classmanipulator_1_1ManipulatorCore.html#a420e96d1b284345e74c3d1a26ac6fa9a">getHomogeneousMat()</a>, <a class="el" href="classmanipulator_1_1ManipulatorCore.html#ac80cc171cb4d094d24e48191f6a36ddf">ManipulatorCore()</a>, <a class="el" href="classmanipulator_1_1ManipulatorCore.html#a88cf416a2c3a57ba207080fb276902e5">setupDHParams()</a>, and <a class="el" href="classmanipulator_1_1ManipulatorCore.html#a2a1867a3c58276f8faf002b821ad1014">updateJointAngles()</a>.</p>
+
+</div>
+</div>
+<a id="a691e32a7742e726c786759247ff0c27d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a691e32a7742e726c786759247ff0c27d">&#9670;&nbsp;</a></span>ee_twist_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Eigen::VectorXd manipulator::ManipulatorCore::ee_twist_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Column vector to store the end effector twist as [vx,vy,vz,wx,wy,wz]^T. </p>
+
+<p class="reference">Referenced by <a class="el" href="classmanipulator_1_1ManipulatorCore.html#afb0fc2b9081181e58ac1c9d98a8f78f1">getEndEffectorTwist()</a>, <a class="el" href="classmanipulator_1_1ManipulatorCore.html#ac80cc171cb4d094d24e48191f6a36ddf">ManipulatorCore()</a>, <a class="el" href="classmanipulator_1_1ManipulatorCore.html#a79fef9bd8d1e4d001492b0b211b142a3">updateEndEffectorTwist()</a>, and <a class="el" href="classmanipulator_1_1ManipulatorCore.html#ab9984d0a71340ab0e9e9805bb167960d">updateJointVelocities()</a>.</p>
 
 </div>
 </div>
@@ -798,6 +1020,32 @@ False: otherwise </dd></dl>
 
 </div>
 </div>
+<a id="a85bc7f9e5bb49b77fbcfcef12a44e2f5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a85bc7f9e5bb49b77fbcfcef12a44e2f5">&#9670;&nbsp;</a></span>inverse_velocity_jacobian_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Eigen::MatrixXd manipulator::ManipulatorCore::inverse_velocity_jacobian_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>A Eigen MatrixXd var to store the Pseudo Jacobian matrix for the joint velocities. </p>
+
+<p class="reference">Referenced by <a class="el" href="classmanipulator_1_1ManipulatorCore.html#ac80cc171cb4d094d24e48191f6a36ddf">ManipulatorCore()</a>, and <a class="el" href="classmanipulator_1_1ManipulatorCore.html#a79fef9bd8d1e4d001492b0b211b142a3">updateEndEffectorTwist()</a>.</p>
+
+</div>
+</div>
 <a id="a42001f0224d02c8a53c32b2ca332782b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a42001f0224d02c8a53c32b2ca332782b">&#9670;&nbsp;</a></span>is_intialized_</h2>
 
@@ -821,31 +1069,7 @@ False: otherwise </dd></dl>
 <p>A boolean flag to che if Dh param intialization <br  />
  </p>
 
-<p class="reference">Referenced by <a class="el" href="classmanipulator_1_1ManipulatorCore.html#ac80cc171cb4d094d24e48191f6a36ddf">ManipulatorCore()</a>, <a class="el" href="classmanipulator_1_1ManipulatorCore.html#ad9bc75c9a7d01b87061543557ed94fc4">setup()</a>, <a class="el" href="classmanipulator_1_1ManipulatorCore.html#af20354476f7a05cd33bfc3f731ce42fe">updateEndEffectorPose()</a>, and <a class="el" href="classmanipulator_1_1ManipulatorCore.html#a2a1867a3c58276f8faf002b821ad1014">updateJointAngles()</a>.</p>
-
-</div>
-</div>
-<a id="aa2f191dbad8690328da28019b4a4af23"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa2f191dbad8690328da28019b4a4af23">&#9670;&nbsp;</a></span>jacobian_</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">Eigen::MatrixXd manipulator::ManipulatorCore::jacobian_</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>A Eigen MatrixXd var to store the Jacobian matrix for the end effector pose. </p>
+<p class="reference">Referenced by <a class="el" href="classmanipulator_1_1ManipulatorCore.html#ac80cc171cb4d094d24e48191f6a36ddf">ManipulatorCore()</a>, <a class="el" href="classmanipulator_1_1ManipulatorCore.html#ad9bc75c9a7d01b87061543557ed94fc4">setup()</a>, <a class="el" href="classmanipulator_1_1ManipulatorCore.html#af20354476f7a05cd33bfc3f731ce42fe">updateEndEffectorPose()</a>, <a class="el" href="classmanipulator_1_1ManipulatorCore.html#a79fef9bd8d1e4d001492b0b211b142a3">updateEndEffectorTwist()</a>, <a class="el" href="classmanipulator_1_1ManipulatorCore.html#a2a1867a3c58276f8faf002b821ad1014">updateJointAngles()</a>, and <a class="el" href="classmanipulator_1_1ManipulatorCore.html#ab9984d0a71340ab0e9e9805bb167960d">updateJointVelocities()</a>.</p>
 
 </div>
 </div>
@@ -872,6 +1096,32 @@ False: otherwise </dd></dl>
 <p>Column vector to store the joint angles as [q1,q2,q3,q4]^T. </p>
 
 <p class="reference">Referenced by <a class="el" href="classmanipulator_1_1ManipulatorCore.html#ac1f591fee33798c3f6635c1df23647a2">calcGeometricIK()</a>, <a class="el" href="classmanipulator_1_1ManipulatorCore.html#a6118129f79773643ad4f97812bf2c996">getJointAngles()</a>, <a class="el" href="classmanipulator_1_1ManipulatorCore.html#ac80cc171cb4d094d24e48191f6a36ddf">ManipulatorCore()</a>, <a class="el" href="classmanipulator_1_1ManipulatorCore.html#ad9bc75c9a7d01b87061543557ed94fc4">setup()</a>, <a class="el" href="classmanipulator_1_1ManipulatorCore.html#af20354476f7a05cd33bfc3f731ce42fe">updateEndEffectorPose()</a>, and <a class="el" href="classmanipulator_1_1ManipulatorCore.html#a2a1867a3c58276f8faf002b821ad1014">updateJointAngles()</a>.</p>
+
+</div>
+</div>
+<a id="ad6c4ab64435e6c1029b2d6fbae5ef879"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad6c4ab64435e6c1029b2d6fbae5ef879">&#9670;&nbsp;</a></span>joint_velocities_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Eigen::VectorXd manipulator::ManipulatorCore::joint_velocities_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Column vector to store the joint velocities as [q1_dot,q2_dot,q3_dot,q4_dot]^T. </p>
+
+<p class="reference">Referenced by <a class="el" href="classmanipulator_1_1ManipulatorCore.html#a15fc6e27e3a951622ce28a9c5b078a0f">getJointVelocities()</a>, <a class="el" href="classmanipulator_1_1ManipulatorCore.html#ac80cc171cb4d094d24e48191f6a36ddf">ManipulatorCore()</a>, <a class="el" href="classmanipulator_1_1ManipulatorCore.html#a79fef9bd8d1e4d001492b0b211b142a3">updateEndEffectorTwist()</a>, and <a class="el" href="classmanipulator_1_1ManipulatorCore.html#ab9984d0a71340ab0e9e9805bb167960d">updateJointVelocities()</a>.</p>
 
 </div>
 </div>
@@ -976,6 +1226,32 @@ False: otherwise </dd></dl>
 <p>A boolean flag to set to use NewtonRaphson IK. </p>
 
 <p class="reference">Referenced by <a class="el" href="classmanipulator_1_1ManipulatorCore.html#ac80cc171cb4d094d24e48191f6a36ddf">ManipulatorCore()</a>, <a class="el" href="classmanipulator_1_1ManipulatorCore.html#ad9bc75c9a7d01b87061543557ed94fc4">setup()</a>, and <a class="el" href="classmanipulator_1_1ManipulatorCore.html#af20354476f7a05cd33bfc3f731ce42fe">updateEndEffectorPose()</a>.</p>
+
+</div>
+</div>
+<a id="a2fbcdff4b490ee4440f94ae35b7e0cf5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2fbcdff4b490ee4440f94ae35b7e0cf5">&#9670;&nbsp;</a></span>velocity_jacobian_</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Eigen::MatrixXd manipulator::ManipulatorCore::velocity_jacobian_</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>A Eigen MatrixXd var to store the velocity Jacobian matrix for the end effector Twist. </p>
+
+<p class="reference">Referenced by <a class="el" href="classmanipulator_1_1ManipulatorCore.html#ac80cc171cb4d094d24e48191f6a36ddf">ManipulatorCore()</a>, <a class="el" href="classmanipulator_1_1ManipulatorCore.html#a79fef9bd8d1e4d001492b0b211b142a3">updateEndEffectorTwist()</a>, <a class="el" href="classmanipulator_1_1ManipulatorCore.html#a2a1867a3c58276f8faf002b821ad1014">updateJointAngles()</a>, and <a class="el" href="classmanipulator_1_1ManipulatorCore.html#ab9984d0a71340ab0e9e9805bb167960d">updateJointVelocities()</a>.</p>
 
 </div>
 </div>

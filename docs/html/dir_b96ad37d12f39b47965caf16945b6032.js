@@ -13,5 +13,14 @@ var dir_b96ad37d12f39b47965caf16945b6032 =
     ] ],
     [ "manipulator_ik_ros.hpp", "manipulator__ik__ros_8hpp.html", [
       [ "ManipulatorIKROS", "classmanipulator_1_1ManipulatorIKROS.html", "classmanipulator_1_1ManipulatorIKROS" ]
+    ] ],
+    [ "manipulator_jp_updater_ros.hpp", "manipulator__jp__updater__ros_8hpp.html", [
+      [ "ManipulatorJPUpdaterROS", "classmanipulator_1_1ManipulatorJPUpdaterROS.html", "classmanipulator_1_1ManipulatorJPUpdaterROS" ]
+    ] ],
+    [ "manipulator_move_ee.hpp", "manipulator__move__ee_8hpp.html", [
+      [ "ManipulatorMoveEE", "classManipulatorMoveEE.html", "classManipulatorMoveEE" ]
+    ] ],
+    [ "manipulator_vlk_ros.hpp", "manipulator__vlk__ros_8hpp.html", [
+      [ "ManipulatorVLKROS", "classmanipulator_1_1ManipulatorVLKROS.html", "classmanipulator_1_1ManipulatorVLKROS" ]
     ] ]
 ];

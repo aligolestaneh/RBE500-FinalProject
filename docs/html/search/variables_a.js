@@ -1,8 +1,7 @@
 var searchData=
 [
-  ['manipulator_5f_304',['manipulator_',['../classmanipulator_1_1ManipulatorFKROS.html#a4b3eacb57b473e8aa17d877bb5ffd8c8',1,'manipulator::ManipulatorFKROS::manipulator_()'],['../classmanipulator_1_1ManipulatorIKROS.html#a6bf7673fc5d4190dca154a03017ee3b7',1,'manipulator::ManipulatorIKROS::manipulator_()'],['../classmanipulator_1_1ManipulatorVLKROS.html#ae5adcb0f9216ff967eafe81e1c3f5bf2',1,'manipulator::ManipulatorVLKROS::manipulator_()']]],
-  ['marker_5fpub_5f_305',['marker_pub_',['../classManipulatorFollowActions.html#aef39aba6ef72b2951cdb2bd86dad817a',1,'ManipulatorFollowActions']]],
-  ['max_5fiteration_5f_306',['max_iteration_',['../classmanipulator_1_1ManipulatorCore.html#ab8365ee33a4ae11df555f2269001ce6f',1,'manipulator::ManipulatorCore']]],
-  ['move_5fduration_5f_307',['move_duration_',['../classManipulatorMoveEE.html#a848de895d908dc27d7590534f1cdeaf6',1,'ManipulatorMoveEE']]],
-  ['move_5fmanipulator_5f_308',['move_manipulator_',['../classmanipulator_1_1ManipulatorJPUpdaterROS.html#abba95bd3f5837115fa8d97b9bef97dd4',1,'manipulator::ManipulatorJPUpdaterROS']]]
+  ['last_5fmsg_5ftime_5f_370',['last_msg_time_',['../classmanipulator_1_1ManipulatorJPUpdaterROS.html#ad669b7023251ede16a0ec90ba37a9464',1,'manipulator::ManipulatorJPUpdaterROS']]],
+  ['last_5ftime_5f_371',['last_time_',['../classmanipulator_1_1ManipulatorPDROS.html#a30ca8ae591586c3fe39f0fb8335f3c8f',1,'manipulator::ManipulatorPDROS']]],
+  ['link_5flength_5f_372',['link_length_',['../classmanipulator_1_1ManipulatorFKROS.html#a1f21fd9f76febe57960cd8ed6d24beff',1,'manipulator::ManipulatorFKROS::link_length_()'],['../classmanipulator_1_1ManipulatorIKROS.html#ae4c66ac65d6ed4488151c48222d413a4',1,'manipulator::ManipulatorIKROS::link_length_()'],['../classmanipulator_1_1ManipulatorVLKROS.html#a509f0d83a1dbf68d7a9de0eee8957b8b',1,'manipulator::ManipulatorVLKROS::link_length_()']]],
+  ['link_5flengths_5f_373',['link_lengths_',['../classmanipulator_1_1ManipulatorCore.html#abc80d5e65d5194bc1c3ba5af4e4e9ec5',1,'manipulator::ManipulatorCore']]]
 ];

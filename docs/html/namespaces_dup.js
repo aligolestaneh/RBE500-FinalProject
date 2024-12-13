@@ -28,6 +28,9 @@ var namespaces_dup =
     [ "manipulator_move_ee", "namespacemanipulator__move__ee.html", [
       [ "generate_launch_description", "namespacemanipulator__move__ee.html#acc726bd89bd646469c2d553d5bde467b", null ]
     ] ],
+    [ "manipulator_pd_ros", "namespacemanipulator__pd__ros.html", [
+      [ "generate_launch_description", "namespacemanipulator__pd__ros.html#afe271021055e66eeaa5351907d77b6c1", null ]
+    ] ],
     [ "manipulator_vlk_ros", "namespacemanipulator__vlk__ros.html", [
       [ "generate_launch_description", "namespacemanipulator__vlk__ros.html#aa88da6eaede6f8248d2f96506733f815", null ]
     ] ]

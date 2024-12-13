@@ -180,6 +180,23 @@ Core Libraries</h4>
 </li>
 </ul>
 </li>
+<li><code>manipulator_pd_lib</code>: A PD controller library provides functionality to calculate the control effort required to move a joint to a desired position using PD control principles. Users can set the proportional (Kp) and derivative (Kd) gains to tune the controller's performance.</li>
+<li><code>manipulator_pd_ros_lib</code>: A ROS2 wrapper library that implements a PD controller for the OpenX Manipulator. This library updates joint angles based on the current joint position and desired target joint angle, using a PD control strategy to compute the necessary current to move the manipulator. The output is then published to the <code>/set_current</code> topic to control the manipulator's movement.<ul>
+<li><b>Subscribed Topics</b>:<ul>
+<li><code>/set_current</code>([dynamixel_sdk_custom_interfaces/msg/SetCurrent]): Subscribes to this topic to receive the current settings for the manipulator's joint.</li>
+</ul>
+</li>
+<li><b>Published Topics</b>:<ul>
+<li><code>/pd_output_viz</code>([geometry_msgs/msg/PointStamped]): Publishes PD controller output data for visualization and debugging purposes.</li>
+</ul>
+</li>
+<li><b>Services</b>:<ul>
+<li><code>/get_position</code>(<em>dynamixel_sdk_custom_interfaces/srv/GetPosition</em>): Service client to retrieve the current joint angle of the manipulator.</li>
+<li><code>/get_current</code>(<em>dynamixel_sdk_custom_interfaces/srv/GetCurrent</em>): Service client to retrieve the current ampere being used by the manipulator's joint.</li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 <h2><a class="anchor" id="autotoc_md7"></a>
 Parameters</h2>
@@ -265,6 +282,33 @@ Parameters</h2>
 <li>Type: List of Doubles</li>
 <li>Description: The home position for the joints of the manipulator, specified in radians. This is the position to which the manipulator will return when homing.</li>
 </ul>
+<p><code>manipulator_pd.yaml</code>: It contains the parameters for the PD controller and setpoint:</p><ol type="1">
+<li><code>current_limits</code>:<ul>
+<li>Type: List of Integers</li>
+<li>Description: The limits for the current in degrees, specifying the minimum and maximum allowable values for the joint's current.</li>
+</ul>
+</li>
+<li><code>joint_id</code>:<ul>
+<li>Type: Integer</li>
+<li>Description: The identifier for the joint being controlled. This is used to specify which joint the parameters apply to.</li>
+</ul>
+</li>
+<li><code>target_joint_angle</code>:<ul>
+<li>Type: Integer</li>
+<li>Description: The desired target angle for the joint in tenths of degrees. This is the angle the PD controller aims to achieve.</li>
+</ul>
+</li>
+<li><code>kp</code>:<ul>
+<li>Type: Double</li>
+<li>Description: The proportional gain for the PD controller. This value influences how aggressively the controller responds to the error between the current and target joint angles.</li>
+</ul>
+</li>
+<li><code>kd</code>:<ul>
+<li>Type: Double</li>
+<li>Description: The derivative gain for the PD controller. This value affects the damping of the controller response, helping to reduce overshoot and oscillations.</li>
+</ul>
+</li>
+</ol>
 <h1><a class="anchor" id="autotoc_md8"></a>
 Running Nodes</h1>
 <h2><a class="anchor" id="autotoc_md9"></a>
@@ -295,15 +339,22 @@ Moving End-Effector with Twist:</h2>
 <li>Launch Velocity Kinematics Node: ```bash $ source ~/colcon_ws/install/setup.bash $ ros2 launch rbe500_final_project <a class="el" href="manipulator__vlk__ros_8launch_8py.html">manipulator_vlk_ros.launch.py</a> ```</li>
 <li>Execute Move End effector Node ```bash $ source ~/colcon_ws/install/setup.bash $ ros2 launch rbe500_final_project <a class="el" href="manipulator__move__ee_8launch_8py.html">manipulator_move_ee.launch.py</a> ```</li>
 </ol>
-<h1><a class="anchor" id="autotoc_md13"></a>
+<h2><a class="anchor" id="autotoc_md13"></a>
+Moving Joint4 with PD controller:</h2>
+<ol type="1">
+<li>Run the Dynamixel Read Write Current node: ```bash $ source ~/colcon_ws/install/setup.bash $ ros2 run dynamixel_sdk_examples current_read_write_node ```</li>
+<li>Run the Dynamixel Read Write Position node: ```bash $ source ~/colcon_ws/install/setup.bash $ ros2 run dynamixel_sdk_examples read_write_node ```</li>
+<li>Execute PD controller launch ```bash $ source ~/colcon_ws/install/setup.bash $ ros2 launch rbe500_final_project <a class="el" href="manipulator__pd__ros_8launch_8py.html">manipulator_pd_ros.launch.py</a> ```</li>
+</ol>
+<h1><a class="anchor" id="autotoc_md14"></a>
 Writing Test Cases</h1>
-<h2><a class="anchor" id="autotoc_md14"></a>
+<h2><a class="anchor" id="autotoc_md15"></a>
 CMakelist Edits</h2>
 <p>All test cases has been written up in the test folder. You may add your test cases aswell by creating your own test <code>cpp</code> file or editing the existing ones. Please don't edit <code><a class="el" href="main_8cpp.html">main.cpp</a></code>. Make sure you add it into <code>CMakelist.txt</code> in order to build your unit test code. </p><div class="fragment"><div class="line">set(TESTFILES</div>
 <div class="line">  test/main.cpp</div>
 <div class="line">  test/simple_test.cpp</div>
 <div class="line">  test/&lt;your_test_file_name&gt;_test.cpp) #&lt;&lt;------ add here</div>
-</div><!-- fragment --> <h2><a class="anchor" id="autotoc_md15"></a>
+</div><!-- fragment --> <h2><a class="anchor" id="autotoc_md16"></a>
 Compiling and Test case results</h2>
 <p>In order to view the test cases results and you need to build the package first: </p><div class="fragment"><div class="line">$ cd &lt;your-workspace&gt; </div>
 <div class="line">$ colcon build --symlink-install --packages-select rbe500_final_project</div>

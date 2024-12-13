@@ -20,6 +20,12 @@ var dir_b96ad37d12f39b47965caf16945b6032 =
     [ "manipulator_move_ee.hpp", "manipulator__move__ee_8hpp.html", [
       [ "ManipulatorMoveEE", "classManipulatorMoveEE.html", "classManipulatorMoveEE" ]
     ] ],
+    [ "manipulator_pd.hpp", "manipulator__pd_8hpp.html", [
+      [ "ManipulatorPD", "classmanipulator_1_1ManipulatorPD.html", "classmanipulator_1_1ManipulatorPD" ]
+    ] ],
+    [ "manipulator_pd_ros.hpp", "manipulator__pd__ros_8hpp.html", [
+      [ "ManipulatorPDROS", "classmanipulator_1_1ManipulatorPDROS.html", "classmanipulator_1_1ManipulatorPDROS" ]
+    ] ],
     [ "manipulator_vlk_ros.hpp", "manipulator__vlk__ros_8hpp.html", [
       [ "ManipulatorVLKROS", "classmanipulator_1_1ManipulatorVLKROS.html", "classmanipulator_1_1ManipulatorVLKROS" ]
     ] ]

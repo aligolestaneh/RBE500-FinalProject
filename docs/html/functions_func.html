@@ -106,11 +106,17 @@ $(document).ready(function(){initNavTree('functions_func.html',''); initResizabl
 <li>calcVelocityJacobian()
 : <a class="el" href="classmanipulator_1_1ManipulatorCore.html#a5e5ab09c71a6a0be009055ae0008c459">manipulator::ManipulatorCore</a>
 </li>
+<li>callCurrentService()
+: <a class="el" href="classmanipulator_1_1ManipulatorPDROS.html#af06455eb7a1ecd64a56abbce47f2b937">manipulator::ManipulatorPDROS</a>
+</li>
 <li>callGetJVService()
 : <a class="el" href="classManipulatorMoveEE.html#a925a6508b9ca021db68934d5b93c7ea6">ManipulatorMoveEE</a>
 </li>
 <li>callIKService()
 : <a class="el" href="classManipulatorFollowActions.html#a430e3adc39587d9499ae171c05ad9190">ManipulatorFollowActions</a>
+</li>
+<li>callJointPositionService()
+: <a class="el" href="classmanipulator_1_1ManipulatorPDROS.html#af016831c46676a247e512c458acb257e">manipulator::ManipulatorPDROS</a>
 </li>
 <li>closeGripper()
 : <a class="el" href="classManipulatorFollowActions.html#ac5cd07b62a0f7fb2286d942531fe3a38">ManipulatorFollowActions</a>
@@ -129,6 +135,9 @@ $(document).ready(function(){initNavTree('functions_func.html',''); initResizabl
 
 
 <h3><a id="index_g"></a>- g -</h3><ul>
+<li>getControl()
+: <a class="el" href="classmanipulator_1_1ManipulatorPD.html#aa1ed64e322401ef9a03fa30da95c04e8">manipulator::ManipulatorPD</a>
+</li>
 <li>getEndEffectorPose()
 : <a class="el" href="classmanipulator_1_1ManipulatorCore.html#a80e5001f1c1581c0e0251d90c8a54872">manipulator::ManipulatorCore</a>
 </li>
@@ -152,17 +161,20 @@ $(document).ready(function(){initNavTree('functions_func.html',''); initResizabl
 
 <h3><a id="index_i"></a>- i -</h3><ul>
 <li>initClients()
-: <a class="el" href="classManipulatorMoveEE.html#a4b79f18d2551c147a378de42ba8e90e6">ManipulatorMoveEE</a>
+: <a class="el" href="classmanipulator_1_1ManipulatorPDROS.html#a4c91606ca95f47b5e254e3f8dfc2d7bf">manipulator::ManipulatorPDROS</a>
+, <a class="el" href="classManipulatorMoveEE.html#a4b79f18d2551c147a378de42ba8e90e6">ManipulatorMoveEE</a>
 </li>
 <li>initNodeParams()
 : <a class="el" href="classmanipulator_1_1ManipulatorFKROS.html#a6128d19ed026ccaf8411376615118dd8">manipulator::ManipulatorFKROS</a>
 , <a class="el" href="classmanipulator_1_1ManipulatorIKROS.html#a9ff9e7e0c2e8971259e9cb1c2f51fd22">manipulator::ManipulatorIKROS</a>
 , <a class="el" href="classmanipulator_1_1ManipulatorJPUpdaterROS.html#a2278dc32e878232e81c5ed165652937e">manipulator::ManipulatorJPUpdaterROS</a>
+, <a class="el" href="classmanipulator_1_1ManipulatorPDROS.html#a30e9627bc67efeb1e483b1dd660b705b">manipulator::ManipulatorPDROS</a>
 , <a class="el" href="classmanipulator_1_1ManipulatorVLKROS.html#a42ca2af04b62848d362e6f3d1732c30b">manipulator::ManipulatorVLKROS</a>
 , <a class="el" href="classManipulatorMoveEE.html#ab08ecbd953d75f5abe29cefe583d8eb5">ManipulatorMoveEE</a>
 </li>
 <li>initPublishers()
 : <a class="el" href="classmanipulator_1_1ManipulatorFKROS.html#aa2f5382a616e8c8ab65194dbbd1543b4">manipulator::ManipulatorFKROS</a>
+, <a class="el" href="classmanipulator_1_1ManipulatorPDROS.html#a0915ab7c76f596b9eed2e619c6fdffc2">manipulator::ManipulatorPDROS</a>
 , <a class="el" href="classManipulatorMoveEE.html#a6347cfc3bbd17b0456185906d07fa3e2">ManipulatorMoveEE</a>
 </li>
 <li>initServiceClients()
@@ -206,6 +218,12 @@ $(document).ready(function(){initNavTree('functions_func.html',''); initResizabl
 <li>ManipulatorMoveEE()
 : <a class="el" href="classManipulatorMoveEE.html#ad5e68fac679bd7ee81711a14d184ba11">ManipulatorMoveEE</a>
 </li>
+<li>ManipulatorPD()
+: <a class="el" href="classmanipulator_1_1ManipulatorPD.html#a43fe8bb870bef226d1b6713c7d43717e">manipulator::ManipulatorPD</a>
+</li>
+<li>ManipulatorPDROS()
+: <a class="el" href="classmanipulator_1_1ManipulatorPDROS.html#a912400be2e2346f1c26bf82c9078bb33">manipulator::ManipulatorPDROS</a>
+</li>
 <li>ManipulatorVLKROS()
 : <a class="el" href="classmanipulator_1_1ManipulatorVLKROS.html#a4e4c587971d6c9691c886a16d74e8ba3">manipulator::ManipulatorVLKROS</a>
 </li>
@@ -214,6 +232,7 @@ $(document).ready(function(){initNavTree('functions_func.html',''); initResizabl
 </li>
 <li>moveManipulator()
 : <a class="el" href="classmanipulator_1_1ManipulatorJPUpdaterROS.html#a31ffbe621373f31ed22f0bf1d021a578">manipulator::ManipulatorJPUpdaterROS</a>
+, <a class="el" href="classmanipulator_1_1ManipulatorPDROS.html#a3599617612655f579ed8d7a6acc8a962">manipulator::ManipulatorPDROS</a>
 </li>
 <li>moveToJointPosition()
 : <a class="el" href="classmanipulator_1_1ManipulatorJPUpdaterROS.html#a0169d1b7060abcdbb37a9bc35d9c0389">manipulator::ManipulatorJPUpdaterROS</a>
@@ -247,12 +266,23 @@ $(document).ready(function(){initNavTree('functions_func.html',''); initResizabl
 </ul>
 
 
+<h3><a id="index_r"></a>- r -</h3><ul>
+<li>reset()
+: <a class="el" href="classmanipulator_1_1ManipulatorPD.html#a544748c6fcdb5a8393535f73d8492228">manipulator::ManipulatorPD</a>
+</li>
+</ul>
+
+
 <h3><a id="index_s"></a>- s -</h3><ul>
 <li>setIKParams()
 : <a class="el" href="classmanipulator_1_1ManipulatorCore.html#a0cda46a2096bcfb4d6b779eca574b3ac">manipulator::ManipulatorCore</a>
 </li>
+<li>setReference()
+: <a class="el" href="classmanipulator_1_1ManipulatorPD.html#a307955a777bbc4d4c1df13abbef229ce">manipulator::ManipulatorPD</a>
+</li>
 <li>setup()
 : <a class="el" href="classmanipulator_1_1ManipulatorCore.html#ad9bc75c9a7d01b87061543557ed94fc4">manipulator::ManipulatorCore</a>
+, <a class="el" href="classmanipulator_1_1ManipulatorPD.html#aa144ecbcdb29ee4323f8c04bee35f7d7">manipulator::ManipulatorPD</a>
 </li>
 <li>setupDHParams()
 : <a class="el" href="classmanipulator_1_1ManipulatorCore.html#a88cf416a2c3a57ba207080fb276902e5">manipulator::ManipulatorCore</a>
@@ -266,6 +296,9 @@ $(document).ready(function(){initNavTree('functions_func.html',''); initResizabl
 </li>
 <li>updateEndEffectorTwist()
 : <a class="el" href="classmanipulator_1_1ManipulatorCore.html#a79fef9bd8d1e4d001492b0b211b142a3">manipulator::ManipulatorCore</a>
+</li>
+<li>updateJoint()
+: <a class="el" href="classmanipulator_1_1ManipulatorPD.html#a5aa93520b6bbfb46a8176808aa4f9a14">manipulator::ManipulatorPD</a>
 </li>
 <li>updateJointAngles()
 : <a class="el" href="classmanipulator_1_1ManipulatorCore.html#a2a1867a3c58276f8faf002b821ad1014">manipulator::ManipulatorCore</a>
@@ -288,6 +321,12 @@ $(document).ready(function(){initNavTree('functions_func.html',''); initResizabl
 </li>
 <li>~ManipulatorJPUpdaterROS()
 : <a class="el" href="classmanipulator_1_1ManipulatorJPUpdaterROS.html#a731ca9a4c4791ac11b1f02b6c730e06c">manipulator::ManipulatorJPUpdaterROS</a>
+</li>
+<li>~ManipulatorPD()
+: <a class="el" href="classmanipulator_1_1ManipulatorPD.html#ae34f80a7e17bbcd8c684d970dcd16968">manipulator::ManipulatorPD</a>
+</li>
+<li>~ManipulatorPDROS()
+: <a class="el" href="classmanipulator_1_1ManipulatorPDROS.html#a068459b995c88585645b135ffd1b9f17">manipulator::ManipulatorPDROS</a>
 </li>
 <li>~ManipulatorVLKROS()
 : <a class="el" href="classmanipulator_1_1ManipulatorVLKROS.html#a2cfc2bccff099e436d641273973f9ae8">manipulator::ManipulatorVLKROS</a>

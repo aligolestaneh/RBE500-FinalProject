@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['setikparams_260',['setIKParams',['../classmanipulator_1_1ManipulatorCore.html#a0cda46a2096bcfb4d6b779eca574b3ac',1,'manipulator::ManipulatorCore']]],
-  ['setup_261',['setup',['../classmanipulator_1_1ManipulatorCore.html#ad9bc75c9a7d01b87061543557ed94fc4',1,'manipulator::ManipulatorCore']]],
-  ['setupdhparams_262',['setupDHParams',['../classmanipulator_1_1ManipulatorCore.html#a88cf416a2c3a57ba207080fb276902e5',1,'manipulator::ManipulatorCore']]]
+  ['reset_313',['reset',['../classmanipulator_1_1ManipulatorPD.html#a544748c6fcdb5a8393535f73d8492228',1,'manipulator::ManipulatorPD']]]
 ];

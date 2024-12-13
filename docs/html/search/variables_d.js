@@ -1,9 +1,9 @@
 var searchData=
 [
-  ['target_5fjoint_5fangles_5f_314',['target_joint_angles_',['../classmanipulator_1_1ManipulatorJPUpdaterROS.html#a3a85fe1eba4085d1a6ea8098611ef54a',1,'manipulator::ManipulatorJPUpdaterROS']]],
-  ['target_5fjoint_5fpub_5f_315',['target_joint_pub_',['../classmanipulator_1_1ManipulatorJPUpdaterROS.html#a497e34c3dc56805f8866b82441b096ff',1,'manipulator::ManipulatorJPUpdaterROS']]],
-  ['target_5fjoint_5fsub_5f_316',['target_joint_sub_',['../classmanipulator_1_1ManipulatorJPUpdaterROS.html#ae2ca11e151feed0370e7da08e1ebd802',1,'manipulator::ManipulatorJPUpdaterROS']]],
-  ['target_5fjoint_5fvel_5fpub_5f_317',['target_joint_vel_pub_',['../classManipulatorMoveEE.html#af6c0899d60c59315064acbf820ea2c98',1,'ManipulatorMoveEE']]],
-  ['tolerance_5f_318',['tolerance_',['../classmanipulator_1_1ManipulatorCore.html#af56db3eaefdfce95346e757e2c82d38f',1,'manipulator::ManipulatorCore']]],
-  ['type_319',['type',['../structActionSequence.html#a4981ab4cff6ab8daf22d4af7062cfa8c',1,'ActionSequence']]]
+  ['pd_5fcontroller_5f_382',['pd_controller_',['../classmanipulator_1_1ManipulatorPDROS.html#a6a92a9467dd88877246071419c1cb02f',1,'manipulator::ManipulatorPDROS']]],
+  ['pose_5fconfigs_5f_383',['pose_configs_',['../classManipulatorFollowActions.html#adc1c68d90e94949ecefdc4d32fb5102e',1,'ManipulatorFollowActions']]],
+  ['position_5fname_384',['position_name',['../structActionSequence.html#a517158d3d62a7314be5bf6cc8a6be3a3',1,'ActionSequence']]],
+  ['prev_5ferror_5f_385',['prev_error_',['../classmanipulator_1_1ManipulatorPD.html#a6d28df692a686c7eca87597dfc4b6962',1,'manipulator::ManipulatorPD']]],
+  ['prev_5fjoint_5fangles_5f_386',['prev_joint_angles_',['../classmanipulator_1_1ManipulatorJPUpdaterROS.html#a41c4c52544bb10fe2f37808a8b185b5c',1,'manipulator::ManipulatorJPUpdaterROS']]],
+  ['publish_5ffrequency_5f_387',['publish_frequency_',['../classManipulatorMoveEE.html#a26e4936c60261e50f05239ee28fd7359',1,'ManipulatorMoveEE']]]
 ];

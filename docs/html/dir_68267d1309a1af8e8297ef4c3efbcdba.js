@@ -11,6 +11,9 @@ var dir_68267d1309a1af8e8297ef4c3efbcdba =
     [ "manipulator_jp_updater_ros.cpp", "manipulator__jp__updater__ros_8cpp.html", null ],
     [ "manipulator_move_ee.cpp", "manipulator__move__ee_8cpp.html", null ],
     [ "manipulator_move_ee_node.cpp", "manipulator__move__ee__node_8cpp.html", "manipulator__move__ee__node_8cpp" ],
+    [ "manipulator_pd.cpp", "manipulator__pd_8cpp.html", null ],
+    [ "manipulator_pd_ros.cpp", "manipulator__pd__ros_8cpp.html", null ],
+    [ "manipulator_pd_ros_node.cpp", "manipulator__pd__ros__node_8cpp.html", "manipulator__pd__ros__node_8cpp" ],
     [ "manipulator_vlk_node.cpp", "manipulator__vlk__node_8cpp.html", "manipulator__vlk__node_8cpp" ],
     [ "manipulator_vlk_ros.cpp", "manipulator__vlk__ros_8cpp.html", null ]
 ];

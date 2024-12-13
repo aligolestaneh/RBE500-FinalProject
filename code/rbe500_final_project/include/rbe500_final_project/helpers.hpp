@@ -15,6 +15,8 @@
 #include <geometry_msgs/msg/pose_stamped.hpp>
 #include <visualization_msgs/msg/marker.hpp>
 #include <geometry_msgs/msg/twist.hpp>
+
+static constexpr double _180_OVER_PI = 180.0 / M_PI;
 /**
  * @namespace helpers
  * @brief Namespace containing utility functions for geometric and angular transformations
@@ -303,6 +305,7 @@ namespace helpers
 
         return clamped_value;
     }
+    
 }
 
 #endif

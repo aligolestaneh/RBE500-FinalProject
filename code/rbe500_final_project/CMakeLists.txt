@@ -17,6 +17,7 @@ find_package(ament_index_cpp REQUIRED)
 find_package(yaml-cpp REQUIRED)
 find_package(open_manipulator_msgs REQUIRED)
 find_package(visualization_msgs REQUIRED)
+find_package(dynamixel_sdk_custom_interfaces REQUIRED)
 
 #Include EIgen lib
 find_package(Eigen3 REQUIRED)
@@ -135,6 +136,40 @@ set(DEPENDENCIES
 )
 target_link_libraries(manipulator_move_ee_lib  manipulator_core_lib)
 ament_target_dependencies(manipulator_move_ee_lib ${DEPENDENCIES})
+
+##End effector PD lib
+add_library(manipulator_pd_lib
+  "src/manipulator_pd.cpp"
+)
+set(DEPENDENCIES
+  "open_manipulator_msgs"
+  "rbe500_final_project_msgs"
+  "std_msgs"
+  "geometry_msgs"
+  "sensor_msgs"
+  "rclcpp"
+  "visualization_msgs"
+)
+target_link_libraries(manipulator_pd_lib )
+ament_target_dependencies(manipulator_pd_lib ${DEPENDENCIES})
+
+
+##End effector PDros lib
+add_library(manipulator_pd_ros_lib
+  "src/manipulator_pd_ros.cpp"
+)
+set(DEPENDENCIES
+  "open_manipulator_msgs"
+  "rbe500_final_project_msgs"
+  "std_msgs"
+  "geometry_msgs"
+  "sensor_msgs"
+  "rclcpp"
+  "visualization_msgs"
+  "dynamixel_sdk_custom_interfaces"
+)
+target_link_libraries(manipulator_pd_ros_lib manipulator_pd_lib)
+ament_target_dependencies(manipulator_pd_ros_lib ${DEPENDENCIES})
 ################################################################################
 # Build Executables
 ################################################################################
@@ -181,6 +216,13 @@ add_executable(manipulator_move_ee_node
 target_link_libraries(manipulator_move_ee_node manipulator_move_ee_lib)
 ament_target_dependencies(manipulator_move_ee_node ${DEPENDENCIES})
 
+
+#ROS Node for Joint PD
+add_executable(manipulator_pd_ros_node 
+  src/manipulator_pd_ros_node.cpp
+)
+target_link_libraries(manipulator_pd_ros_node manipulator_pd_ros_lib)
+ament_target_dependencies(manipulator_pd_ros_node ${DEPENDENCIES})
 ################################################################################
 # Install
 ################################################################################
@@ -190,6 +232,7 @@ install(TARGETS manipulator_ik_node
                 manipulator_jp_updater_node 
                 manipulator_vlk_node
                 manipulator_move_ee_node
+                manipulator_pd_ros_node
   DESTINATION lib/${PROJECT_NAME}
 )
 
@@ -216,10 +259,11 @@ if(BUILD_TESTING)
   set(TESTFILES
   test/main.cpp
   test/manipulator_core_test.cpp
-  test/basic_eigen_test.cpp)
+  test/basic_eigen_test.cpp
+  test/mainpulator_pd_test.cpp)
 
   ament_add_gtest(${PROJECT_NAME}_test ${TESTFILES})
-  target_link_libraries(${PROJECT_NAME}_test manipulator_core_lib)
+  target_link_libraries(${PROJECT_NAME}_test manipulator_core_lib manipulator_pd_lib)
   
   install(TARGETS
   ${PROJECT_NAME}_test

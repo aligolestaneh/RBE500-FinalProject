@@ -1,0 +1,9 @@
+#UPdated the params reqruied for setting up DH parameters
+/**:
+  ros__parameters:
+    current_limits: [-60,60]
+    joint_id: 14
+    target_joint_angle: 2050
+    kp: 0.3 #0.05 #0.13 #24.0
+    kd: 0.03 #0.02 #0.09 #12.0
+

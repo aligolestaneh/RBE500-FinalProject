@@ -74,6 +74,19 @@ A ROS2 library provides functionality to compute the required joint velocities b
         * `/target_joint_velocities` ([rbe500_final_project_msgs/msg/JointVelocity]): Publishes the calculated target joint velocities. It uses the services provided from the `manipulator_vlk_lib` .
     * **Services**:
         * `/get_joint_velocities` (*open_manipulator_msgs/srv/SetJointPosition*): Service to get the manipulator joint velocity from the `manipulator_vlk_node` for the specifies end effector twist.
+* `manipulator_pd_lib`:
+A PD controller library provides functionality to calculate the control effort required to move a joint to a desired position using PD control principles. Users can set the proportional (Kp) and derivative (Kd) gains to tune the controller's performance.
+
+* `manipulator_pd_ros_lib`:
+A ROS2 wrapper library that implements a PD controller for the OpenX Manipulator. This library updates joint angles based on the current joint position and desired target joint angle, using a PD control strategy to compute the necessary current to move the manipulator. The output is then published to the `/set_current` topic to control the manipulator's movement.
+    * **Subscribed Topics**:
+        * `/set_current`([dynamixel_sdk_custom_interfaces/msg/SetCurrent]): Subscribes to this topic to receive the current settings for the manipulator's joint.
+    * **Published Topics**:
+        * `/pd_output_viz`([geometry_msgs/msg/PointStamped]): Publishes PD controller output data for visualization and debugging purposes.
+    * **Services**:
+        * `/get_position`(*dynamixel_sdk_custom_interfaces/srv/GetPosition*): Service client to retrieve the current joint angle of the manipulator.
+        * `/get_current`(*dynamixel_sdk_custom_interfaces/srv/GetCurrent*): Service client to retrieve the current ampere being used by the manipulator's joint.
+
 
 ## Parameters
 * `manipulator_core_pramas.yaml`: It has all the requried parameters for setting up *manipulator_core_lib* .
@@ -189,6 +202,26 @@ A ROS2 library provides functionality to compute the required joint velocities b
     5. `home_joint_pos`: 
         * Type: List of Doubles
         * Description: The home position for the joints of the manipulator, specified in radians. This is the position to which the manipulator will return when homing.
+* `manipulator_pd.yaml`: It contains the parameters for the PD controller and setpoint:
+    1. `current_limits`: 
+        * Type: List of Integers
+        * Description: The limits for the current in degrees, specifying the minimum and maximum allowable values for the joint's current.
+    
+    2. `joint_id`: 
+        * Type: Integer
+        * Description: The identifier for the joint being controlled. This is used to specify which joint the parameters apply to.
+    
+    3. `target_joint_angle`: 
+        * Type: Integer
+        * Description: The desired target angle for the joint in tenths of degrees. This is the angle the PD controller aims to achieve.
+    
+    4. `kp`: 
+        * Type: Double
+        * Description: The proportional gain for the PD controller. This value influences how aggressively the controller responds to the error between the current and target joint angles.
+    
+    5. `kd`: 
+        * Type: Double
+        * Description: The derivative gain for the PD controller. This value affects the damping of the controller response, helping to reduce overshoot and oscillations.
 
 
 # Running Nodes
@@ -254,6 +287,23 @@ A ROS2 library provides functionality to compute the required joint velocities b
     ```bash
     $ source ~/colcon_ws/install/setup.bash
     $ ros2 launch rbe500_final_project manipulator_move_ee.launch.py
+    ```
+
+## Moving Joint4 with PD controller:
+1. Run the Dynamixel Read Write Current node:
+    ```bash
+    $ source ~/colcon_ws/install/setup.bash
+    $ ros2 run dynamixel_sdk_examples current_read_write_node
+    ```
+2. Run the Dynamixel Read Write Position node:
+    ```bash
+    $ source ~/colcon_ws/install/setup.bash
+    $ ros2 run dynamixel_sdk_examples read_write_node
+    ```
+3. Execute PD controller launch
+    ```bash
+    $ source ~/colcon_ws/install/setup.bash
+    $ ros2 launch rbe500_final_project manipulator_pd_ros.launch.py
     ```
 
 # Writing Test Cases 
